@@ -91,7 +91,7 @@ export default function Home() {
                 entire Muslim Ummah.
               </p>
               <a
-                href="/about-trust"
+                href="/about"
                 className="text-green-700 hover:underline inline-flex items-center font-medium"
               >
                 Read More <ChevronRight className="h-4 w-4 ml-1" />
@@ -119,7 +119,7 @@ export default function Home() {
                 entire Muslim Ummah.
               </p>
               <a
-                href="/about-centre"
+                href="/about"
                 className="text-green-700 hover:underline inline-flex items-center font-medium"
               >
                 Read More <ChevronRight className="h-4 w-4 ml-1" />
@@ -194,7 +194,7 @@ export default function Home() {
                 </p>
                 <div className="flex justify-between items-center">
                   <a
-                    href="#"
+                    href="/article"
                     className="flex items-center text-sm text-yellow-700 bg-yellow-50 px-3 py-1.5 rounded-full hover:bg-yellow-100 transition"
                   >
                     Read More
@@ -209,7 +209,7 @@ export default function Home() {
           {/* View All Button */}
           <div className="flex justify-center mt-8">
             <a
-              href="/news"
+              href="/article"
               className="px-8 py-2 bg-white shadow-md border border-gray-300 text-gray-700 rounded-full hover:bg-gray-100 transition"
             >
               View All
@@ -289,7 +289,7 @@ export default function Home() {
                   Mufti Farooq Mahaimi
                 </p>
                 <a
-                  href="#"
+                  href="/books"
                   className="inline-flex items-center text-sm text-yellow-700 bg-white px-4 py-1.5 rounded-full hover:bg-yellow-200 transition"
                 >
                   Read More <ChevronRight className="h-4 w-4 ml-1" />
@@ -335,7 +335,7 @@ export default function Home() {
             ].map((tag, index) => (
               <div
                 key={index}
-                className={`gulazrtext flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium ${
+                className={`gulzartext flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium ${
                   tag.active
                     ? "bg-green-600 text-white"
                     : "bg-yellow-100 text-yellow-900"
@@ -387,7 +387,7 @@ export default function Home() {
                     Mufti Farooq Mahaimi
                   </p>
                   <a
-                    href="#"
+                    href="/article"
                     className="mt-auto inline-flex items-center text-xs text-yellow-700 bg-yellow-100 px-3 py-1.5 rounded-full hover:bg-yellow-200 transition"
                   >
                     Read More <ChevronRight className="h-3 w-3 ml-1" />
@@ -400,7 +400,7 @@ export default function Home() {
           {/* View All Button */}
           <div className="flex justify-center mt-10">
             <a
-              href="/articles"
+              href="/article"
               className="px-8 py-2 bg-[#e2f0d0] text-[#3c4b28] rounded-full hover:bg-[#d6eac1] transition font-medium"
             >
               Read All Articles

@@ -1,5 +1,7 @@
-import React from "react";
+import React, {useState} from "react";
 import { Search } from "lucide-react";
+import logo from "../../public/images/marclogo.png";
+
 import bg from "../../public/images/bg.png";
 import Book from "../../public/images/book.png";
 import user from "../../public/images/user.png";
@@ -8,8 +10,75 @@ import Articleimg2 from '../../public/Articlepage/article2.png'
 import Articleimg3 from '../../public/Articlepage/article3.png'
 
 export default function Home() {
+   const [menuOpen, setMenuOpen] = useState(false);
   return (
     <main className="min-h-screen bg-[#f0f5e9]">
+  <header className="bg-[#718e56]  sticky top-0 mb-4 z-50  shadow-sm border-b border-green-100">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-2 relative pb-2">
+              <div className="flex justify-between items-center py-5">
+                {/* Desktop Left Nav */}
+                <nav className="hidden md:flex gap-6 text-md font-medium text-white">
+                  <a href="/" className="hover:text-gray-700">Home</a>
+                  <a href="/about" className="hover:text-gray-700">About Center</a>
+                  <a href="/books" className="hover:text-gray-700">Books</a>
+                  <a href="/gallery" className="hover:text-gray-700">Gallery</a>
+                </nav>
+      
+                {/* Center Logo */}
+                <div className="absolute left-1/2 transform -translate-x-1/2 -bottom-6 bg-white rounded-full p-1 shadow-md">
+                  <img
+                    src={logo}
+                    alt="Maula Ali Research Centre Logo"
+                    width={64}
+                    height={64}
+                    className="rounded-full object-contain"
+                  />
+                </div>
+      
+                {/* Desktop Right Nav */}
+                <nav className="hidden md:flex gap-6 text-sm font-medium text-white">
+                  <a href="/news" className="hover:text-gray-700">News</a>
+                  <a href="/article" className="hover:text-gray-700">Articles</a>
+                  <a href="/questions" className="hover:text-gray-700">Questions</a>
+                  <a href="/contact" className="hover:text-gray-700">Contact</a>
+                </nav>
+      
+                {/* Mobile Menu Button */}
+                <div className="md:hidden">
+                  <button
+                    onClick={() => setMenuOpen(!menuOpen)}
+                    className="text-gray-800 focus:outline-none"
+                    aria-label="Toggle menu"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-6 h-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={menuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+      
+              {/* Mobile Dropdown Menu */}
+              {menuOpen && (
+                <div className="md:hidden mt-4 space-y-2 text-sm font-medium text-black">
+                  <a href="/" className="block hover:text-green-700">Home</a>
+                  <a href="/about" className="block hover:text-green-700">About Center</a>
+                  <a href="/books" className="block hover:text-green-700">Books</a>
+                  <a href="/gallery" className="block hover:text-green-700">Gallery</a>
+                  <a href="/news" className="block hover:text-green-700">News</a>
+                  <a href="/article" className="block hover:text-green-700">Articles</a>
+                  <a href="/questions" className="block hover:text-green-700">Questions</a>
+                  <a href="/contact" className="block hover:text-green-700">Contact</a>
+                </div>
+              )}
+            </div>
+          </header>
+
       {/* Background Pattern */}
       <div
         className="fixed inset-0 z-0 opacity-36"
@@ -223,14 +292,14 @@ export default function Home() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[Articleimg1, Articleimg2, Articleimg3].map((item) => (
+          {[Articleimg1, Articleimg2, Articleimg3].map((img , item) => (
             <div
               key={item}
               className="bg-white rounded-lg overflow-hidden shadow-md"
             >
               <div className="relative">
                 <img
-                  src={Book}
+                  src={img}
                   alt="Article"
                   width={300}
                   height={200}
