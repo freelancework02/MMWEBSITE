@@ -10,12 +10,13 @@ import Fullengarticle from './component/Fullengarticle'
 import Bookpage from './component/BookPage';
 import BookDetailsPage from './component/BookDetailsPage'
 import Books from './component/BookList';
+import ArticleFullpage from './component/Articlefullpage'
 
 const App = () => {
   return (
     <Router>
       <div>
-        <Navbar />
+        {/* <Navbar /> */}
         <Routes>
           <Route path="/" element={<Homepage/>} />
           <Route path="/article" element={<Addarticle/>} />
@@ -25,10 +26,11 @@ const App = () => {
           <Route path="/books" element={<Bookpage/>} />
           <Route path="/bookdetail" element={<BookDetailsPage/>} />
           <Route path="/bookslist" element={<Books/>} />
+          <Route path="/articlefullpage" element={<ArticleFullpage/>} />
 
           {/* Add more routes here as needed */}
         </Routes>
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </Router>
   )

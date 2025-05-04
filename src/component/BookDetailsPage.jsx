@@ -1,189 +1,154 @@
-import React from "react"
-import Logo from '../../public/images/image 3.png'
+import React from "react";
+import { Search, ChevronDown, User } from "lucide-react";
+import bgPattern from "../../public/images/bg.png";
+import Logo from "../../public/images/marclogo.png";
+import Book1 from "../../public/OurBooks/book1.png";
+import Book2 from "../../public/OurBooks/book2.png";
+import Book3 from "../../public/OurBooks/book3.png";
+import Book4 from "../../public/OurBooks/book4.png";
 
 export default function BookDetailsPage() {
   return (
-    <main className="min-h-screen">
-      {/* Navigation Bar */}
-      <nav className="bg-[#8B4513] text-white p-4 flex justify-center items-center relative">
-        <div className="container mx-auto flex justify-between items-center">
-          <div className="flex space-x-8">
-            <href href="/" className="hover:text-yellow-200">
+    <main className="min-h-screen font-sans bg-[#F8F3E9] bg-[url('/images/bg.png')] bg-repeat">
+      {/* Header */}
+      <header className="bg-[#5D2D10] text-white">
+        <div className="max-w-[1200px] mx-auto flex items-center justify-between py-4 px-4">
+          <nav className="flex items-center space-x-5 text-sm font-medium">
+            <a href="#" className="hover:text-yellow-300">
               Home
-            </href>
-            <href href="/about" className="hover:text-yellow-200">
+            </a>
+            <a href="#" className="hover:text-yellow-300">
               About Center
-            </href>
-            <div className="relative group">
-              <href href="/books" className="font-bold hover:text-yellow-200 flex items-center">
-                Books
+            </a>
+            <div className="flex items-center hover:text-yellow-300 cursor-pointer">
+              Books <ChevronDown className="h-4 w-4 ml-1" />
+            </div>
+          </nav>
+
+          <div className="absolute top-6  left-1/2 transform -translate-x-1/2">
+            <img src={Logo} alt="Logo" className="w-16 object-contain" />
+          </div>
+
+          <div className="flex items-center space-x-4">
+            
+            <a href="#" className="hover:text-yellow-300">
+              Articles
+            </a>
+            <a href="#" className="hover:text-yellow-300">
+              Gallery
+            </a>
+            <a href="#" className="hover:text-yellow-300">
+              Contact
+            </a>
+            <a href="#" className="bg-yellow-300 rounded-full p-2">
+              <User className="h-5 w-5 text-[#5D2D10]" />
+            </a>
+          </div>
+        </div>
+      </header>
+
+      {/* Book Section */}
+      <section className="max-w-6xl mx-auto px-4 py-12">
+        <div className="bg-[#EFE2BB] p-6 md:p-12 rounded-xl mb-12 shadow">
+          <div className="flex flex-col md:flex-row gap-10 items-start">
+            <div className="md:w-1/3 shadow-md">
+              <img
+                src={Book3}
+                alt="The Eloquence"
+                className="w-full rounded-lg"
+              />
+            </div>
+            <div className="md:w-2/3">
+              <h1 className="text-3xl font-bold text-[#558B2F] mb-2">
+                The Eloquence
+              </h1>
+              <span className="inline-block bg-yellow-500 text-white px-3 py-1 text-sm rounded-full mb-4">
+                English
+              </span>
+              <p className="text-[#5D4037] font-semibold text-sm">Writer</p>
+              <p className="text-lg font-bold mb-2">
+                Hazrat Makhdoom Ali Mahaimi
+              </p>
+              <p className="text-[#5D4037] font-semibold text-sm">Translator</p>
+              <p className="text-lg font-bold mb-4">
+                Mufti Farooque Ali Mahaimi
+              </p>
+              <p className="text-gray-800 text-sm mb-6">
+              Maula Ali Research Centre aims to acquire old Islamic manuscripts (Interpretations, Commentaries, Exegesis, etc.) of our ancestors from libraries across the world which have not been published; if published, they are no longer accessible, etc. and work upon its publication according to modern standards by carrying out research on the Arabic and Persian scripts, referencing, easy translation into multiple languages, mainly English, Hindi and Urdu, and lastly, printing and distributing it amongst the scholars, research experts, intellectuals and the entire Muslim Ummah.
+              </p>
+              <button className="flex items-center border border-[#558B2F] text-[#558B2F] px-5 py-2 rounded-full hover:bg-[#558B2F] hover:text-white">
+                Download
                 <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
+                  className="ml-2 h-4 w-4"
                   fill="none"
                   stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="ml-1 h-4 w-4"
+                  viewBox="0 0 24 24"
                 >
                   <path d="m6 9 6 6 6-6" />
                 </svg>
-              </href>
+              </button>
             </div>
-          </div>
-
-          <div className="absolute left-1/2 transform -translate-x-1/2">
-            <div className="bg-white rounded-full p-2 -mt-8 border-4 border-[#8B4513]">
-              <img src={Logo} alt="Research Center Logo" width={80} height={80} className="rounded-full" />
-            </div>
-          </div>
-
-          <div className="flex space-x-8">
-            <href href="/articles" className="hover:text-yellow-200">
-              Articles
-            </href>
-            <href href="/gallery" className="hover:text-yellow-200">
-              Gallery
-            </href>
-            <href href="/contact" className="hover:text-yellow-200">
-              Contact
-            </href>
           </div>
         </div>
-      </nav>
 
-      {/* Main Content with Background Pattern */}
-      <div className="bg-[#E8D4A4] bg-opacity-80 relative">
-        <div className="absolute inset-0 bg-[url('/pattern-bg.png')] bg-repeat opacity-20"></div>
+        {/* About Writer */}
+        <div className="bg-white p-6 md:p-10 rounded-xl shadow mb-12">
+          <div className="flex flex-col md:flex-row items-start gap-6">
+            <img src={Logo} alt="Writer" className="w-24 h-24 rounded-full" />
+            <div>
+              <h2 className="text-[#DAA520] text-lg font-semibold">
+                About Writer
+              </h2>
+              <h3 className="text-xl font-bold mb-2">Mufti Farooq Mahaimi</h3>
+              <p className="text-sm text-gray-700">
+              Mufti Farooq Mahaimi, a renowned Islamic scholar and writer, has made significant contributions to Islamic literature. His extensive research and insightful analysis have enriched the understanding of Islamic teachings. As a prolific author and translator, he has penned numerous books and translated various Islamic texts into various languages. His work has been widely acclaimed for its clarity, depth, and relevance to contemporary issues.
+              </p>
+            </div>
+          </div>
+        </div>
 
-        {/* Book Details Section */}
-        <div className="container mx-auto py-12 px-4 relative z-10">
-          <div className="bg-[#E8D4A4] bg-opacity-60 p-8 rounded-lg mb-12">
-            <div className="flex flex-col md:flex-row gap-8">
-              {/* Book Image */}
-              <div className="md:w-1/3">
+        {/* Highlights */}
+        <div>
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-2xl font-bold">Writer Books Highlights</h2>
+            <a
+              href="/books"
+              className="text-[#558B2F] bg-white px-5 py-2 rounded-full shadow text-sm font-medium hover:bg-[#558B2F] hover:text-white transition-colors duration-300"
+            >
+              View All Books
+            </a>{" "}
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+            {[Book1, Book2, Book3, Book4].map((book, i) => (
+              <div key={i} className="bg-white p-3 rounded-lg shadow">
                 <img
-                  src="/book-cover.png"
-                  alt="The Eloquence Book Cover"
-                  width={400}
-                  height={550}
-                  className="w-full"
+                  src={book}
+                  alt={`Book ${i + 1}`}
+                  className="w-full h-48 object-cover rounded mb-3"
                 />
-              </div>
-
-              {/* Book Details */}
-              <div className="md:w-2/3">
-                <h1 className="text-4xl font-bold text-[#4A7C59] mb-4">The Eloquenc</h1>
-
-                <div className="inline-block bg-[#F0AD4E] text-white px-3 py-1 rounded-md mb-4">English</div>
-
-                <div className="mb-2">
-                  <div className="text-[#8B4513] font-medium">Writer</div>
-                  <div className="text-xl font-bold">Hazrat Makhdoom Ali Mahaimi</div>
-                </div>
-
-                <div className="mb-4">
-                  <div className="text-[#8B4513] font-medium">Translator</div>
-                  <div className="text-xl font-bold">Mufti Farooque Ali Mahaimi</div>
-                </div>
-
-                <p className="text-gray-800 mb-6">
-                  Maula Ali Research Centre aims to acquire old Islamic manuscripts (Interpretations, Commentaries,
-                  Exegesis, etc.) of our ancestors from libraries across the world which have not been published, if
-                  published, they are no longer accessible, etc. and work upon its publication according to modern
-                  standards by carrying out research on the Arabic and Persian scripts, referencing, easy translation
-                  into multiple languages, mainly English, Hindi and Urdu, and lastly, printing and distributing it
-                  amongst the scholars, research experts, intellectuals and the entire Muslim Ummah.
-                </p>
-
-                <button className="flex items-center border border-[#4A7C59] text-[#4A7C59] px-6 py-2 rounded-full hover:bg-[#4A7C59] hover:text-white transition-colors">
-                  Download
+                <h3 className="text-[#558B2F] text-lg font-semibold mb-1">
+                  Book Name
+                </h3>
+                <a
+                  href="#"
+                  className="text-[#DAA520] text-sm flex items-center hover:underline"
+                >
+                  Read More
                   <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
+                    className="ml-1 h-3 w-3"
                     fill="none"
                     stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="ml-2 h-4 w-4"
+                    viewBox="0 0 24 24"
                   >
-                    <path d="m6 9 6 6 6-6" />
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
                   </svg>
-                </button>
+                </a>
               </div>
-            </div>
-          </div>
-
-          {/* About Writer Section */}
-          <div className="bg-white rounded-lg p-8 mb-12">
-            <div className="flex flex-col md:flex-row items-start gap-6">
-              <div className="md:w-1/6 flex justify-center">
-                <img src={Logo} alt="Writer Logo" width={120} height={120} className="rounded-full" />
-              </div>
-              <div className="md:w-5/6">
-                <h2 className="text-[#F0AD4E] text-xl font-medium mb-1">About Writer</h2>
-                <h3 className="text-2xl font-bold mb-3">Mufti Farooq Mahaimi</h3>
-                <p className="text-gray-700">
-                  Mufti Farooq Mahaimi, a renowned Islamic scholar and writer, has made significant contributions to
-                  Islamic literature. His extensive research and insightful analysis have enriched the understanding of
-                  Islamic teachings. As a prolific author and translator, he has penned numerous books and translated
-                  various Islamic texts into various languages. His work has been widely acclaimed for its clarity,
-                  depth, and relevance to contemporary issues.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Writer Books Highlights */}
-          <div>
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold">Writer Books Highlights</h2>
-              <href href="/books" className="text-[#4A7C59] hover:underline">
-                View All Books
-              </href>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-              {[1, 2, 3, 4].map((book) => (
-                <div key={book} className="flex flex-col">
-                  <img
-                    src={`/book-${book}.png`}
-                    alt={`Book ${book}`}
-                    width={300}
-                    height={400}
-                    className="w-full h-48 object-cover rounded-lg mb-2"
-                  />
-                  <h3 className="text-lg font-medium text-[#4A7C59] mb-1">Book Name</h3>
-                  <href href={`/books/${book}`} className="text-sm text-[#F0AD4E] flex items-center hover:underline">
-                    Read More
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="ml-1 h-3 w-3"
-                    >
-                      <path d="M5 12h14" />
-                      <path d="m12 5 7 7-7 7" />
-                    </svg>
-                  </href>
-                </div>
-              ))}
-            </div>
+            ))}
           </div>
         </div>
-      </div>
+      </section>
     </main>
-  )
+  );
 }

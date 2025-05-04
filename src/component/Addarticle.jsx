@@ -1,14 +1,83 @@
 import { Search, ChevronDown, Eye } from "lucide-react";
+import React, { useState } from "react";
 import bg from '../../public/images/bg.png'
-import image from '../../public/images/image 2.png'
-import Book from '../../public/images/book.png'
+import logo from '../../public/images/marclogo.png'
+import Articleimg1 from '../../public/Articlepage/article1.png'
+import Articleimg2 from '../../public/Articlepage/article2.png'
+import Articleimg3 from '../../public/Articlepage/article3.png'
 
 
 export default function ArticlesPage() {
+  const [menuOpen, setMenuOpen] = useState(false);
   return (
     <div className="min-h-screen bg-[#e4f0d0] relative">
+      <header className="bg-[#718e56]  sticky top-0 mb-4 z-50  shadow-sm border-b border-green-100">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-2 relative pb-2">
+              <div className="flex justify-between items-center py-5">
+                {/* Desktop Left Nav */}
+                <nav className="hidden md:flex gap-6 text-md font-medium text-white">
+                  <a href="/" className="hover:text-gray-700">Home</a>
+                  <a href="/about" className="hover:text-gray-700">About Center</a>
+                  <a href="/books" className="hover:text-gray-700">Books</a>
+                  <a href="/gallery" className="hover:text-gray-700">Gallery</a>
+                </nav>
+      
+                {/* Center Logo */}
+                <div className="absolute left-1/2 transform -translate-x-1/2 -bottom-6 bg-white rounded-full p-1 shadow-md">
+                  <img
+                    src={logo}
+                    alt="Maula Ali Research Centre Logo"
+                    width={64}
+                    height={64}
+                    className="rounded-full object-contain"
+                  />
+                </div>
+      
+                {/* Desktop Right Nav */}
+                <nav className="hidden md:flex gap-6 text-sm font-medium text-white">
+                  <a href="/news" className="hover:text-gray-700">News</a>
+                  <a href="/article" className="hover:text-gray-700">Articles</a>
+                  <a href="/questions" className="hover:text-gray-700">Questions</a>
+                  <a href="/contact" className="hover:text-gray-700">Contact</a>
+                </nav>
+      
+                {/* Mobile Menu Button */}
+                <div className="md:hidden">
+                  <button
+                    onClick={() => setMenuOpen(!menuOpen)}
+                    className="text-gray-800 focus:outline-none"
+                    aria-label="Toggle menu"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-6 h-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={menuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+      
+              {/* Mobile Dropdown Menu */}
+              {menuOpen && (
+                <div className="md:hidden mt-4 space-y-2 text-sm font-medium text-black">
+                  <a href="/" className="block hover:text-green-700">Home</a>
+                  <a href="/about" className="block hover:text-green-700">About Center</a>
+                  <a href="/books" className="block hover:text-green-700">Books</a>
+                  <a href="/gallery" className="block hover:text-green-700">Gallery</a>
+                  <a href="/news" className="block hover:text-green-700">News</a>
+                  <a href="/article" className="block hover:text-green-700">Articles</a>
+                  <a href="/questions" className="block hover:text-green-700">Questions</a>
+                  <a href="/contact" className="block hover:text-green-700">Contact</a>
+                </div>
+              )}
+            </div>
+          </header>
       {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-20 pointer-events-none" style={{ backgroundImage:  `url(${bg})` }}></div>
+      <div className="absolute inset-0 opacity-36 pointer-events-none" style={{ backgroundImage:  `url(${bg})` }}></div>
 
       <div className="relative z-10 container mx-auto px-4 py-8">
         {/* Header */}
@@ -21,13 +90,13 @@ export default function ArticlesPage() {
         </header>
 
         {/* Category Pills */}
-        <div className=" gulazrtext flex flex-wrap justify-center gap-2 mb-10">
-          <CategoryPill label="رمضان المبارک" count={56} />
-          <CategoryPill label="اولیاء اللہ" count={614} />
-          <CategoryPill label="نماز" count={22} />
-          <CategoryPill label="عقائد" count={236} />
-          <CategoryPill label="ناموس رسالت" count={56} />
-          <CategoryPill label="سوال و جوابات" count={803} />
+        <div className="gulzartext flex flex-wrap justify-center gap-2 mb-10">
+          <CategoryPill label="رمضان المبارک" count={56}  />
+          <CategoryPill label="اولیاء اللہ" count={614}  />
+          <CategoryPill label="نماز" count={22}  />
+          <CategoryPill label="عقائد" count={236}  />
+          <CategoryPill label="ناموس رسالت" count={56}  />
+          <CategoryPill label="سوال و جوابات" count={803}  />
         </div>
 
         {/* Main Content */}
@@ -39,7 +108,7 @@ export default function ArticlesPage() {
               <input
                 type="text"
                 placeholder="تلاش کریں"
-                className="gulazrtext w-full py-2 px-4 pr-10 border rounded-full text-right"
+                className="gulzartext w-full py-2 px-4 pr-10 border rounded-full text-right"
               />
               <Search className="absolute right-3 top-2.5 h-5 w-5 text-gray-400" />
             </div>
@@ -74,7 +143,7 @@ const articlesData = [
     writer: "Mufti Farooque Mahaimi",
     translator: "Faiz Ashrafi",
     viewCount: 150,
-    imageUrl: Book,
+    imageUrl: Articleimg1,
     languages: ["Roman", "اردو", "English"],
   },
   {
@@ -83,7 +152,7 @@ const articlesData = [
     writer: "مصنف مفتی فاروق مہیمی",
     translator: "مترجم فیض اشرفی",
     viewCount: 150,
-    imageUrl: Book,
+    imageUrl: Articleimg2,
     languages: ["Roman", "اردو", "English"],
     rtl: true,
   },
@@ -94,7 +163,7 @@ const articlesData = [
     writer: "مصنف مفتی فاروق مہیمی",
     translator: "مترجم فیض اشرفی",
     viewCount: 150,
-    imageUrl: Book,
+    imageUrl: Articleimg3,
     languages: ["Roman", "اردو", "English"],
     rtl: true,
   },
@@ -103,9 +172,9 @@ const articlesData = [
 
 function CategoryPill({ label, count }) {
   return (
-    <div className="bg-[#d3e7b1] px-4 py-2 rounded-full flex items-center gap-2 text-gray-800">
-      <span>{label}</span>
-      <span className="bg-[#6b8e23] text-white rounded-full px-2 py-0.5 text-sm">{count}</span>
+    <div className="bg-[#d3e7b1] gulzartext px-4 py-2 rounded-full flex items-center gap-2 text-gray-800">
+      <span className="gulzartext">{label}</span>
+      <span className="bg-[#6b8e23] gulzartext text-white rounded-full px-2 py-0.5 text-sm">{count}</span>
     </div>
   );
 }
@@ -113,7 +182,7 @@ function CategoryPill({ label, count }) {
 function FilterDropdown({ label, value }) {
   return (
     <div className="mb-4">
-      <div className="text-sm font-medium text-gray-700 mb-1">{label}</div>
+      <div className="gulzartext text-sm font-medium text-gray-700 mb-1">{label}</div>
       <div className="flex items-center justify-between border rounded-md p-2 cursor-pointer hover:bg-gray-50">
         <span>{value}</span>
         <ChevronDown className="h-4 w-4 text-gray-500" />
@@ -144,7 +213,7 @@ function ArticleCard({
         />
         <div className="absolute top-2 left-2 flex gap-1">
           {languages.map((lang, index) => (
-            <span key={index} className="bg-white text-gray-700 text-xs px-2 py-0.5 rounded gulazrtext">
+            <span key={index} className="gulzartext bg-white text-gray-700 text-xs px-2 py-0.5 rounded gulazrtext">
               {lang}
             </span>
           ))}
@@ -152,12 +221,12 @@ function ArticleCard({
       </div>
 
       <div className={`p-4 ${rtl ? "text-right" : ""}`} dir={rtl ? "rtl" : "ltr"}>
-        <h3 className="font-bold text-lg mb-2 gulazrtext">{title}</h3>
-        <p className="text-gray-600 text-sm mb-3 gulazrtext">{description}</p>
+        <h3 className="font-bold text-lg mb-2 gulzartext">{title}</h3>
+        <p className="text-gray-600 text-sm mb-3 gulzartext">{description}</p>
 
         <div className="text-xs text-gray-500">
-          <div className="mb-1 gulazrtext">{writer}</div>
-          <div className="mb-2 gulazrtext">{translator}</div>
+          <div className="mb-1 gulzartext">{writer}</div>
+          <div className="mb-2 gulzartext">{translator}</div>
 
           <div className="flex items-center gap-4 mt-2">
             <div className="flex items-center gap-1">
