@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Search, ChevronDown, User } from "lucide-react";
+import { Search, ChevronDown, User , Menu, X} from "lucide-react";
 import bgPattern from "../../public/images/bg.png";
 import Logo from "../../public/images/marclogo.png";
 import Book1 from "../../public/OurBooks/book1.png";
@@ -14,6 +14,7 @@ export default function BookDetailsPage() {
   const [writers, setWriters] = useState([]);
   const [matchedWriter, setMatchedWriter] = useState(null);
   const [allBooks, setAllBooks] = useState([]);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     // Fetch book
