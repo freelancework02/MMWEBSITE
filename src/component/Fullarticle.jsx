@@ -1,283 +1,304 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Search } from "lucide-react";
 import logo from "../../public/images/marclogo.png";
 
 import bg from "../../public/images/bg.png";
 import Book from "../../public/images/book.png";
 import user from "../../public/images/user.png";
-import Articleimg1 from '../../public/Articlepage/article1.png'
-import Articleimg2 from '../../public/Articlepage/article2.png'
-import Articleimg3 from '../../public/Articlepage/article3.png'
+import Articleimg1 from "../../public/Articlepage/article1.png";
+import Articleimg2 from "../../public/Articlepage/article2.png";
+import Articleimg3 from "../../public/Articlepage/article3.png";
 
 export default function Home() {
-   const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const articleImages = [Articleimg1, Articleimg2, Articleimg3];
+
   return (
-    <main className="min-h-screen bg-[#f0f5e9]">
-  <header className="bg-[#718e56]  sticky top-0 mb-4 z-50  shadow-sm border-b border-green-100">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-2 relative pb-2">
-              <div className="flex justify-between items-center py-5">
-                {/* Desktop Left Nav */}
-                <nav className="hidden md:flex gap-6 text-md font-medium text-white">
-                  <a href="/" className="hover:text-gray-700">Home</a>
-                  <a href="/about" className="hover:text-gray-700">About Center</a>
-                  <a href="/books" className="hover:text-gray-700">Books</a>
-                  <a href="/gallery" className="hover:text-gray-700">Gallery</a>
-                </nav>
-      
-                {/* Center Logo */}
-                <div className="absolute left-1/2 transform -translate-x-1/2 -bottom-6 bg-white rounded-full p-1 shadow-md">
-                  <img
-                    src={logo}
-                    alt="Maula Ali Research Centre Logo"
-                    width={64}
-                    height={64}
-                    className="rounded-full object-contain"
-                  />
-                </div>
-      
-                {/* Desktop Right Nav */}
-                <nav className="hidden md:flex gap-6 text-sm font-medium text-white">
-                  <a href="/news" className="hover:text-gray-700">News</a>
-                  <a href="/article" className="hover:text-gray-700">Articles</a>
-                  <a href="/questions" className="hover:text-gray-700">Questions</a>
-                  <a href="/contact" className="hover:text-gray-700">Contact</a>
-                </nav>
-      
-                {/* Mobile Menu Button */}
-                <div className="md:hidden">
-                  <button
-                    onClick={() => setMenuOpen(!menuOpen)}
-                    className="text-gray-800 focus:outline-none"
-                    aria-label="Toggle menu"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-6 h-6"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={menuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-      
-              {/* Mobile Dropdown Menu */}
-              {menuOpen && (
-                <div className="md:hidden mt-4 space-y-2 text-sm font-medium text-black">
-                  <a href="/" className="block hover:text-green-700">Home</a>
-                  <a href="/about" className="block hover:text-green-700">About Center</a>
-                  <a href="/books" className="block hover:text-green-700">Books</a>
-                  <a href="/gallery" className="block hover:text-green-700">Gallery</a>
-                  <a href="/news" className="block hover:text-green-700">News</a>
-                  <a href="/article" className="block hover:text-green-700">Articles</a>
-                  <a href="/questions" className="block hover:text-green-700">Questions</a>
-                  <a href="/contact" className="block hover:text-green-700">Contact</a>
-                </div>
-              )}
+    <main className="min-h-screen bg-[#f0f5e9]  bg-cover z-10" >
+      <div
+        className="absolute inset-0 bg-cover bg-no-repeat opacity-70"
+        style={{ backgroundImage: `url(${bg})`, backgroundPosition: 'center' }}
+      ></div>
+      <header className="bg-[#718e56]  sticky top-0 mb-4 z-50  shadow-sm border-b border-green-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-2 relative pb-2">
+          <div className="flex justify-between items-center py-5">
+            {/* Desktop Left Nav */}
+            <nav className="hidden md:flex gap-6 text-md font-medium text-white">
+              <a href="/" className="hover:text-gray-700">
+                Home
+              </a>
+              <a href="/about" className="hover:text-gray-700">
+                About Center
+              </a>
+              <a href="/books" className="hover:text-gray-700">
+                Books
+              </a>
+              <a href="/gallery" className="hover:text-gray-700">
+                Gallery
+              </a>
+            </nav>
+
+            {/* Center Logo */}
+            <div className="absolute left-1/2 transform -translate-x-1/2 -bottom-6 bg-white rounded-full p-1 shadow-md">
+              <img
+                src={logo}
+                alt="Maula Ali Research Centre Logo"
+                width={64}
+                height={64}
+                className="rounded-full object-contain"
+              />
             </div>
-          </header>
+
+            {/* Desktop Right Nav */}
+            <nav className="hidden md:flex gap-6 text-sm font-medium text-white">
+              <a href="/news" className="hover:text-gray-700">
+                News
+              </a>
+              <a href="/article" className="hover:text-gray-700">
+                Articles
+              </a>
+              <a href="/questions" className="hover:text-gray-700">
+                Questions
+              </a>
+              <a href="/contact" className="hover:text-gray-700">
+                Contact
+              </a>
+            </nav>
+
+            {/* Mobile Menu Button */}
+            <div className="md:hidden">
+              <button
+                onClick={() => setMenuOpen(!menuOpen)}
+                className="text-gray-800 focus:outline-none"
+                aria-label="Toggle menu"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-6 h-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d={
+                      menuOpen
+                        ? "M6 18L18 6M6 6l12 12"
+                        : "M4 6h16M4 12h16M4 18h16"
+                    }
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          {/* Mobile Dropdown Menu */}
+          {menuOpen && (
+            <div className="md:hidden mt-4 space-y-2 text-sm font-medium text-black">
+              <a href="/" className="block hover:text-green-700">
+                Home
+              </a>
+              <a href="/about" className="block hover:text-green-700">
+                About Center
+              </a>
+              <a href="/books" className="block hover:text-green-700">
+                Books
+              </a>
+              <a href="/gallery" className="block hover:text-green-700">
+                Gallery
+              </a>
+              <a href="/news" className="block hover:text-green-700">
+                News
+              </a>
+              <a href="/article" className="block hover:text-green-700">
+                Articles
+              </a>
+              <a href="/questions" className="block hover:text-green-700">
+                Questions
+              </a>
+              <a href="/contact" className="block hover:text-green-700">
+                Contact
+              </a>
+            </div>
+          )}
+        </div>
+      </header>
 
       {/* Background Pattern */}
-      <div
-        className="fixed inset-0 z-0 opacity-36"
-        style={{ backgroundImage: `url(${bg})` }}
-      />
-
       {/* Main Title */}
-      <div className="relative z-10 text-center py-8">
-        <h1 className="gulzartext text-3xl font-bold text-[#4a7031] rtl">
-          قرآن کی تعلیمات پر عمل کرنے کا انعام
-        </h1>
+      <div
+        className="relative z-40 w-full rounded-b-4xl -mt-8 overflow-hidden bg-cover bg-center"
+        style={{ backgroundImage: `url(${bg})` }}
+      >
+        <div className="flex items-center justify-center mt-4 h-[200px] w-full bg-[#C0D7AA]/80 rounded-b-4xl">
+          <h1 className="gulzartext text-3xl md:text-4xl font-bold text-[#4a7031] text-center rtl px-4">
+            قرآن کی تعلیمات پر عمل کرنے کا انعام
+          </h1>
+        </div>
+      </div>
+
+
+      {/* Author Profile */}
+      <div className="flex items-center justify-end gap-4 mt-6 px-6 mr-6 sm:px-8 md:px-16 flex-wrap">
+        <div className="text-right">
+          <p className="text-sm text-gray-600 gulzartext mt-1">استاد اسکالر</p>
+          <h2 className="font-extrabold text-xl text-[#4a7031] gulzartext">
+            مفتی فاروق مہمانی
+          </h2>
+
+        </div>
+        <img
+          src={user}
+          alt="Author"
+          className="w-16 h-16 rounded-full border-2 border-[#6a8a4f]"
+        />
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+      <div className="relative z-10 container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-6 mb-10"
+      >
         {/* Left Sidebar */}
-        <div className="md:col-span-1">
-          <div className="bg-white rounded-lg overflow-hidden shadow-md mb-6">
+        <div className="md:col-span-1 space-y-6">
+          <div className="bg-white rounded-lg overflow-hidden shadow-lg">
             <img
               src={Book}
               alt="Book Cover"
-              width={300}
-              height={200}
-              className="w-full object-cover"
+              className="w-full h-60 object-cover"
             />
           </div>
 
-          {/* Book Listings */}
-          {[1, 2, 3, 4, 5].map((item) => (
+          {articleImages.map((item, index) => (
             <div
-              key={item}
-              className="bg-white rounded-lg overflow-hidden shadow-md mb-6"
+              key={index}
+              className="rounded-xl overflow-hidden  bg-[#ecf1e1] "
             >
-              <div className="p-4">
-                <div className="flex items-start">
-                  <div className="flex-1">
-                    <h3 className="font-bold text-right rtl mb-2 gulzartext">
-                      آیات قرآنی کی تفسیر انگیز
-                    </h3>
-                    <h4 className="font-bold text-right rtl mb-2 gulzartext">
-                      تفسیر کا ایک نمونہ
-                    </h4>
-                    <div className="text-xs text-right rtl text-gray-600 mb-1">
-                      Quran-e-Hakeem ki tafseer main Khubsoorat Andaz
-                    </div>
-                    <div className="text-xs text-right rtl text-gray-600 mb-1">
-                      Quran-e-Hakeem ki tafseer-e-Mufti Farooq Ashrafi
-                    </div>
-                    <div className="text-xs text-right rtl text-gray-600 mb-1">
-                      Writer : Mufti Farooq-e Mehmani
-                    </div>
-                    <div className="text-xs text-right rtl text-gray-600">
-                      Mutarjim : Faiz Ashrafi
-                    </div>
-                  </div>
-                  <div className="ml-4 flex-shrink-0">
-                    <div className="bg-[#f0f0f0] rounded-full p-1 text-xs flex items-center">
-                      <span className="text-[#6a8a4f]">100</span>
-                      <span className="ml-1">👁️</span>
-                    </div>
-                  </div>
+              {/* Top Image with Overlay Text */}
+              <div
+                className="h-28 bg-cover bg-center flex items-center justify-center text-white text-center font-bold text-lg gulzartext rtl"
+                style={{
+                  backgroundImage: `url(${item})`,
+                  backgroundPosition: 'center',
+                  backgroundSize: 'cover',
+                }}
+              >
+                آیاتِ قرآنی کی حیرت انگیز تاثیر کا ایک نمونہ
+              </div>
+
+              {/* Article Info */}
+              <div className="p-4 space-y-1 rtl text-right font-sans">
+                <p className="text-[13px] text-gray-700 leading-snug">
+                  Quran-e-Hakeem ki aayaat mein Khudaa-e-Qudduus ne bijli ki taaseer se bhi zyada hairat
+                </p>
+                <p className="text-[13px] text-gray-700 font-semibold">
+                  Writer : Mufti Farooque Mahaimi
+                </p>
+                <p className="text-[13px] text-gray-700 font-semibold">
+                  Mutarjim : Faiz Ashrafi
+                </p>
+
+                {/* View Count */}
+                <div className="bg-[#d6e5c4] rounded-full px-2 py-1 text-xs flex items-center w-fit mt-2">
+                  <svg
+                    className="w-4 h-4 text-[#6a8a4f] mr-1"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path d="M10 3.5C5.305 3.5 1.403 6.833 0 10c1.403 3.167 5.305 6.5 10 6.5s8.597-3.333 10-6.5c-1.403-3.167-5.305-6.5-10-6.5zM10 15c-2.761 0-5-2.239-5-5s2.239-5 5-5 5 2.239 5 5-2.239 5-5 5z" />
+                    <circle cx="10" cy="10" r="2" />
+                  </svg>
+                  <span className="text-[#6a8a4f] ml-1">150</span>
                 </div>
               </div>
             </div>
           ))}
+
         </div>
 
         {/* Main Content */}
-        <div className="md:col-span-2 bg-white rounded-lg shadow-md p-6">
+        <div className="md:col-span-2 bg-white rounded-lg shadow-lg p-6 space-y-6">
           {/* Language Tabs */}
-          <div className="flex mb-6 rounded-full overflow-hidden">
-            <div className="gulzartext flex-1 bg-[#e8f0e0] text-center py-1 px-4 rtl">
+          <div className="flex rounded-full overflow-hidden border border-[#d6e5c4]">
+            <div className="gulzartext flex-1 bg-[#c1d9a3] text-center py-2 text-[#4a7031] cursor-pointer rtl">
               اردو
             </div>
-            <div className="flex-1 bg-[#c1d9a3] text-center py-1 px-4">
+            <div className="flex-1 bg-[#e8f0e0] text-center py-2 cursor-pointer">
               Roman
             </div>
-            <div className="flex-1 bg-[#e8f0e0] text-center py-1 px-4">
+            <div className="flex-1 bg-[#e8f0e0] text-center py-2 cursor-pointer">
               English
             </div>
           </div>
 
-          {/* Author Info */}
-          <div className="flex justify-between items-center mb-6">
-            <div className="flex items-center">
-              <img
-                src={user}
-                alt="Author"
-                width={60}
-                height={60}
-                className="rounded-full border-2 border-[#6a8a4f]"
-              />
-            </div>
-            <div className="text-right rtl">
-              <h2 className="font-bold text-xl text-[#4a7031] gulzartext">
-                مفتی فاروق مہمانی
-              </h2>
-              <div className="text-sm text-gray-600 flex items-center justify-end">
-                <span>👁️ 100</span>
-                <span className="mr-2 gulzartext">استاد اسکالر</span>
-              </div>
-            </div>
-          </div>
+          {/* Author Info — updated */}
+
 
           {/* Article Content */}
-          <div className="rtl text-right mb-6 leading-relaxed">
-            <p className="mb-4 gulzartext">
-              قرآن کریم ربّ تعالی کی وہ آخری کتاب ہے، جس کو اس نے اپنے آخری
-              نبی صلی اللہ علیہ وسلم پر نازل فرمایا اور سب سے بڑھ کر اس کی حفاظت
-              کا ذمّہ اپنے سر پر لیا، جیسا کہ ربّ تعالی کا فرمان ہے: ترجمہ کنز
-              الایمان:"ہم نے اس ذکر کو نازل کیا، ہم ہی اس کے محافظ ہیں۔" اس کی
-              حفاظت پر دلیل یہ ہے کہ آج قرآن کریم لاکھوں، کڑوڑوں حفّاظ کے دلوں
-              میں محفوظ ہے، جس طرح قرآن کریم پڑھنے کے، یاد کرنے کے بہت فضائل
-              ہیں، اِسی طرح اس کو پڑھانے کے بھی بے شمار فضائل ہیں، جن میں چند
-              ایک آج ہم ذکر کریں گے۔۔ ربّ کے پیارے حبیب، حبیبِ لبیب، حضرت
-              محمد صلی اللہ علیہ وسلم کا فرمان ہے:"خَیْرُکُمْ مَنْ تَعَلَّمَ
-              الْقُرْآنَ وَ عَلَّمَہٗ" تم میں سے بہتر وہ ہے، جو قرآن سیکھے اور
-              سکھائے۔" (بخاری، کتاب فضائل القرآن، باب خَیْرُکُمْ مَنْ ۔۔ 3/410،
-              حدیث5028) اس حدیث پاک کے تحت حضرت علامہ مُلّا علی قاری رحمۃ اللہ
-              علیہفرماتے ہیں:"وہ مؤمنین میں سب سے فضیلت والا ہے۔"مزید آگے چل کر
-              فرماتے ہیں"طیبی نے کہا: لوگوں میں سے تعلیم و تعلم کے اعتبار سے
-              بہتر قرآن کی تعلیم دینا اور اس کو سیکھنا ہے۔" (مرقاۃ المناجیح، شرح
-              مشکاۃ المصابیح، فضائل القرآن، ج4، ص 612، مکتبہ رشیدیہ کوئٹہ) اسی
-              حدیث کے تحت مفتی احمد یار خان نعیمی رحمۃ اللہ علیہ فرماتے
-              ہیں:"قرآن سیکھنے سکھانے میں بہت وُسعت ہے، بچوں کو قرآن کے ہجے
-              روزانہ سکھانا، قاریوں کا تجوید سیکھنا سکھانا، علماء کا قرآنی احکام
-              بذریعہ حدیث وفقہ سیکھنا سکھانا، صوفیائے کرام کا اَسرار و رموز
-              بسلسلہ طریقت سیکھنا سکھانا سب قرآن ہی کی تعلیم ہے، صرف الفاظِ قرآن
-              کی تعلیم مُراد نہیں۔(مراۃ المناجیح، شرح مشکاۃ المصابیح، ج3، ص 323)
-              نبی پاک صلی اللہ علیہ وسلم کا فرمانِ نصیحت بنیاد ہے:" جس شخص نے
-              قرآن مجید کی ایک آیت یا دین کی کوئی ایک سنّت سکھائی، قیامت کے
-              دن اللہ پاک اس کے لیے ایسا ثواب تیار فرمائے گا کہ اس سے بہتر ثواب
-              کسی کے لئے بھی نہیں ہوگا۔ (جمع الجو امع ، قسم الاقوال، ج 7، ص209،
-              حدیث 22454)
+          <div className="rtl text-right leading-relaxed space-y-4">
+            <p className="gulzartext">
+              قرآن کریم ربّ تعالی کی وہ آخری کتاب ہے، جس کو اس نے اپنے آخری نبی صلی
+              اللہ علیہ وسلم پر نازل فرمایا اور سب سے بڑھ کر اس کی حفاظت کا ذمّہ
+              اپنے سر پر لیا۔
             </p>
-            <p className="mb-4 gulzartext">
-              "یہ کتاب (قرآن) ایسی ہے جس میں کوئی شک نہیں، ہدایت ہے پرہیزگاروں
-              کے لئے۔"
+            <p className="gulzartext">
+              "ہم نے اس ذکر کو نازل کیا، ہم ہی اس کے محافظ ہیں۔"
             </p>
-            <p className="mb-4 gulzartext">
-              اس کی خاصیت یہ ہے کہ جو قرآن کریم کو پڑھے، اس کو سمجھے، اور اس پر
-              عمل کرے۔ اس کو دنیا میں بھی خوشحال زندگی ملتی ہے۔ اور آخرت کے لئے
-              بھی سعادت ملتی ہے۔ اسی طرح جو قرآن کو پڑھنے کے لئے کوشش کرتا ہے،
-              جب کہ پڑھنا آتا نہیں، اس کو بھی اجر ملتا ہے۔
-            </p>
-            <p className="mb-4 gulzartext">
+            <p className="gulzartext">
               حضرت عثمان رضی اللہ عنہ فرماتے ہیں: "خیرکم من تعلم القرآن وعلمہ"
-              یعنی تم میں سب سے بہتر وہ ہے، جو قرآن کو سیکھے اور سکھائے۔
             </p>
-            <p className="mb-4 gulzartext text-gray-600 text-sm">
-              (بخاری کتاب فضائل القرآن، باب خیرکم من تعلم القرآن۔ 3/410، حدیث
-              نمبر5028)
+            <p className="gulzartext text-gray-600 text-sm">
+              (بخاری کتاب فضائل القرآن، باب خیرکم من تعلم القرآن۔ 3/410، حدیث نمبر
+              5028)
             </p>
+          </div>
 
-            {/* More paragraphs would go here */}
-
-            <div className="flex  justify-between mt-8">
-              <button className="gulzartext bg-[#e8f0e0] text-[#4a7031] px-4 py-1 rounded-full text-sm">
-                آگے پڑھیں
-              </button>
-              <button className="gulzartext bg-[#e8f0e0] text-[#4a7031] px-4 py-1 rounded-full text-sm">
-                قرآنی آیات
-              </button>
-            </div>
+          {/* Buttons */}
+          <div className="flex justify-between mt-6">
+            <button className="gulzartext bg-[#e8f0e0] text-[#4a7031] px-4 py-2 rounded-full text-sm">
+              آگے پڑھیں
+            </button>
+            <button className="gulzartext bg-[#e8f0e0] text-[#4a7031] px-4 py-2 rounded-full text-sm">
+              قرآنی آیات
+            </button>
           </div>
         </div>
       </div>
 
-      {/* Author Profile */}
-      <div className="relative z-10 container mx-auto px-4 mb-10">
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center">
-              <img
-                src={user}
-                alt="Author"
-                width={100}
-                height={100}
-                className="rounded-full border-2 border-[#6a8a4f]"
-              />
-            </div>
-            <div className="text-right rtl">
-              <h2 className="gulzartext font-bold text-xl text-[#4a7031]">
-                استاد اسکالر
-              </h2>
-              <h3 className="gulzartext font-bold text-lg text-[#4a7031]">
-                مفتی فاروق مہمانی مصباحی
-              </h3>
-            </div>
-          </div>
 
-          <div className="rtl text-right mt-4 leading-relaxed">
-            <p className="gulzartext text-sm">
-              "قرآن کریم" اللہ تعالیٰ کا کلام ہے، جو حضرت جبرائیل علیہ السلام کے
-              ذریعے حضرت محمد صلی اللہ علیہ وسلم پر نازل ہوا۔ یہ اسلام کا بنیادی
-              ماخذ ہے۔ قرآن کریم میں انسانی زندگی کے تمام پہلوؤں کے بارے میں
-              رہنمائی موجود ہے۔ قرآن کریم کی تلاوت، اس کا مطالعہ اور اس پر عمل
-              کرنا ہر مسلمان کے لیے ضروری ہے۔
-            </p>
+
+      {/* Author Profile */}
+      <div className="container mx-auto px-4 py-8">
+        <div className="bg-white rounded-xl p-6 shadow-sm mb-12">
+          <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-6">
+            <div className="flex-1 text-right order-2 md:order-1">
+              <h1 className="text-2xl md:text-3xl font-bold text-green-700 mb-2 rtl gulzartext">
+                اسلامک اسکالر
+              </h1>
+              <h2 className="text-xl md:text-2xl font-semibold text-gray-800 mb-4 rtl gulzartext">
+                مفتی فاروق مہائمی مصباحی
+              </h2>
+              <p className="text-sm md:text-base text-gray-700 leading-relaxed rtl gulzartext">
+                مفتی فاروق مہائمی ایک معروف اسلامی عالم، مدرس اور مصنف ہیں۔ آپ
+                دینی خدمات میں نمایاں شہرت رکھتے ہیں۔ آپ کئی اسلامی تحقیقی کتب
+                کے مصنف ہیں اور مختلف دینی اداروں سے وابستہ رہے ہیں۔ آپ نے
+                اسلامی تعلیمات کو عام فہم انداز میں پیش کرنے کا کام کیا ہے۔ آپ
+                کی تحریریں مختلف دینی رسائل میں شائع ہوتی رہتی ہیں۔ آپ نے مختلف
+                مذہبی اور اخلاقی موضوعات پر تقاریر بھی کی ہیں اور آپ کی خدمات کو
+                سراہا گیا ہے۔ آپ کو عوام میں خاصی مقبولیت حاصل ہے۔
+              </p>
+            </div>
+            <div className="order-1 md:order-2">
+              <div className="w-28 h-28 md:w-32 md:h-32 rounded-full bg-green-100 border-4 border-green-200 flex items-center justify-center">
+                <img
+                  src={user}
+                  alt="Scholar Icon"
+                  width={80}
+                  height={80}
+                  className="text-green-700"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -285,60 +306,61 @@ export default function Home() {
       {/* Writer Articles Highlights */}
       <div className="relative z-10 container mx-auto px-4 mb-10">
         <div className="flex justify-between items-center mb-6">
-          <href href="/articles" className="text-[#4a7031] hover:underline">
+          <h2 className="font-bold text-2xl text-[#1f1f1f]">Writer Articals Highlights</h2>
+          <a
+            href="/articles"
+            className="bg-white border border-[#4a7031] text-[#4a7031] rounded-full px-4 py-1 text-sm font-medium hover:bg-[#eaf3df] transition"
+          >
             View All Articles
-          </href>
-          <h2 className="font-bold text-xl">Writer Articals Highlights</h2>
+          </a>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[Articleimg1, Articleimg2, Articleimg3].map((img , item) => (
-            <div
-              key={item}
-              className="bg-white rounded-lg overflow-hidden shadow-md"
-            >
-              <div className="relative">
-                <img
-                  src={img}
-                  alt="Article"
-                  width={300}
-                  height={200}
-                  className="w-full h-40 object-cover"
-                />
-                <div className="absolute top-2 left-2 bg-white rounded-full px-2 py-0.5 text-xs">
-                  Eng
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[1, 2, 3].map((index) => (
+            <div key={index} className="rounded-xl overflow-hidden shadow-sm border border-gray-200">
+              {/* Image with overlay */}
+              <div className="relative h-48">
+                <img src={Articleimg1} alt="Article" fill className="object-cover h-full w-full" />
+
+                {/* Top-left Language tag */}
+                <div className="absolute top-2 left-2 bg-[#e8f0e0] rounded-full px-2 py-0.5 text-xs font-['Gulzar']">
+                  مقالے
                 </div>
-                <div className="absolute top-2 right-2 bg-white rounded-full px-2 py-0.5 text-xs">
-                  Urdu
+
+                {/* Top-right Language buttons */}
+                <div className="absolute top-2 right-2 flex space-x-2 rtl:space-x-reverse">
+                  <div className="bg-white rounded-full px-2 py-0.5 text-xs">Roman</div>
+                  <div className="bg-white rounded-full px-2 py-0.5 text-xs">Urdu</div>
                 </div>
-                <div className="absolute bottom-2 right-2 bg-[#6a8a4f] text-white rounded-full px-2 py-0.5 text-xs">
-                  PDF
+
+                {/* Text Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex flex-col justify-end p-4">
+                  <h3 className="font-['Gulzar'] font-bold text-white text-right rtl mb-1 text-lg leading-snug">
+                    {index % 2 === 0 ? "آیات قرآنی کی حیرت انگیز" : "راز کی باتیں"}
+                  </h3>
+                  <h4 className="font-['Gulzar'] font-bold text-white text-right rtl text-sm">
+                    {index % 2 === 0 ? "تاثیر کا ایک نمونہ" : "کامیابی کی حکمت"}
+                  </h4>
                 </div>
               </div>
 
+              {/* Card Bottom Content */}
               <div className="p-4">
-                <h3 className="gulzartext font-bold text-right rtl mb-2">
-                  {item % 2 === 0
-                    ? "آیات قرآنی کی تفسیر انگیز"
-                    : "رازِ کامیابی"}
-                </h3>
-                <h4 className="gulzartext font-bold text-right rtl mb-2">
-                  {item % 2 === 0 ? "تفسیر کا ایک نمونہ" : "کامیابی کا راز"}
-                </h4>
-                <div className="text-xs text-right rtl text-gray-600 mb-1">
-                  Quran-e-Hakeem ki tafseer main Khubsoorat Andaz
-                </div>
-                <div className="text-xs text-right rtl text-gray-600 mb-1">
-                  Writer : Mufti Farooq-e Mehmani
-                </div>
-                <div className="text-xs text-right rtl text-gray-600">
-                  Mutarjim : Faiz Ashrafi
-                </div>
+                <p className="font-['Gulzar'] text-xs text-right rtl text-gray-600 mb-1 leading-relaxed">
+                  قرآن حکیم کی آیات میں خدا کی قدرت اور تاثیر کا بیان
+                </p>
+                <p className="font-['Gulzar'] text-xs text-right rtl text-gray-600 mb-1">
+                  <span className="font-semibold">مصنف :</span> مفتی فاروق مہائمی
+                </p>
+                <p className="font-['Gulzar'] text-xs text-right rtl text-gray-600">
+                  <span className="font-semibold">مترجم :</span> فیض اشرفی
+                </p>
               </div>
             </div>
           ))}
         </div>
       </div>
+
     </main>
   );
 }

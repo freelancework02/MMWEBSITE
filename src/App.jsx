@@ -11,6 +11,8 @@ import Bookpage from './component/BookPage';
 import BookDetailsPage from './component/BookDetailsPage'
 import Books from './component/BookList';
 import ArticleFullpage from './component/Articlefullpage'
+import Question from './component/Question'
+import QuestionDetail from './component/QuestionDetail'
 
 const App = () => {
   return (
@@ -24,10 +26,13 @@ const App = () => {
           <Route path="/detailarticle" element={<Fullarticle/>} />
           <Route path="/engarticle" element={<Fullengarticle/>} />
           <Route path="/books" element={<Bookpage/>} />
-          <Route path="/bookdetail" element={<BookDetailsPage/>} />
+          <Route path="/bookdetail/:id" element={<BookDetailsPage/>} />
           <Route path="/bookslist" element={<Books/>} />
           <Route path="/articlefullpage" element={<ArticleFullpage/>} />
-
+          <Route path="/question" element={<Question/>} />
+          <Route path="/question/:id"  element={<QuestionDetail/>} />
+        
+       
           {/* Add more routes here as needed */}
         </Routes>
         {/* <Footer /> */}

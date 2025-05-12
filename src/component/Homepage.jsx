@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar/Navbar";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Eye } from "lucide-react";
 import bg from "../../public/images/bg.png";
 import image from "../../public/images/image 2.png";
 import Banner from "../../public/images/banner.png";
@@ -26,8 +26,33 @@ import Articleimg8 from "../../public/Article/article8.png";
 import Articleimg9 from "../../public/Article/article9.png";
 import Articleimg10 from "../../public/Article/article10.png";
 import Userimg from "../../public/Scholar/user.png";
+import { useSearchParams } from "react-router-dom";
 
 export default function Home() {
+  const [articles, setArticles] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const articlesRes = await fetch("https://newmmdata-backend.onrender.com/api/articles");
+        const articlesData = await articlesRes.json();
+        setArticles(articlesData);
+
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+
+
+  const [language, setLanguage] = useState("en");
+
+  const isUrdu = language === "ur";
+
+
   return (
     <main
       className="min-h-screen  bg-opacity-80  bg-repeat"
@@ -37,104 +62,127 @@ export default function Home() {
         backgroundBlendMode: "overlay",
       }}
     >
-  
-      <Navbar/>
+
+      <Navbar />
       {/* Banner */}
       <div className="w-full  py-6 px-4 flex justify-center items-center">
-      <div className="w-full max-w-[1440px] flex justify-center items-center gap-4 md:gap-8">
-        
-        {/* Left White Box */}
-        <div className="hidden md:flex w-[300px] h-[200px] bg-white  shadow-md"></div>
+        <div className="w-full max-w-[1440px] flex justify-center items-center gap-4 md:gap-8">
 
-        {/* Center Banner */}
-        <div className="w-full md:w-auto max-w-[800px] rounded-xl overflow-hidden shadow-lg">
-          <img
-            src={Banner}
-            alt="Maula Ali Research Centre Banner"
-            className="w-full h-auto object-cover"
-          />
+          {/* Left White Box */}
+          <div className="hidden md:flex w-[300px] h-[200px] bg-white  shadow-md"></div>
+
+          {/* Center Banner */}
+          <div className="w-full md:w-auto max-w-[800px] rounded-xl overflow-hidden shadow-lg">
+            <img
+              src={Banner}
+              alt="Maula Ali Research Centre Banner"
+              className="w-full h-auto object-cover"
+            />
+          </div>
+
+          {/* Right White Box */}
+          <div className="hidden md:flex w-[300px] h-[200px] bg-white rounded-2xl shadow-md"></div>
         </div>
-
-        {/* Right White Box */}
-        <div className="hidden md:flex w-[300px] h-[200px] bg-white rounded-2xl shadow-md"></div>
       </div>
-    </div>
 
 
       {/* About Sections */}
-      <section className="w-full py-10 px-4 ">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8">
-          {/* Card 1: Image Top, Text Bottom */}
-          <div className="flex flex-col gap-4">
-            <div className="bg-white rounded-xl p-2 shadow-md">
-              <img
-                src={about} // use your image import here
-                alt="Minara Masjid"
-                className="w-full h-auto object-contain rounded-md"
-              />
-            </div>
-            <div className="bg-gradient-to-b from-[#fff] rounded-xl shadow-lg p-6">
-              <h3 className="text-orange-600 font-semibold mb-1">About</h3>
-              <h2 className="text-2xl font-bold text-gray-800 mb-3">
-                Minara Masjid Trust
-              </h2>
-              <p className="text-gray-700 mb-4 text-justify">
-                Maula Ali Research Centre aims to acquire old Islamic
-                manuscripts (Interpretations, Commentaries, Exegesis, etc.) of
-                our ancestors from libraries across the world which have not
-                been published; if published, they are no longer accessible,
-                etc. and work upon its publication according to modern standards
-                by carrying out research on the Arabic and Persian scripts,
-                referencing, easy translation into multiple languages, mainly
-                English, Hindi and Urdu, and lastly, printing and distributing
-                it amongst the scholars, research experts, intellectuals and the
-                entire Muslim Ummah.
-              </p>
-              <a
-                href="/about"
-                className="text-green-700 hover:underline inline-flex items-center font-medium"
-              >
-                Read More <ChevronRight className="h-4 w-4 ml-1" />
-              </a>
-            </div>
+
+      <section className="w-full py-10 px-4">
+        <div className="max-w-7xl mx-auto">
+
+          {/* Language Switch */}
+          <div className="flex justify-end mb-6 gap-2">
+            <button
+              onClick={() => setLanguage("ur")}
+              className={`gulzartext px-3 py-1 rounded-full text-sm ${isUrdu ? "bg-[#e8f0d9] text-black" : "bg-white"
+                }`}
+            >
+              اردو
+            </button>
+            <button
+              onClick={() => setLanguage("en")}
+              className={`px-3 py-1 rounded-full text-sm ${!isUrdu ? "bg-[#e8f0d9] text-black" : "bg-white"
+                }`}
+            >
+              English
+            </button>
           </div>
 
-          {/* Card 2: Text Top, Image Bottom */}
-          <div className="flex flex-col gap-4">
-            <div className="bg-gradient-to-b from-[#fff]  rounded-xl shadow-lg p-6">
-              <h3 className="text-orange-600 font-semibold mb-1">About</h3>
-              <h2 className="text-2xl font-bold text-gray-800 mb-3">
-                Maula Ali Research Centre
-              </h2>
-              <p className="text-gray-700 mb-4 text-justify">
-                Maula Ali Research Centre aims to acquire old Islamic
-                manuscripts (Interpretations, Commentaries, Exegesis, etc.) of
-                our ancestors from libraries across the world which have not
-                been published; if published, they are no longer accessible,
-                etc. and work upon its publication according to modern standards
-                by carrying out research on the Arabic and Persian scripts,
-                referencing, easy translation into multiple languages, mainly
-                English, Hindi and Urdu, and lastly, printing and distributing
-                it amongst the scholars, research experts, intellectuals and the
-                entire Muslim Ummah.
-              </p>
-              <a
-                href="/about"
-                className="text-green-700 hover:underline inline-flex items-center font-medium"
-              >
-                Read More <ChevronRight className="h-4 w-4 ml-1" />
-              </a>
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Card 1: Image Top, Text Bottom */}
+            <div className="flex flex-col gap-4">
+              <div className="bg-white rounded-xl p-2 shadow-md">
+                <img
+                  src={about}
+                  alt="Minara Masjid"
+                  className="w-full h-auto object-contain rounded-md"
+                />
+              </div>
+              <div className="bg-gradient-to-b from-[#fff] rounded-xl shadow-lg p-6">
+                <h3 className={`gulzartext text-orange-600 font-semibold mb-1 ${isUrdu && "text-right"}`}>
+                  {isUrdu ? "تعارف" : "About"}
+                </h3>
+                <h2 className={`gulzartext text-2xl font-bold text-gray-800 mb-3 ${isUrdu && "text-right"}`}>
+                  {isUrdu ? "منارہ مسجد ٹرسٹ" : "Minara Masjid Trust"}
+                </h2>
+                <p className={`gulzartext text-gray-700 mb-4 ${isUrdu ? "text-right" : "text-justify"}`}>
+                  {isUrdu
+                    ? "مولا علی ریسرچ سینٹر کا مقصد پرانی اسلامیات حاصل کرنا ہے۔ کے مخطوطات (تشریحات، تفسیریں، تفسیر، وغیرہ) دنیا بھر کی لائبریریوں سے ہمارے آباؤ اجداد نے جو نہیں کیا ہے۔ شائع ہوا؛ شائع ہونے کی صورت میں وہ مزید قابل رسائی نہیں رہیں گے، وغیرہ اور جدید معیارات کے مطابق اس کی اشاعت پر کام کریں۔ عربی اور فارسی رسم الخط پر تحقیق کرکے، حوالہ دینا، متعدد زبانوں میں آسان ترجمہ، بنیادی طور پر انگریزی، ہندی اور اردو، اور آخر میں، پرنٹنگ اور ڈسٹری بیوشن یہ اسکالرز، ریسرچ ماہرین، دانشوروں اور پوری امت مسلمہ۔"
+                    : "Maula Ali Research Centre aims to acquire old Islamic manuscripts (Interpretations, Commentaries, Exegesis, etc.) of our ancestors from libraries across the world which have not been published; if published, they are no longer accessible, etc. and work upon its publication according to modern standards by carrying out research on the Arabic and Persian scripts, referencing, easy translation into multiple languages, mainly English, Hindi and Urdu, and lastly, printing and distributing it amongst the scholars, research experts, intellectuals and the entire Muslim Ummah."
+                  }
+                </p>
+                <a
+                  href="/about"
+                  className={`text-green-700 hover:underline inline-flex items-center font-medium ${isUrdu ? "justify-end w-full" : ""
+                    }`}
+                >
+                  {isUrdu ? "مزید پڑھیں" : "Read More"}{" "}
+                  <ChevronRight
+                    className={`h-4 w-4 ml-1 ${isUrdu ? "rotate-180" : ""}`}
+                  />
+                </a>
+              </div>
             </div>
-            <div className="bg-white rounded-xl p-2 shadow-md">
-              <img
-                src={Bookimg} // use your image import here
-                alt="Research Centre Library"
-                className="w-full h-auto object-contain rounded-md"
-              />
+
+            {/* Card 2: Text Top, Image Bottom */}
+            <div className="flex flex-col gap-4">
+              <div className="bg-gradient-to-b from-[#fff] rounded-xl shadow-lg p-6">
+                <h3 className={`gulzartext text-orange-600 font-semibold mb-1 ${isUrdu && "text-right"}`}>
+                  {isUrdu ? "تعارف" : "About"}
+                </h3>
+                <h2 className={`gulzartext text-2xl font-bold text-gray-800 mb-3 ${isUrdu && "text-right"}`}>
+                  {isUrdu ? "مولا علی ریسرچ سینٹر" : "Maula Ali Research Centre"}
+                </h2>
+                <p className={`gulzartext text-gray-700 mb-4 ${isUrdu ? "text-right" : "text-justify"}`}>
+                  {isUrdu
+                    ? "مولا علی ریسرچ سینٹر کا مقصد پرانی اسلامیات حاصل کرنا ہے۔ کے مخطوطات (تشریحات، تفسیریں، تفسیر، وغیرہ) دنیا بھر کی لائبریریوں سے ہمارے آباؤ اجداد نے جو نہیں کیا ہے۔ شائع ہوا؛ شائع ہونے کی صورت میں وہ مزید قابل رسائی نہیں رہیں گے، وغیرہ اور جدید معیارات کے مطابق اس کی اشاعت پر کام کریں۔ عربی اور فارسی رسم الخط پر تحقیق کرکے، حوالہ دینا، متعدد زبانوں میں آسان ترجمہ، بنیادی طور پر انگریزی، ہندی اور اردو، اور آخر میں، پرنٹنگ اور ڈسٹری بیوشن یہ اسکالرز، ریسرچ ماہرین، دانشوروں اور پوری امت مسلمہ۔"
+                    : "Maula Ali Research Centre aims to acquire old Islamic manuscripts (Interpretations, Commentaries, Exegesis, etc.) of our ancestors from libraries across the world which have not been published; if published, they are no longer accessible, etc. and work upon its publication according to modern standards by carrying out research on the Arabic and Persian scripts, referencing, easy translation into multiple languages, mainly English, Hindi and Urdu, and lastly, printing and distributing it amongst the scholars, research experts, intellectuals and the entire Muslim Ummah."
+                  }
+                </p>
+                <a
+                  href="/about"
+                  className={`text-green-700 hover:underline inline-flex items-center font-medium ${isUrdu ? "justify-end w-full" : ""
+                    }`}
+                >
+                  {isUrdu ? "مزید پڑھیں" : "Read More"}{" "}
+                  <ChevronRight
+                    className={`h-4 w-4 ml-1 ${isUrdu ? "rotate-180" : ""}`}
+                  />
+                </a>
+              </div>
+              <div className="bg-white rounded-xl p-2 shadow-md">
+                <img
+                  src={Bookimg}
+                  alt="Research Centre Library"
+                  className="w-full h-auto object-contain rounded-md"
+                />
+              </div>
             </div>
           </div>
         </div>
       </section>
+
 
       {/* News & Events */}
       <section className="w-full py-10 px-4 ">
@@ -335,19 +383,17 @@ export default function Home() {
             ].map((tag, index) => (
               <div
                 key={index}
-                className={`gulzartext flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium ${
-                  tag.active
-                    ? "bg-green-600 text-white"
-                    : "bg-yellow-100 text-yellow-900"
-                }`}
+                className={`gulzartext flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium ${tag.active
+                  ? "bg-green-600 text-white"
+                  : "bg-yellow-100 text-yellow-900"
+                  }`}
               >
                 <span className="font-urdu text-lg">{tag.text}</span>
                 <span
-                  className={`${
-                    tag.active
-                      ? "bg-white text-green-700"
-                      : "bg-white text-yellow-800"
-                  } px-2 py-0.5 rounded-full text-xs font-semibold`}
+                  className={`${tag.active
+                    ? "bg-white text-green-700"
+                    : "bg-white text-yellow-800"
+                    } px-2 py-0.5 rounded-full text-xs font-semibold`}
                 >
                   {tag.count}
                 </span>
@@ -356,46 +402,76 @@ export default function Home() {
           </div>
 
           {/* Article Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-            {[
-              Articleimg1,
-              Articleimg2,
-              Articleimg3,
-              Articleimg4,
-              Articleimg5,
-              Articleimg6,
-              Articleimg7,
-              Articleimg8,
-              Articleimg9,
-              Articleimg10,
-            ].map((src, index) => (
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {articles.map((article, index) => (
               <div
                 key={index}
-                className="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-200 flex flex-col"
+                className="rounded-lg overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.12)] bg-[#e8f0d9]"
               >
-                <img
-                  src={src}
-                  alt="Article"
-                  className="w-full h-[140px] object-cover"
-                />
-                <div className="p-3 flex flex-col flex-grow">
-                  <h3 className="text-base font-semibold text-[#5b7a1c] mb-1">
-                    Sukoon Ki Dolat
-                  </h3>
-                  <p className="text-xs text-gray-800">Writer</p>
-                  <p className="text-sm font-medium text-gray-600 mb-3">
-                    Mufti Farooq Mahaimi
+                {/* Image Section */}
+                <div className="relative h-[200px] w-full">
+                  {article.id && (
+                    <img
+                      src={`https://newmmdata-backend.onrender.com/api/articles/image/${article.id}`}
+                      alt={article.title}
+                      className="object-cover w-full h-full"
+                    />
+                  )}
+                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+
+
+                  {/* Buttons */}
+                  <div className="absolute top-3 left-3 right-3 flex justify-between items-start">
+                    <button className="gulzartext bg-white text-black px-3 py-1 rounded-full text-sm shadow-sm">
+                      مطالعہ
+                    </button>
+                    <div className="flex gap-1">
+                      <button className="bg-white text-black px-3 py-1 rounded-full text-sm shadow-sm">
+                        Roman
+                      </button>
+                      <button className="bg-white gulzartext text-black px-3 py-1 rounded-full text-sm shadow-sm">
+                        اردو
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Title */}
+                  <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
+                    {article.title && (
+                      <h2 className="gulzartext font-bold text-lg leading-tight">
+                        {article.title}
+                      </h2>
+                    )}
+                  </div>
+                </div>
+
+                {/* Description Section */}
+                <div className="p-4">
+                  <p className="gulzartext text-sm mb-3 leading-relaxed">
+                    {article.urduDescription || article.englishDescription || "No description available."}
                   </p>
-                  <a
-                    href="/article"
-                    className="mt-auto inline-flex items-center text-xs text-yellow-700 bg-yellow-100 px-3 py-1.5 rounded-full hover:bg-yellow-200 transition"
-                  >
-                    Read More <ChevronRight className="h-3 w-3 ml-1" />
-                  </a>
+
+                  <div className="flex flex-col gap-1">
+                    <p className="gulzartext text-sm font-medium">
+                      Writer: {article.writers || "Unknown"}
+                    </p>
+                    <p className="gulzartext text-sm font-medium">
+                      Mutarjim: {article.translator || "Unknown"}
+                    </p>
+                  </div>
+
+                  <div className="flex justify-end items-center mt-2 gap-1">
+                    <Eye className="h-4 w-4 text-gray-600" />
+                    <span className="text-sm">{article.views ?? 0}</span>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
+
+
+
 
           {/* View All Button */}
           <div className="flex justify-center mt-10">

@@ -31,7 +31,7 @@ const Navbar = () => {
           <nav className="hidden md:flex gap-6 text-sm font-medium text-black">
             <a href="/news" className="hover:text-green-700">News</a>
             <a href="/article" className="hover:text-green-700">Articles</a>
-            <a href="/questions" className="hover:text-green-700">Questions</a>
+            <a href="/question" className="hover:text-green-700">Questions</a>
             <a href="/contact" className="hover:text-green-700">Contact</a>
           </nav>
 

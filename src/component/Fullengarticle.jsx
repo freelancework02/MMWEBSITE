@@ -1,309 +1,389 @@
-import React from 'react'
+import React, { useState, useEffect  } from "react";
+import { Search } from "lucide-react";
+import logo from "../../public/images/marclogo.png";
 
-const Fullengarticle = () => {
+import bg from "../../public/images/bg.png";
+import Book from "../../public/images/book.png";
+import user from "../../public/images/user.png";
+import Articleimg1 from "../../public/Articlepage/article1.png";
+import Articleimg2 from "../../public/Articlepage/article2.png";
+import Articleimg3 from "../../public/Articlepage/article3.png";
+
+
+export default function Home() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const articleImages = [Articleimg1, Articleimg2, Articleimg3];
+  const [articles, setArticles] = useState([]);
+  const [writers, setWriters] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const articleres = await fetch("https://newmmdata-backend.onrender.com/api/articles");
+        const articleData = await articleres.json();
+        setArticles(articleData);
+        console.log("The Article Data: ", articleData);
+
+
+        const writersres = await fetch("https://newmmdata-backend.onrender.com/api/writers");
+        const writersData = await writersres.json();
+        setWriters(writersData);
+        
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+  
+    fetchData();
+  }, []);
+  
   return (
     <main className="min-h-screen bg-[#f0f2e6] relative">
-<div>
-          <div className="text-center py-8 relative z-10">
-        <h1 className="text-3xl text-[#5a7a3d] font-medium">Qalam ke baare mein</h1>
+      {/* Navigation */}
+      <header className="bg-[#718e56]  sticky top-0 mb-4 z-50  shadow-sm border-b border-green-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-2 relative pb-2">
+          <div className="flex justify-between items-center py-5">
+            {/* Desktop Left Nav */}
+            <nav className="hidden md:flex gap-6 text-md font-medium text-white">
+              <a href="/" className="hover:text-gray-700">
+                Home
+              </a>
+              <a href="/about" className="hover:text-gray-700">
+                About Center
+              </a>
+              <a href="/books" className="hover:text-gray-700">
+                Books
+              </a>
+              <a href="/gallery" className="hover:text-gray-700">
+                Gallery
+              </a>
+            </nav>
+
+            {/* Center Logo */}
+            <div className="absolute left-1/2 transform -translate-x-1/2 -bottom-6 bg-white rounded-full p-1 shadow-md">
+              <img
+                src={logo}
+                alt="Maula Ali Research Centre Logo"
+                width={64}
+                height={64}
+                className="rounded-full object-contain"
+              />
+            </div>
+
+            {/* Desktop Right Nav */}
+            <nav className="hidden md:flex gap-6 text-sm font-medium text-white">
+              <a href="/news" className="hover:text-gray-700">
+                News
+              </a>
+              <a href="/article" className="hover:text-gray-700">
+                Articles
+              </a>
+              <a href="/questions" className="hover:text-gray-700">
+                Questions
+              </a>
+              <a href="/contact" className="hover:text-gray-700">
+                Contact
+              </a>
+            </nav>
+
+            {/* Mobile Menu Button */}
+            <div className="md:hidden">
+              <button
+                onClick={() => setMenuOpen(!menuOpen)}
+                className="text-gray-800 focus:outline-none"
+                aria-label="Toggle menu"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-6 h-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d={
+                      menuOpen
+                        ? "M6 18L18 6M6 6l12 12"
+                        : "M4 6h16M4 12h16M4 18h16"
+                    }
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          {/* Mobile Dropdown Menu */}
+          {menuOpen && (
+            <div className="md:hidden mt-4 space-y-2 text-sm font-medium text-black">
+              <a href="/" className="block hover:text-green-700">
+                Home
+              </a>
+              <a href="/about" className="block hover:text-green-700">
+                About Center
+              </a>
+              <a href="/books" className="block hover:text-green-700">
+                Books
+              </a>
+              <a href="/gallery" className="block hover:text-green-700">
+                Gallery
+              </a>
+              <a href="/news" className="block hover:text-green-700">
+                News
+              </a>
+              <a href="/article" className="block hover:text-green-700">
+                Articles
+              </a>
+              <a href="/questions" className="block hover:text-green-700">
+                Questions
+              </a>
+              <a href="/contact" className="block hover:text-green-700">
+                Contact
+              </a>
+            </div>
+          )}
+        </div>
+      </header>
+
+      {/* Background Pattern */}
+      <div
+        className="relative z-40 w-full rounded-b-4xl -mt-8 overflow-hidden bg-cover bg-center"
+        style={{ backgroundImage: `url(${bg})` }}
+      >
+        <div className="flex items-center justify-center mt-4 h-[200px] w-full bg-[#C0D7AA]/80 rounded-b-4xl">
+          <h1 className="gulzartext text-3xl md:text-4xl font-bold text-[#4a7031] text-center rtl px-4">
+          {articles[0]?.title}
+          </h1>
+        </div>
+     
+
+
+
+
+      {/* Author Info */}
+      <div className="flex items-center mb-4 mr-8 ml-[90px] mt-4">
+        <div className="w-12 h-12  bg-gray-100 rounded-full flex items-center justify-center border">
+          <img src={user} alt="Author" width={40} height={40} />
+        </div>
+        <div className="ml-[15px]">
+          <div className="text-xs text-gray-600">Writer</div>
+          <h2 className="text-xl font-bold">{articles[0]?.writers}</h2>
+        </div>
+        <div className="ml-[500px] flex items-center text-xs text-gray-500">
+          <svg className="w-4 h-4 text-[#6a8a4f] mr-1" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 3.5C5.305 3.5 1.403 6.833 0 10c1.403 3.167 5.305 6.5 10 6.5s8.597-3.333 10-6.5c-1.403-3.167-5.305-6.5-10-6.5zM10 15c-2.761 0-5-2.239-5-5s2.239-5 5-5 5 2.239 5 5-2.239 5-5 5z" />
+            <circle cx="10" cy="10" r="2" />
+          </svg>
+          <span className="text-[#6a8a4f]">180</span>
+        </div>
       </div>
+
 
       {/* Main Content */}
       <div className="container mx-auto px-4 pb-12 relative z-10">
         <div className="flex flex-col md:flex-row gap-6">
           {/* Main Article */}
-          <div className="bg-white rounded-lg p-6 shadow-sm md:w-2/3">
-            {/* Author Info */}
-            <div className="flex items-center mb-6">
-              <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center border">
-                <img src="/images/author-avatar.png" alt="Author" width={40} height={40} />
+          <div className="bg-white rounded-lg shadow-lg p-6 md:w-2/3">
+            {/* Language Tabs */}
+            <div className="flex rounded-full overflow-hidden border border-[#d6e5c4] mb-6">
+              <div className="gulzartext flex-1 bg-[#c1d9a3] text-center py-2 text-[#4a7031] cursor-pointer rtl">
+                اردو
               </div>
-              <div className="ml-4">
-                <div className="text-xs text-gray-600">Writer</div>
-                <h2 className="text-xl font-bold">Mufti Faroque Mahaimi</h2>
+              <div className="flex-1 bg-[#e8f0e0] text-center py-2 cursor-pointer">
+                Roman
               </div>
-              <div className="ml-auto flex items-center text-xs text-gray-500">
-                <span className="inline-block w-2 h-2 bg-gray-300 rounded-full mr-1"></span> 180
+              <div className="flex-1 bg-[#e8f0e0] text-center py-2 cursor-pointer">
+                English
               </div>
             </div>
 
-            {/* Language Selector */}
-            <div className="flex justify-end mb-4 space-x-1">
-              <button className="px-3 py-1 text-xs rounded bg-gray-100 text-gray-700">اردو</button>
-              <button className="px-3 py-1 text-xs rounded bg-[#d0e0c0] text-gray-700">Roman</button>
-              <button className="px-3 py-1 text-xs rounded bg-gray-100 text-gray-700">English</button>
-            </div>
+
 
             {/* Article Content */}
-            <div className="space-y-4">
-              <p>
-                Qalam ki nok par rakhun.a ga is jahan.a ko main
-                <br />
-                Zamee.n lapei ke rakh duu.n ki aasmaan ko main
-                <br />
-                (Mumtaaz)
+            <div className="rtl text-right leading-relaxed space-y-4">
+              <p className="gulzartext text-left">
+              {articles[0]?.content}
               </p>
+              {/* <p className="gulzartext text-left">
 
-              <p>
-                Jis qalam ki qasam, saari kaainaat banaane waale Rab ne khaai ho, us mein koi baat zaruur hogi. Taareekh
-                ka sarsari jaiza lene par aap ko pata chal jaaga ki duniya mein jo bhi inqilaab aaya hai, woh ya.n hi
-                nahin.n aaya, qalam ne laaya hai. Yeh qalam qyaamat tak apna kaam karta rahe, qalamkaar paida hote
-                rahenge.
-              </p>
-
-              <p>(2)</p>
-
-              <p>
                 Hazrat Qataada farmaate hain:
-                <br />
                 Qalam Allaah ki bohot badi ni'mat hai, agar qalam na ho to deen qaaim na rahe.
-                <br />
-                (Tafseer-e-Tabri, zikr-e-aayat Al-Laziī Allama Bil-Qalam)
+                (Tafseer-e-Tabri, zair-e-aayat Al-Lazii 'Allama Bil-Qalam)
               </p>
+              <p className="gulzartext text-left">
 
-              <p>
-                Yeh qalam hi tha, jis ne Quraan mahfuuz kiya.
-                <br />
-                Yeh qalam hi tha, jis ne Ahaadees-o-Suir jama' kiye.
-                <br />
-                Yeh qalam hi tha, jis ne Fiqhi masaail likhe.
-                <br />
-                Yeh qalam hi tha, jis ne Tasawwuf ki baate.n ham tak pohochaee.n.
-                <br />
-                Hazrat Qataada ne sach hi kaha hai ki qalam na ho to deen qaaim na reh sake.
-              </p>
+                Hazrat Qataada farmaate hain:
+                Qalam Allaah ki bohot badi ni'mat hai, agar qalam na ho to deen qaaim na rahe.
+                (Tafseer-e-Tabri, zair-e-aayat Al-Lazii 'Allama Bil-Qalam)
+              </p> */}
 
-              <p>(3)</p>
 
-              <p>
-                Hame.n ma'luum hai ki log kitaabo.n se duur hote ja rahe hain. Teen teen ghante, paanch paanch ghante,
-                saat saat ghante woh mobile par films, drama aur reels dekhte hain, magar koi kitaab agar, bees pachees
-                minute bhi padhni pad jae, to aise be-zaar hote hain ki use phenk kar hi dam lete hain.
-              </p>
+            </div>
 
-              <p>
-                Aisi situation mein ham qalam kaaro.n ki zimmedaariyaa.n aur bhi badh jaati hain. Ab hame.n usluub
-                aasaan se aasaan aur tehreér mukhtasar se mukhtasar rakhni hogi, aur itni jaazib-o- purkashish ki qaari,
-                na chaahte hue bhi padhne par majbuur ho jaae.
-              </p>
-
-              <p>Mahaimi.</p>
-
-              {/* Tags */}
-              <div className="flex space-x-2 mt-6">
-                <span className="inline-block bg-[#d0e0c0] text-xs px-3 py-1 rounded">مفتی فاروق مہائمی</span>
-                <span className="inline-block bg-[#d0e0c0] text-xs px-3 py-1 rounded">قرآن کی تفسیر</span>
-              </div>
+            {/* Buttons */}
+            <div className="flex justify-between mt-6">
+              <button className="gulzartext bg-[#e8f0e0] text-[#4a7031] px-4 py-2 rounded-full text-sm">
+                آگے پڑھیں
+              </button>
+              <button className="gulzartext bg-[#e8f0e0] text-[#4a7031] px-4 py-2 rounded-full text-sm">
+                قرآنی آیات
+              </button>
             </div>
           </div>
 
           {/* Sidebar */}
           <div className="md:w-1/3 space-y-4">
-            {/* Featured Article 1 */}
-            <div className="bg-white rounded-lg overflow-hidden shadow-sm">
+            {/* Book Cover */}
+            <div className="bg-white rounded-lg overflow-hidden shadow-lg">
               <img
-                src="/images/article1.jpg"
-                alt="Article"
-                width={400}
-                height={200}
-                className="w-full h-40 object-cover"
+                src={Book}
+                alt="Book Cover"
+                className="w-full h-60 object-cover"
               />
-              <div className="p-4">
-                <div className="bg-[#5a7a3d] text-white px-3 py-1 text-sm inline-block rounded mb-2">
-                  Aayaat-e-Quraani Ki Hairat Angez Taaseer Ka Ek Namuuna
-                </div>
-                <p className="text-xs text-gray-600 mb-1">
-                  Quraan-e-Hakeem ki aayaat mein Khudaa-e-Qaadiro-o-Alīm ki hikmato.n aur qudrat kaa bayan
-                </p>
-                <div className="text-xs text-gray-600">Writer: Mufti Faroque Mahaimi</div>
-                <div className="text-xs text-gray-600">Mutarjim: Faiz Ashrafi</div>
-                <div className="flex items-center text-xs text-gray-500 mt-2">
-                  <span className="inline-block w-2 h-2 bg-gray-300 rounded-full mr-1"></span> 180
-                </div>
-              </div>
             </div>
 
-            {/* Featured Article 2 - Repeat with slight variations */}
-            <div className="bg-white rounded-lg overflow-hidden shadow-sm">
-              <img
-                src="/images/article2.jpg"
-                alt="Article"
-                width={400}
-                height={200}
-                className="w-full h-40 object-cover"
-              />
-              <div className="p-4">
-                <div className="bg-[#5a7a3d] text-white px-3 py-1 text-sm inline-block rounded mb-2">
-                  Aayaat-e-Quraani Ki Hairat Angez Taaseer Ka Ek Namuuna
+            {/* Featured Articles */}
+            {articleImages.map((item, index) => (
+              <div key={item} className="rounded-xl overflow-hidden bg-[#ecf1e1]">
+                {/* Top Image with Overlay Text */}
+                <div
+                  className="h-28 bg-cover bg-center flex items-center justify-center text-white text-center font-bold text-lg gulzartext rtl"
+                  style={{
+                    backgroundImage: `url(${item})`,
+                    backgroundPosition: 'center',
+                    backgroundSize: 'cover',
+                  }}
+                >
+                  آیاتِ قرآنی کی حیرت انگیز تاثیر کا ایک نمونہ
                 </div>
-                <p className="text-xs text-gray-600 mb-1">
-                  Quraan-e-Hakeem ki aayaat mein Khudaa-e-Qaadiro-o-Alīm ki hikmato.n aur qudrat kaa bayan
-                </p>
-                <div className="text-xs text-gray-600">Writer: Mufti Faroque Mahaimi</div>
-                <div className="text-xs text-gray-600">Mutarjim: Faiz Ashrafi</div>
-                <div className="flex items-center text-xs text-gray-500 mt-2">
-                  <span className="inline-block w-2 h-2 bg-gray-300 rounded-full mr-1"></span> 180
-                </div>
-              </div>
-            </div>
 
-            {/* Featured Article 3 - Repeat with slight variations */}
-            <div className="bg-white rounded-lg overflow-hidden shadow-sm">
-              <img
-                src="/images/article3.jpg"
-                alt="Article"
-                width={400}
-                height={200}
-                className="w-full h-40 object-cover"
-              />
-              <div className="p-4">
-                <div className="bg-[#5a7a3d] text-white px-3 py-1 text-sm inline-block rounded mb-2">
-                  Aayaat-e-Quraani Ki Hairat Angez Taaseer Ka Ek Namuuna
-                </div>
-                <p className="text-xs text-gray-600 mb-1">
-                  Quraan-e-Hakeem ki aayaat mein Khudaa-e-Qaadiro-o-Alīm ki hikmato.n aur qudrat kaa bayan
-                </p>
-                <div className="text-xs text-gray-600">Writer: Mufti Faroque Mahaimi</div>
-                <div className="text-xs text-gray-600">Mutarjim: Faiz Ashrafi</div>
-                <div className="flex items-center text-xs text-gray-500 mt-2">
-                  <span className="inline-block w-2 h-2 bg-gray-300 rounded-full mr-1"></span> 180
+                {/* Article Info */}
+                <div className="p-4 space-y-1 rtl text-right font-sans">
+                  <p className="text-[13px] text-gray-700 leading-snug">
+                    Quran-e-Hakeem ki aayaat mein Khudaa-e-Qudduus ne bijli ki taaseer se bhi zyada hairat
+                  </p>
+                  <p className="text-[13px] text-gray-700 font-semibold">
+                    Writer : Mufti Farooque Mahaimi
+                  </p>
+                  <p className="text-[13px] text-gray-700 font-semibold">
+                    Mutarjim : Faiz Ashrafi
+                  </p>
+
+                  {/* View Count */}
+                  <div className="bg-[#d6e5c4] rounded-full px-2 py-1 text-xs flex items-center w-fit mt-2">
+                    <svg
+                      className="w-4 h-4 text-[#6a8a4f] mr-1"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M10 3.5C5.305 3.5 1.403 6.833 0 10c1.403 3.167 5.305 6.5 10 6.5s8.597-3.333 10-6.5c-1.403-3.167-5.305-6.5-10-6.5zM10 15c-2.761 0-5-2.239-5-5s2.239-5 5-5 5 2.239 5 5-2.239 5-5 5z" />
+                      <circle cx="10" cy="10" r="2" />
+                    </svg>
+                    <span className="text-[#6a8a4f] ml-1">180</span>
+                  </div>
                 </div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
+
+
 
         {/* Author Bio */}
-        <div className="bg-white rounded-lg p-6 shadow-sm mt-8">
-          <div className="flex items-center justify-between">
-            <div className="text-right rtl text-sm w-3/4">
-              <h3 className="text-lg font-bold mb-2 text-[#5a7a3d]">اسلامک اسکالر</h3>
-              <h2 className="text-xl font-bold mb-2">مفتی فاروق مہائمی مصباحی</h2>
-              <p className="text-gray-700 text-xs leading-relaxed">
-                "قلم کی نوک پر رکھوں گا اس جہاں کو میں، زمیں لپیٹ کے رکھ دوں گا آسماں کو میں" (ممتاز) جس قلم کی قسم،
-                ساری کائنات بنانے والے رب نے کھائی ہو، اس میں کوئی بات ضرور ہوگی۔ تاریخ کا سرسری جائزہ لینے پر آپ کو پتہ
-                چل جائے گا کہ دنیا میں جو بھی انقلاب آیا ہے، وہ یوں ہی نہیں آیا، قلم نے لایا ہے۔ یہ قلم قیامت تک اپنا
-                کام کرتا رہے، قلمکار پیدا ہوتے رہیں گے۔
-              </p>
-            </div>
-            <div className="w-1/4 flex justify-center">
-              <div className="w-24 h-24 bg-white rounded-full border-4 border-[#5a7a3d] flex items-center justify-center">
-                <img src="/images/author-large.png" alt="Author" width={80} height={80} />
+        {/* Author Profile */}
+        <div className="container mx-auto px-4 py-8">
+          <div className="bg-white rounded-xl p-6 shadow-sm mb-12">
+            <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-6">
+              <div className="flex-1 text-right order-2 md:order-1">
+                <h1 className="text-2xl md:text-3xl font-bold text-green-700 mb-2 rtl gulzartext">
+                  اسلامک اسکالر
+                </h1>
+                <h2 className="text-xl md:text-2xl font-semibold text-gray-800 mb-4 rtl gulzartext">
+                  مفتی فاروق مہائمی مصباحی
+                </h2>
+                <p className="text-sm md:text-base text-gray-700 leading-relaxed rtl gulzartext">
+                {writers[6]?.urduDescription}
+                </p>
+              </div>
+              <div className="order-1 md:order-2">
+                <div className="w-28 h-28 md:w-32 md:h-32 rounded-full bg-green-100 border-4 border-green-200 flex items-center justify-center">
+                  <img
+                    src={user}
+                    alt="Scholar Icon"
+                    width={80}
+                    height={80}
+                    className="text-green-700"
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
+
+
 
         {/* Writer Articles Highlights */}
-        <div className="mt-12">
+        <div className="relative z-10 container mx-auto px-4 mb-10">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl font-bold">Writer Articals Highlights</h2>
-            <href href="/articles" className="text-sm text-gray-600 hover:underline">
+            <h2 className="font-bold text-2xl text-[#1f1f1f]">Writer Articals Highlights</h2>
+            <a
+              href="/article"
+              className="bg-white border border-[#4a7031] text-[#4a7031] rounded-full px-4 py-1 text-sm font-medium hover:bg-[#eaf3df] transition"
+            >
               View All Articles
-            </href>
+            </a>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            {/* Article Card 1 */}
-            <div className="bg-white rounded-lg overflow-hidden shadow-sm">
-              <div className="relative">
-                <img
-                  src="/images/highlight1.jpg"
-                  alt="Article"
-                  width={300}
-                  height={150}
-                  className="w-full h-32 object-cover"
-                />
-                <div className="absolute top-2 left-2 bg-white text-xs px-2 py-1 rounded">Urdu</div>
-                <div className="absolute top-2 right-2 bg-white text-xs px-2 py-1 rounded">180</div>
-              </div>
-              <div className="p-3">
-                <div className="text-xs bg-[#5a7a3d] text-white px-2 py-1 rounded mb-2">
-                  Aayaat-e-Quraani Ki Hairat Angez Taaseer Ka Ek Namuuna
-                </div>
-                <p className="text-xs text-gray-600 mb-1">
-                  Quraan-e-Hakeem ki aayaat mein Khudaa-e-Qaadiro-o-Alīm ki hikmato.n aur qudrat kaa bayan
-                </p>
-                <div className="text-xs text-gray-600">Writer: Mufti Faroque Mahaimi</div>
-                <div className="text-xs text-gray-600">Mutarjim: Faiz Ashrafi</div>
-              </div>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[1, 2, 3].map((index) => (
+              <div key={index} className="rounded-xl overflow-hidden shadow-sm border border-gray-200">
+                {/* Image with overlay */}
+                <div className="relative h-48">
+                  <img src={Articleimg1} alt="Article" fill className="object-cover h-full w-full" />
 
-            {/* Article Card 2 */}
-            <div className="bg-white rounded-lg overflow-hidden shadow-sm">
-              <div className="relative">
-                <img
-                  src="/images/highlight2.jpg"
-                  alt="Article"
-                  width={300}
-                  height={150}
-                  className="w-full h-32 object-cover"
-                />
-                <div className="absolute top-2 left-2 bg-white text-xs px-2 py-1 rounded">Urdu</div>
-                <div className="absolute top-2 right-2 bg-white text-xs px-2 py-1 rounded">180</div>
-              </div>
-              <div className="p-3">
-                <div className="text-right rtl">
-                  <p className="text-xs text-gray-600 mb-1">کیا آپ جانتے ہیں کہ رازی کیا ہے؟</p>
-                  <div className="text-xs text-gray-600">مفتی فاروق مہائمی</div>
-                  <div className="text-xs text-gray-600">مترجم: فیض اشرفی</div>
-                </div>
-              </div>
-            </div>
+                  {/* Top-left Language tag */}
+                  <div className="absolute top-2 left-2 bg-[#e8f0e0] rounded-full px-2 py-0.5 text-xs font-['Gulzar']">
+                    مقالے
+                  </div>
 
-            {/* Article Card 3 */}
-            <div className="bg-white rounded-lg overflow-hidden shadow-sm">
-              <div className="relative">
-                <img
-                  src="/images/highlight3.jpg"
-                  alt="Article"
-                  width={300}
-                  height={150}
-                  className="w-full h-32 object-cover"
-                />
-                <div className="absolute top-2 left-2 bg-white text-xs px-2 py-1 rounded">Urdu</div>
-                <div className="absolute top-2 right-2 bg-white text-xs px-2 py-1 rounded">180</div>
-              </div>
-              <div className="p-3">
-                <div className="text-xs bg-[#5a7a3d] text-white px-2 py-1 rounded mb-2">
-                  Aayaat-e-Quraani Ki Hairat Angez Taaseer Ka Ek Namuuna
-                </div>
-                <p className="text-xs text-gray-600 mb-1">
-                  Quraan-e-Hakeem ki aayaat mein Khudaa-e-Qaadiro-o-Alīm ki hikmato.n aur qudrat kaa bayan
-                </p>
-                <div className="text-xs text-gray-600">Writer: Mufti Faroque Mahaimi</div>
-                <div className="text-xs text-gray-600">Mutarjim: Faiz Ashrafi</div>
-              </div>
-            </div>
+                  {/* Top-right Language buttons */}
+                  <div className="absolute top-2 right-2 flex space-x-2 rtl:space-x-reverse">
+                    <div className="bg-white rounded-full px-2 py-0.5 text-xs">Roman</div>
+                    <div className="bg-white rounded-full px-2 py-0.5 text-xs">Urdu</div>
+                  </div>
 
-            {/* Article Card 4 */}
-            <div className="bg-white rounded-lg overflow-hidden shadow-sm">
-              <div className="relative">
-                <img
-                  src="/images/highlight4.jpg"
-                  alt="Article"
-                  width={300}
-                  height={150}
-                  className="w-full h-32 object-cover"
-                />
-                <div className="absolute top-2 left-2 bg-white text-xs px-2 py-1 rounded">Urdu</div>
-                <div className="absolute top-2 right-2 bg-white text-xs px-2 py-1 rounded">180</div>
-              </div>
-              <div className="p-3">
-                <div className="text-right rtl">
-                  <p className="text-xs text-gray-600 mb-1">آیات قرآنی کی حیرت انگیز تاثیر کا ایک نمونہ</p>
-                  <div className="text-xs text-gray-600">مفتی فاروق مہائمی</div>
-                  <div className="text-xs text-gray-600">مترجم: فیض اشرفی</div>
+                  {/* Text Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex flex-col justify-end p-4">
+                    <h3 className="font-['Gulzar'] font-bold text-white text-right rtl mb-1 text-lg leading-snug">
+                      {index % 2 === 0 ? "آیات قرآنی کی حیرت انگیز" : "راز کی باتیں"}
+                    </h3>
+                    <h4 className="font-['Gulzar'] font-bold text-white text-right rtl text-sm">
+                      {index % 2 === 0 ? "تاثیر کا ایک نمونہ" : "کامیابی کی حکمت"}
+                    </h4>
+                  </div>
+                </div>
+
+                {/* Card Bottom Content */}
+                <div className="p-4">
+                  <p className="font-['Gulzar'] text-xs text-right rtl text-gray-600 mb-1 leading-relaxed">
+                    قرآن حکیم کی آیات میں خدا کی قدرت اور تاثیر کا بیان
+                  </p>
+                  <p className="font-['Gulzar'] text-xs text-right rtl text-gray-600 mb-1">
+                    <span className="font-semibold">مصنف :</span> مفتی فاروق مہائمی
+                  </p>
+                  <p className="font-['Gulzar'] text-xs text-right rtl text-gray-600">
+                    <span className="font-semibold">مترجم :</span> فیض اشرفی
+                  </p>
                 </div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
-      </div>
-      </div>
-    </main>
 
+      </div>
+    </div>
+    </main >
   )
 }
-
-export default Fullengarticle

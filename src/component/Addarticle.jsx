@@ -1,13 +1,65 @@
 import { Search, ChevronDown, Eye } from "lucide-react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import bg from "../../public/images/bg.png";
 import logo from "../../public/images/marclogo.png";
+
 import Articleimg1 from "../../public/Articlepage/article1.png";
 import Articleimg2 from "../../public/Articlepage/article2.png";
 import Articleimg3 from "../../public/Articlepage/article3.png";
 
 export default function ArticlesPage() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [writers, setWriters] = useState([]);
+  const [translators, setTranslators] = useState([]);
+  const [languages, setLanguages] = useState([]);
+  const [topics, setTopics] = useState([]);
+
+  const [selectedFilters, setSelectedFilters] = useState({
+    writer: "",
+    translator: "",
+    language: "",
+    sorting: "latest",
+    topic: ""
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const writerRes = await fetch("https://newmmdata-backend.onrender.com/api/writers");
+        const writerData = await writerRes.json();
+        setWriters(writerData);
+
+        const translatorRes = await fetch("https://newmmdata-backend.onrender.com/api/translators");
+        const translatorData = await translatorRes.json();
+        setTranslators(translatorData);
+
+        const languageRes = await fetch("https://newmmdata-backend.onrender.com/api/languages/language");
+        const languageData = await languageRes.json();
+        setLanguages(languageData);
+
+        const topicRes = await fetch("https://newmmdata-backend.onrender.com/api/topics");
+        const topicData = await topicRes.json();
+        setTopics(topicData);
+
+
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+
+
+  const handleFilterChange = (filterType, value) => {
+    setSelectedFilters((prev) => ({
+      ...prev,
+      [filterType]: value,
+    }));
+  };
+
+
   return (
     <div className="min-h-screen bg-[#e4f0d0] relative">
       <header className="bg-[#718e56]  sticky top-0 mb-4 z-50  shadow-sm border-b border-green-100">
@@ -124,7 +176,7 @@ export default function ArticlesPage() {
 
       <div className="relative z-10 container mx-auto px-4 py-8">
         {/* Header */}
-        <header className="text-center mb-10">
+        <header className="text-center mb-10 ">
           <h1 className="text-4xl font-bold text-gray-900 mb-3">Articles</h1>
           <p className="max-w-3xl mx-auto text-gray-700">
             Discover a wealth of Islamic knowledge, from insightful articles to
@@ -144,7 +196,7 @@ export default function ArticlesPage() {
         </div>
 
         {/* Main Content */}
-        <div className="flex flex-col lg:flex-row gap-6">
+        <div className="flex flex-col lg:flex-row gap-6 text-black">
           {/* Sidebar */}
           <div className="w-full lg:w-80 bg-white rounded-lg p-5 h-fit">
             {/* Search */}
@@ -160,21 +212,41 @@ export default function ArticlesPage() {
             {/* Filters */}
             <FilterDropdown
               label="Writer"
-              value="Hazrat Makhdoom Ali Mahaimi"
+              value={selectedFilters.writer}
+              options={writers.map((w) => w.name)} // Use .name here
+              onChange={handleFilterChange}
             />
             <FilterDropdown
               label="Translator"
-              value="Hazrat Makhdoom Ali Mahaimi"
+              value={selectedFilters.translator}
+              options={translators.map((t) => t.name)}
+              onChange={handleFilterChange}
             />
-            <FilterDropdown label="Sorting" value="Latest" />
-            <FilterDropdown label="Language" value="Urdu" />
-            <FilterDropdown label="Topic" value="All" />
+            <FilterDropdown
+              label="Sorting"
+              value={selectedFilters.sorting}
+              options={["Latest", "Oldest"]}
+              onChange={handleFilterChange}
+            />
+            <FilterDropdown
+              label="Language"
+              value={selectedFilters.language}
+              options={languages.map((l) => l.language)}
+              onChange={handleFilterChange}
+             
+            />
+            <FilterDropdown
+              label="Topic"
+              value={selectedFilters.topic}
+              options={topics.map((t) => t.topic)}
+              onChange={handleFilterChange}
+            />
           </div>
 
           {/* Articles Grid */}
           <div className="flex-1">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-5">
-              {articlesData.map((article, index) => (
+              {cards.map((article, index) => (
                 <ArticleCard key={index} {...article} />
               ))}
             </div>
@@ -186,41 +258,43 @@ export default function ArticlesPage() {
 }
 
 // Sample data to loop through instead of repeating ArticleCard manually
-const articlesData = [
+
+const cards = [
   {
-    title: "Aayaat-e-Quraani Ki Hairat Angez Taaseer Ka Ek Namuuna",
-    description:
-      "Quraan-e-Hakeem ki aayaat mein Khuda-e-Quddus ne bijli ki taaseer e bhi zyaada hairat",
+    id: 1,
+    backgroundImage: Articleimg1,
+    titleEn: "Aayaat-e-Quraani Ki Hairat Angez Taaseer Ka Ek Namuuna",
+    titleAr: "آیات قرآنی کی حیرت انگیز تاثیر کا ایک نمونہ",
+    description: "Quraan-e-Hakeem ki aayaat mein Khudaa-e-Quddus ne bijli ki taaseer se bhi zyaada hairat",
     writer: "Mufti Farooque Mahaimi",
     translator: "Faiz Ashrafi",
-    viewCount: 150,
-    imageUrl: Articleimg1,
-    languages: ["Roman", "اردو", "English"],
+    views: 150,
+    type: "horseman",
   },
   {
-    title: "رازکی باتیں",
+    id: 2,
+    backgroundImage: Articleimg2,
+    titleEn: "رازکی باتیں",
+    titleAr: "رازکی باتیں",
     description:
-      "قرآن کریم کی آیات میں خدا قدوس نے بجلی کی تاثیر سے بھی زیادہ حیرت انگیز تاثیر رکھی ہے۔",
-    writer: "مصنف مفتی فاروق مہیمی",
-    translator: "مترجم فیض اشرفی",
-    viewCount: 150,
-    imageUrl: Articleimg2,
-    languages: ["Roman", "اردو", "English"],
-    rtl: true,
+      "اگر کچھ پوچھنا ہو کہ قیامت کے دن کس چیز میں پوچھا جاؤ گا؟ تو یہ بات سمجھ لو کہ سب سے پہلے نمازوں کی پرسش ہوگی۔",
+    writer: "Mufti Farooque Mahaimi",
+    translator: "Faiz Ashrafi",
+    views: 150,
+    type: "pattern",
+  },
+  {
+    id: 3,
+    backgroundImage: Articleimg3,
+    titleEn: "Aayaat-e-Quraani Ki Hairat Angez Taaseer Ka Ek Namuuna",
+    titleAr: "آیات قرآنی کی حیرت انگیز تاثیر کا ایک نمونہ",
+    description: "Quraan-e-Hakeem ki aayaat mein Khudaa-e-Quddus ne bijli ki taaseer se bhi zyaada hairat",
+    writer: "Mufti Farooque Mahaimi",
+    translator: "Faiz Ashrafi",
+    views: 150,
+    type: "mosque",
   },
 
-  {
-    title: "رازکی باتیں",
-    description:
-      "قرآن کریم کی آیات میں خدا قدوس نے بجلی کی تاثیر سے بھی زیادہ حیرت انگیز تاثیر رکھی ہے۔",
-    writer: "مصنف مفتی فاروق مہیمی",
-    translator: "مترجم فیض اشرفی",
-    viewCount: 150,
-    imageUrl: Articleimg3,
-    languages: ["Roman", "اردو", "English"],
-    rtl: true,
-  },
-  // Repeat entries or map real data here...
 ];
 
 function CategoryPill({ label, count }) {
@@ -234,69 +308,90 @@ function CategoryPill({ label, count }) {
   );
 }
 
-function FilterDropdown({ label, value }) {
+
+const FilterDropdown = ({ label, value, options, onChange }) => {
+  const filterKey = label.toLowerCase();
+
   return (
-    <div className="mb-4">
-      <div className="gulzartext text-sm font-medium text-gray-700 mb-1">
-        {label}
-      </div>
-      <div className="flex items-center justify-between border rounded-md p-2 cursor-pointer hover:bg-gray-50">
-        <span>{value}</span>
-        <ChevronDown className="h-4 w-4 text-gray-500" />
-      </div>
+    <div className="mb-4 text-black">
+      <label className="block mb-1 font-medium text-black gulzartext">{label}</label>
+      <select
+        value={value}
+        onChange={(e) => onChange(filterKey, e.target.value)}
+        className="w-full border rounded p-2 text-black gulzartext"
+      >
+        <option value="" className="text-black gulzartext">Select {label}</option>
+        {options.map((option, idx) => (
+          <option key={idx} value={option} className="text-black gulzartext">
+            {option}
+          </option>
+        ))}
+      </select>
     </div>
   );
-}
+};
+
+
 
 function ArticleCard({
-  title,
+  backgroundImage,
+  titleEn,
+  titleAr,
   description,
   writer,
   translator,
-  viewCount,
-  imageUrl,
-  languages,
-  rtl = false,
+  views,
+  type,
 }) {
   return (
-    <div className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-      <div className="relative">
+    <div className="relative rounded-lg overflow-hidden shadow-md">
+      <div className="relative h-[200px] w-full">
         <img
-          src={imageUrl || "/placeholder.svg"}
-          alt={title}
-          width={400}
-          height={200}
-          className="w-full h-48 object-cover"
+          src={backgroundImage}
+          alt={titleEn || titleAr}
+          className="object-cover w-full h-full"
         />
-        <div className="absolute top-2 left-2 flex gap-1">
-          {languages.map((lang, index) => (
-            <span
-              key={index}
-              className="gulzartext bg-white text-gray-700 text-xs px-2 py-0.5 rounded gulazrtext"
+        <div className="absolute inset-0 bg-black/30"></div>
+
+        <div className="absolute top-3 left-3 right-3 flex justify-between">
+          <button className="gulzartext bg-[#e8f0d9] text-black px-3 py-1 rounded-full text-sm">
+            مطالعہ
+          </button>
+          <div className="flex gap-1">
+            <button className="bg-white text-black px-3 py-1 rounded-full text-sm">Roman</button>
+            <button className="bg-white gulzartext text-black px-3 py-1 rounded-full text-sm">اردو</button>
+          </div>
+        </div>
+
+        <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
+          {titleEn && <h2 className="gulzartext font-bold text-lg">{titleEn}</h2>}
+          {/* {titleAr && (
+            <h2
+              className={`gulzartext font-bold text-lg ${
+                type === "pattern" ? "text-center text-2xl" : ""
+              }`}
             >
-              {lang}
-            </span>
-          ))}
+              {titleAr}
+            </h2>
+          )} */}
         </div>
       </div>
 
-      <div
-        className={`p-4 ${rtl ? "text-right" : ""}`}
-        dir={rtl ? "rtl" : "ltr"}
-      >
-        <h3 className="font-bold text-lg mb-2 gulzartext">{title}</h3>
-        <p className="text-gray-600 text-sm mb-3 gulzartext">{description}</p>
+      <div className="p-4 ">
+        <p className={`gulzartext text-sm mb-3 ${type === "pattern" ? "text-right" : ""}`}>{description}</p>
 
-        <div className="text-xs text-gray-500">
-          <div className="mb-1 gulzartext">{writer}</div>
-          <div className="mb-2 gulzartext">{translator}</div>
+        <div className="flex flex-col gap-1">
+          <p className={`gulzartext text-sm font-medium  ${type === "pattern" ? "text-right" : ""}`}>
+            {type === "pattern" ? "مصنف: مفتی فاروق مہایمی" : `Writer: ${writer}`}
+          </p>
+          <p className={`gulzartext text-sm font-medium ${type === "pattern" ? "text-right" : ""}`}>
+            {type === "pattern" ? "مترجم: فیض اشرفی" : `Mutarjim: ${translator}`}
+          </p>
+        </div>
 
-          <div className="flex items-center gap-4 mt-2">
-            <div className="flex items-center gap-1">
-              <Eye className="h-4 w-4" />
-              <span>{viewCount}</span>
-            </div>
-          </div>
+        <div className="flex justify-end items-center mt-2 gap-1">
+          <Eye className="h-4 w-4 text-gray-600" />
+          <span className=" text-sm">{views}</span>
         </div>
       </div>
     </div>
