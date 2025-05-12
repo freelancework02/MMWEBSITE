@@ -47,42 +47,61 @@ export default function BookDetailsPage() {
   return (
     <main className="min-h-screen font-sans bg-[#F8F3E9] bg-[url('/images/bg.png')] bg-repeat">
       {/* Header */}
-      <header className="bg-[#5D2D10] text-white">
-        <div className="max-w-[1200px] mx-auto flex items-center justify-between py-4 px-4">
-          <nav className="flex items-center space-x-5 text-sm font-medium">
-            <a href="/" className="hover:text-yellow-300">
-              Home
-            </a>
-            <a href="/about" className="hover:text-yellow-300">
-              About Center
-            </a>
-            <div className="flex items-center hover:text-yellow-300 cursor-pointer">
-            <a href="/books" className="hover:text-yellow-300">
-              Books 
-              </a>
+      <header className="bg-[#783F1D] text-white relative z-10">
+        <div className="max-w-[1200px] mx-auto px-4 py-3 flex items-center justify-between relative">
+          {/* Mobile Hamburger */}
+          <button
+            className="md:hidden text-white z-20"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+
+          {/* Left Navigation */}
+          <nav className="hidden md:flex items-center space-x-6 text-[15px] font-medium">
+            <a href="/" className="hover:text-amber-300">Home</a>
+            <a href="/about" className="hover:text-amber-300">About Center</a>
+            <div className="relative group cursor-pointer">
+              <div className="flex items-center hover:text-amber-300">
+                Books <ChevronDown className="h-4 w-4 ml-1" />
+              </div>
             </div>
           </nav>
 
-          <div className="absolute top-6  left-1/2 transform -translate-x-1/2">
-            <img src={Logo} alt="Logo" className="w-16 object-contain" />
+          {/* Center Logo */}
+          <div className="absolute left-1/2 transform -translate-x-1/2 md:static md:translate-x-0">
+            <img src={Logo} alt="Logo" className="w-16 md:w-20 object-contain" />
           </div>
 
-          <div className="flex items-center space-x-4">
-
-            <a href="/article" className="hover:text-yellow-300">
-              Articles
-            </a>
-            <a href="/gallery" className="hover:text-yellow-300">
-              Gallery
-            </a>
-            <a href="/contact" className="hover:text-yellow-300">
-              Contact
-            </a>
-            <a href="#" className="bg-yellow-300 rounded-full p-2">
-              <User className="h-5 w-5 text-[#5D2D10]" />
-            </a>
+          {/* Right Section */}
+          <div className="hidden md:flex items-center space-x-5 font-medium text-[15px]">
+            <a href="/articlefullpage" className="hover:text-amber-300">Articles</a>
+            <a href="#" className="hover:text-amber-300">Gallery</a>
+            <a href="#" className="hover:text-amber-300">Contact</a>
           </div>
         </div>
+
+        {/* Mobile Dropdown Menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden absolute top-full left-0 w-full bg-[#783F1D] px-4 pb-5 space-y-4 text-[15px] font-medium z-10">
+            <a href="/" className="block hover:text-amber-300">Home</a>
+            <a href="/about" className="block hover:text-amber-300">About Center</a>
+            <div className="block hover:text-amber-300 cursor-pointer">Books</div>
+            <a href="/article" className="block hover:text-amber-300">Articles</a>
+            <a href="/gallery" className="block hover:text-amber-300">Gallery</a>
+            <a href="/contact" className="block hover:text-amber-300">Contact</a>
+
+            {/* Search Bar */}
+            <div className="flex items-center bg-white rounded-full px-3 py-1 mt-2 w-full">
+              <input
+                type="text"
+                placeholder="Search"
+                className="bg-transparent outline-none text-black text-sm w-full"
+              />
+              <Search className="w-4 h-4 text-black ml-2" />
+            </div>
+          </div>
+        )}
       </header>
 
       {/* Book Section */}
