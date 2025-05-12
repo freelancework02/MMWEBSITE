@@ -64,7 +64,7 @@ const Navbar = () => {
             <a href="/gallery" className="block hover:text-green-700">Gallery</a>
             <a href="/news" className="block hover:text-green-700">News</a>
             <a href="/article" className="block hover:text-green-700">Articles</a>
-            <a href="/questions" className="block hover:text-green-700">Questions</a>
+            <a href="/question" className="block hover:text-green-700">Questions</a>
             <a href="/contact" className="block hover:text-green-700">Contact</a>
           </div>
         )}
