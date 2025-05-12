@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Search, ChevronDown, User , Menu, X} from "lucide-react";
-import bgPattern from "../../public/images/bg.png";
+import { Search, ChevronDown, User, Menu, X } from "lucide-react";
+import bg from "../../public/images/bg.png";
 import Logo from "../../public/images/marclogo.png";
 import Book1 from "../../public/OurBooks/book1.png";
 import Book2 from "../../public/OurBooks/book2.png";
@@ -105,30 +105,47 @@ export default function BookDetailsPage() {
         )}
       </header>
 
+
+    <div className="h-[100px] rounded-b-4xl flex flex-col items-center justify-center py-10 px-6 w-full bg-[#E5CF92]/80 shadow-inner">
+      </div>
+
       {/* Book Section */}
-      <section className="max-w-6xl mx-auto px-4 py-12">
+      <section className="relative  max-w-6xl mx-auto px-4 py-12">
+
         {book ? (
-          <div className="bg-[#EFE2BB] p-6 md:p-12 rounded-xl mb-12 shadow">
+          <div className="bg-gradient-to-br from-[#FDF6E3] to-[#EFE2BB] p-6 md:p-12 rounded-2xl mb-12 shadow-xl">
             <div className="flex flex-col md:flex-row gap-10 items-start">
-              <div className="md:w-1/3 shadow-md">
-                <img
-                  src={`https://newmmdata-backend.onrender.com/api/books/cover/${book.id}`}
-                  alt="Books"
-                  className="w-full rounded-lg"
-                />
+
+              {/* Book Cover with angled shadow */}
+              <div className="md:w-1/3 flex justify-center">
+                <div className="relative w-64">
+                  <img
+                    src={`https://newmmdata-backend.onrender.com/api/books/cover/${book.id}`}
+                    alt={book.title}
+                    className="w-full rounded-xl shadow-2xl transform rotate-[-2deg]"
+                  />
+                </div>
               </div>
+
+              {/* Book Details */}
               <div className="md:w-2/3">
-                <h1 className="text-3xl font-bold text-[#558B2F] mb-2">
-                  {book.title}
-                </h1>
-                <span className="inline-block bg-yellow-500 text-white px-3 py-1 text-sm rounded-full mb-4">
+                <h1 className="text-4xl font-bold text-[#558B2F] mb-4">{book.title}</h1>
+
+                <span className="inline-block bg-yellow-600 text-white px-4 py-1 text-sm rounded-full mb-4">
                   {book.tag}
                 </span>
-                <p className="text-[#5D4037] font-semibold text-sm">Writer</p>
-                <p className="text-lg font-bold mb-2">{book.author}</p>
-                <p className="text-[#5D4037] font-semibold text-sm">Translator</p>
-                <p className="text-lg font-bold mb-4">{book.translator}</p>
-                <p className="text-gray-800 text-sm mb-6">
+
+                <div className="mb-4">
+                  <p className="text-[#5D4037] font-semibold text-sm">Writer</p>
+                  <p className="text-lg font-bold">{book.author}</p>
+                </div>
+
+                <div className="mb-4">
+                  <p className="text-[#5D4037] font-semibold text-sm">Translator</p>
+                  <p className="text-lg font-bold">{book.translator}</p>
+                </div>
+
+                <p className="text-gray-700 text-base mb-8 leading-relaxed">
                   {book.description?.replace(/<[^>]+>/g, "")}
                 </p>
 
@@ -137,10 +154,10 @@ export default function BookDetailsPage() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <button className="flex items-center border border-[#558B2F] text-[#558B2F] px-5 py-2 rounded-full hover:bg-[#558B2F] hover:text-white">
+                  <button className="flex items-center border border-[#558B2F] text-[#558B2F] px-6 py-2 rounded-full hover:bg-[#558B2F] hover:text-white transition duration-200">
                     Download
                     <svg
-                      className="ml-2 h-4 w-4"
+                      className="ml-2 h-5 w-5"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -155,6 +172,7 @@ export default function BookDetailsPage() {
         ) : (
           <div className="text-center text-gray-500 py-10">Loading book details...</div>
         )}
+
 
 
         {/* About Writer */}
@@ -227,6 +245,9 @@ export default function BookDetailsPage() {
           </div>
         </div>
       </section>
+
+        
+
     </main>
   );
 }

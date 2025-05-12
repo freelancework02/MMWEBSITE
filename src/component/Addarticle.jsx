@@ -2,6 +2,7 @@ import { Search, ChevronDown, Eye } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import bg from "../../public/images/bg.png";
 import logo from "../../public/images/marclogo.png";
+import { useNavigate } from "react-router-dom";
 
 import Articleimg1 from "../../public/Articlepage/article1.png";
 import Articleimg2 from "../../public/Articlepage/article2.png";
@@ -13,6 +14,8 @@ export default function ArticlesPage() {
   const [translators, setTranslators] = useState([]);
   const [languages, setLanguages] = useState([]);
   const [topics, setTopics] = useState([]);
+
+  const navigate = useNavigate();
 
   const [selectedFilters, setSelectedFilters] = useState({
     writer: "",
@@ -233,7 +236,7 @@ export default function ArticlesPage() {
               value={selectedFilters.language}
               options={languages.map((l) => l.language)}
               onChange={handleFilterChange}
-             
+
             />
             <FilterDropdown
               label="Topic"
@@ -245,9 +248,9 @@ export default function ArticlesPage() {
 
           {/* Articles Grid */}
           <div className="flex-1">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-5" onClick={() => navigate("/detailarticle")}>
               {cards.map((article, index) => (
-                <ArticleCard key={index} {...article} />
+                <ArticleCard key={index} {...article}  />
               ))}
             </div>
           </div>
@@ -344,8 +347,8 @@ function ArticleCard({
   type,
 }) {
   return (
-    <div className="relative rounded-lg overflow-hidden shadow-md">
-      <div className="relative h-[200px] w-full">
+    <div   className="relative rounded-lg overflow-hidden shadow-md" >
+      <div className="relative h-[200px] w-full" >
         <img
           src={backgroundImage}
           alt={titleEn || titleAr}
@@ -377,7 +380,7 @@ function ArticleCard({
         </div>
       </div>
 
-      <div className="p-4 ">
+      <div className="p-4 " >
         <p className={`gulzartext text-sm mb-3 ${type === "pattern" ? "text-right" : ""}`}>{description}</p>
 
         <div className="flex flex-col gap-1">
