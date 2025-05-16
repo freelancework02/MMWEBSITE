@@ -202,7 +202,7 @@ export default function Home() {
 
 
             {/* Article Content */}
-            <div className="rtl text-right leading-relaxed space-y-4">
+            <div className="rtl text-right leading-relaxed space-y-4 cursor-pointer">
               <p className="gulzartext text-left">
               {articles[0]?.content}
               </p>

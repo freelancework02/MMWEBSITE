@@ -13,6 +13,7 @@ import Books from './component/BookList';
 import ArticleFullpage from './component/Articlefullpage'
 import Question from './component/Question'
 import QuestionDetail from './component/QuestionDetail'
+import Quesetionpage from './component/Questionpage'
 
 const App = () => {
   return (
@@ -31,6 +32,7 @@ const App = () => {
           <Route path="/articlefullpage" element={<ArticleFullpage/>} />
           <Route path="/question" element={<Question/>} />
           <Route path="/question/:id"  element={<QuestionDetail/>} />
+          <Route path="/questionlist"  element={<Quesetionpage/>} />
         
        
           {/* Add more routes here as needed */}

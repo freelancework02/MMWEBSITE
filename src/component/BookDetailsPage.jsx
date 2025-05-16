@@ -45,6 +45,13 @@ export default function BookDetailsPage() {
       setMatchedWriter(match);
     }
   }, [book, writers]);
+
+
+
+  function stripHTML(html) {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    return doc.body.textContent || "";
+  }
   return (
     <main className="min-h-screen font-sans bg-[#F8F3E9] bg-[url('/images/bg.png')] bg-repeat">
       {/* Header */}
@@ -106,7 +113,7 @@ export default function BookDetailsPage() {
       </header>
 
 
-    <div className="h-[100px] rounded-b-4xl flex flex-col items-center justify-center py-10 px-6 w-full bg-[#E5CF92]/80 shadow-inner">
+      <div className="h-[100px] rounded-b-4xl flex flex-col items-center justify-center py-10 px-6 w-full bg-[#E5CF92]/80 shadow-inner">
       </div>
 
       {/* Book Section */}
@@ -146,7 +153,7 @@ export default function BookDetailsPage() {
                 </div>
 
                 <p className="text-gray-700 text-base mb-8 leading-relaxed">
-                  {book.description?.replace(/<[^>]+>/g, "")}
+                  {stripHTML(book.description || "")}
                 </p>
 
                 <a
@@ -246,7 +253,7 @@ export default function BookDetailsPage() {
         </div>
       </section>
 
-        
+
 
     </main>
   );

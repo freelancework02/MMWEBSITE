@@ -26,7 +26,7 @@ const Question = () => {
     fetchData();
   }, []);
 
-  const question19 = question.find((q) => q.id === 9);
+  const question19 = question.find((q) => q.id === 4);
   console.log("The question19 id data", question19);
 
   const formatDescription = (htmlString) => {
@@ -219,11 +219,11 @@ const Question = () => {
               سوال نمبر
             </h2>
             <span className="bg-[#C0D7AA] text-[#4a7031] font-bold rounded-full px-3 py-1 text-sm">
-              {question19.number || 19}
+              {question19.id || 19}
             </span>
           </div>
           <p className="text-[#4a7031] text-lg gulzartext mb-6 leading-loose text-center">
-            {question19.question}
+            {question19.slug}
           </p>
         </div>
       )}
@@ -274,7 +274,7 @@ const Question = () => {
               className="w-full md:w-3/4 bg-white rounded-xl shadow-sm p-6 order-1 md:order-2"
             >
               <div className="rtl text-right leading-loose text-[#4a7031] text-lg gulzartext whitespace-pre-wrap">
-                {formatDescription(question19.answer)}
+                {question19.slug}
               </div>
             </div>
           )}
@@ -288,10 +288,10 @@ const Question = () => {
             </div>
 
             <div className="p-4 flex flex-col gap-4 rtl">
-              {question.slice(1, 13).map((q, index) => (
+              {question.slice(0, 5).map((q, index) => (
                 <div
-                  key={q._id || index}
-                  onClick={() => navigate(`/question/${q._id || index}`)}
+                  key={index}
+                  onClick={() => navigate(`/question/${q.id || index}`)}
                   className="border-b border-green-200 pb-4 last:border-b-0"
                 >
                   {/* Question number */}
@@ -302,7 +302,7 @@ const Question = () => {
                   </div>
                   {/* Question Text */}
                   <p className="text-right text-gray-700 leading-relaxed text-base gulzartext">
-                    {q.question}
+                    {q.slug}
                   </p>
                 </div>
               ))}
@@ -313,7 +313,7 @@ const Question = () => {
 
       {/* Author Profile */}
       <div className="container mx-auto px-4 py-8">
-        <div className="bg-white rounded-xl p-6 shadow-sm mb-12 w-[900px] max-w-full mx-auto lg:ml-[490px] lg:mx-0">
+        <div className="bg-white rounded-xl p-6 shadow-sm mb-12 w-[900px] max-w-full mx-auto lg:ml-[390px] lg:mx-0">
           <div className="flex flex-col items-end gap-6 text-right">
             {/* Profile Image */}
             <div className="self-end">
@@ -361,8 +361,8 @@ const Question = () => {
 
           {/* Questions Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 rtl">
-            {question.slice(1, 13).map((q, index) => (
-              <div key={q._id} className="bg-[#eaf3df] rounded-xl p-4  ">
+            {question.slice(0, 5).map((q, index) => (
+              <div key={index} className="bg-[#eaf3df] rounded-xl p-4  ">
                 {/* Question number badge */}
                 <div className="flex justify-end mb-3">
                   <span className="bg-[#5a8c3c] text-white rounded-full px-3 py-0.5 text-sm font-['Gulzar']">
@@ -372,7 +372,7 @@ const Question = () => {
 
                 {/* Question Text */}
                 <p className="text-right text-[#1f1f1f] font-['Gulzar'] text-base leading-relaxed gulzartext">
-                  {q.question}
+                  {q.slug}
                 </p>
               </div>
             ))}

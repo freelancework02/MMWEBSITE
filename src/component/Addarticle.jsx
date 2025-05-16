@@ -103,7 +103,7 @@ export default function ArticlesPage() {
               <a href="/article" className="hover:text-gray-700">
                 Articles
               </a>
-              <a href="/questions" className="hover:text-gray-700">
+              <a href="/question" className="hover:text-gray-700">
                 Questions
               </a>
               <a href="/contact" className="hover:text-gray-700">
@@ -161,7 +161,7 @@ export default function ArticlesPage() {
               <a href="/article" className="block hover:text-green-700">
                 Articles
               </a>
-              <a href="/questions" className="block hover:text-green-700">
+              <a href="/question" className="block hover:text-green-700">
                 Questions
               </a>
               <a href="/contact" className="block hover:text-green-700">
@@ -248,7 +248,7 @@ export default function ArticlesPage() {
 
           {/* Articles Grid */}
           <div className="flex-1">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-5" onClick={() => navigate("/detailarticle")}>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-5 cursor-pointer" onClick={() => navigate("/detailarticle")}>
               {cards.map((article, index) => (
                 <ArticleCard key={index} {...article}  />
               ))}

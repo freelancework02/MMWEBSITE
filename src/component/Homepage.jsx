@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar/Navbar";
-import { ChevronRight, Eye } from "lucide-react";
+import { ChevronRight, Eye, User } from "lucide-react";
 import bg from "../../public/images/bg.png";
 import image from "../../public/images/image 2.png";
 import Banner from "../../public/images/banner.png";
@@ -26,10 +26,11 @@ import Articleimg8 from "../../public/Article/article8.png";
 import Articleimg9 from "../../public/Article/article9.png";
 import Articleimg10 from "../../public/Article/article10.png";
 import Userimg from "../../public/Scholar/user.png";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 
 export default function Home() {
   const [articles, setArticles] = useState([]);
+  const [writer, setWriter] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,6 +38,10 @@ export default function Home() {
         const articlesRes = await fetch("https://newmmdata-backend.onrender.com/api/articles");
         const articlesData = await articlesRes.json();
         setArticles(articlesData);
+
+        const writerRes = await fetch("https://newmmdata-backend.onrender.com/api/writers");
+        const writerData = await writerRes.json();
+        setWriter(writerData);
 
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -52,7 +57,7 @@ export default function Home() {
 
   const isUrdu = language === "ur";
 
-
+  const navigate = useNavigate();
   return (
     <main
       className="min-h-screen  bg-opacity-80  bg-repeat"
@@ -403,14 +408,14 @@ export default function Home() {
 
           {/* Article Cards */}
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" onClick={()=>navigate("/article")}>
             {articles.map((article, index) => (
               <div
                 key={index}
                 className="rounded-lg overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.12)] bg-[#e8f0d9]"
               >
                 {/* Image Section */}
-                <div className="relative h-[200px] w-full">
+                <div className="relative h-[200px] w-full cursor-pointer">
                   {article.id && (
                     <img
                       src={`https://newmmdata-backend.onrender.com/api/articles/image/${article.id}`}
@@ -437,9 +442,9 @@ export default function Home() {
                   </div>
 
                   {/* Title */}
-                  <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
+                  <div className="absolute bottom-0 left-0 right-0 p-4 text-white ">
                     {article.title && (
-                      <h2 className="gulzartext font-bold text-lg leading-tight">
+                      <h2 className="gulzartext font-bold text-lg leading-tight ">
                         {article.title}
                       </h2>
                     )}
@@ -448,7 +453,7 @@ export default function Home() {
 
                 {/* Description Section */}
                 <div className="p-4">
-                  <p className="gulzartext text-sm mb-3 leading-relaxed">
+                  <p className="gulzartext text-sm mb-3 leading-relaxed line-clamp-2">
                     {article.urduDescription || article.englishDescription || "No description available."}
                   </p>
 
@@ -493,7 +498,7 @@ export default function Home() {
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
+            {/* {[
               {
                 name: "Allama Mazhar Alimi Sahab",
                 img: Userimg,
@@ -517,8 +522,8 @@ export default function Home() {
               {
                 name: "Allama Tauheed Alimi",
                 img: Userimg,
-              },
-            ].map((scholar, index) => (
+              }, */}
+            {writer.map((scholar, index) => (
               <div
                 key={index}
                 className="bg-white rounded-xl shadow-sm px-6 py-8 flex flex-col items-center"
@@ -526,7 +531,7 @@ export default function Home() {
                 {/* Profile Image */}
                 <div className="bg-white rounded-full border-4 border-green-200 p-1 mb-4">
                   <img
-                    src={scholar.img}
+                    src={Userimg}
                     alt={scholar.name}
                     className="rounded-full w-24 h-24 object-cover bg-green-100"
                   />
