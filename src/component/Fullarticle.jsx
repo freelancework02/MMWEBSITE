@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect  } from "react";
 import { Search } from "lucide-react";
+import { useNavigate, useParams } from 'react-router-dom';
 import logo from "../../public/images/marclogo.png";
 
 import bg from "../../public/images/bg.png";
@@ -11,7 +12,29 @@ import Articleimg3 from "../../public/Articlepage/article3.png";
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [article, setArticle] = useState([])
   const articleImages = [Articleimg1, Articleimg2, Articleimg3];
+  const { id } = useParams();
+
+  useEffect(() => {
+      const fetchSingleArticle = async () => {
+        try {
+          const res = await fetch(`https://newmmdata-backend.onrender.com/api/articles/${id}`);
+          const data = await res.json();
+          setArticle(data);
+        } catch (err) {
+          console.error("Error fetching Article:", err);
+        }
+      };
+  
+      if (id) fetchSingleArticle();
+    }, [id]);
+
+    if (!article) {
+    return <div className="text-center p-4">لوڈ ہو رہا ہے...</div>;
+  }
+
+  console.log("Here is the artilce", article)
 
   return (
     <main className="min-h-screen bg-[#f0f5e9]  bg-cover z-10" >
@@ -57,7 +80,7 @@ export default function Home() {
               <a href="/article" className="hover:text-gray-700">
                 Articles
               </a>
-              <a href="/questions" className="hover:text-gray-700">
+              <a href="/question" className="hover:text-gray-700">
                 Questions
               </a>
               <a href="/contact" className="hover:text-gray-700">
@@ -115,7 +138,7 @@ export default function Home() {
               <a href="/article" className="block hover:text-green-700">
                 Articles
               </a>
-              <a href="/questions" className="block hover:text-green-700">
+              <a href="/question" className="block hover:text-green-700">
                 Questions
               </a>
               <a href="/contact" className="block hover:text-green-700">
@@ -134,7 +157,7 @@ export default function Home() {
       >
         <div className="flex items-center justify-center mt-4 h-[200px] w-full bg-[#C0D7AA]/80 rounded-b-4xl">
           <h1 className="gulzartext text-3xl md:text-4xl font-bold text-[#4a7031] text-center rtl px-4">
-            قرآن کی تعلیمات پر عمل کرنے کا انعام
+           {article.title}
           </h1>
         </div>
       </div>
@@ -237,11 +260,9 @@ export default function Home() {
           {/* Article Content */}
           <div className="rtl text-right leading-relaxed space-y-4">
             <p className="gulzartext">
-              قرآن کریم ربّ تعالی کی وہ آخری کتاب ہے، جس کو اس نے اپنے آخری نبی صلی
-              اللہ علیہ وسلم پر نازل فرمایا اور سب سے بڑھ کر اس کی حفاظت کا ذمّہ
-              اپنے سر پر لیا۔
+              {article.urduDescription}
             </p>
-            <p className="gulzartext">
+            {/* <p className="gulzartext">
               "ہم نے اس ذکر کو نازل کیا، ہم ہی اس کے محافظ ہیں۔"
             </p>
             <p className="gulzartext">
@@ -250,7 +271,7 @@ export default function Home() {
             <p className="gulzartext text-gray-600 text-sm">
               (بخاری کتاب فضائل القرآن، باب خیرکم من تعلم القرآن۔ 3/410، حدیث نمبر
               5028)
-            </p>
+            </p> */}
           </div>
 
           {/* Buttons */}

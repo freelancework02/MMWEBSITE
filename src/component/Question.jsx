@@ -94,7 +94,7 @@ const Question = () => {
                 Articles
               </a>
               <a
-                href="/questions"
+                href="/question"
                 className="hover:text-yellow-200 transition-all duration-200"
               >
                 Questions
@@ -287,21 +287,21 @@ const Question = () => {
               </h2>
             </div>
 
-            <div className="p-4 flex flex-col gap-4 rtl">
+            <div className="p-4 flex flex-col gap-4 rtl cursor-pointer">
               {question.slice(0, 5).map((q, index) => (
                 <div
                   key={index}
                   onClick={() => navigate(`/question/${q.id || index}`)}
-                  className="border-b border-green-200 pb-4 last:border-b-0"
+                  className="border-b border-green-200 pb-4 last:border-b-0 cursor-pointer"
                 >
                   {/* Question number */}
                   <div className="flex justify-end mb-2">
-                    <span className="bg-[#5a8c3c] text-white rounded-full px-3 py-1 text-sm">
+                    <span className="bg-[#5a8c3c] text-white rounded-full px-3 py-1 text-sm cursor-pointer">
                       سوال نمبر {q.number || index + 1}
                     </span>
                   </div>
                   {/* Question Text */}
-                  <p className="text-right text-gray-700 leading-relaxed text-base gulzartext">
+                  <p className="text-right text-gray-700 leading-relaxed text-base gulzartext cursor-pointer">
                     {q.slug}
                   </p>
                 </div>

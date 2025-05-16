@@ -68,7 +68,7 @@ const QuestionDetail = () => {
             <nav className="hidden md:flex gap-6 text-md font-semibold text-white tracking-wide">
               <a href="/news" className="hover:text-yellow-200">News</a>
               <a href="/article" className="hover:text-yellow-200">Articles</a>
-              <a href="/questions" className="hover:text-yellow-200">Questions</a>
+              <a href="/question" className="hover:text-yellow-200">Questions</a>
               <a href="/contact" className="hover:text-yellow-200">Contact</a>
             </nav>
             <div className="md:hidden">
@@ -82,7 +82,7 @@ const QuestionDetail = () => {
           </div>
           <div className={`md:hidden transition-all overflow-hidden ${menuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"}`}>
             <div className="flex flex-col gap-3 py-4 px-2 text-white bg-[#5a7544] rounded-b-xl">
-              {["Home", "About Center", "Books", "Gallery", "News", "Articles", "Questions", "Contact"].map((item, idx) => (
+              {["Home", "About Center", "Books", "Gallery", "News", "Articles", "question", "Contact"].map((item, idx) => (
                 <a key={idx} href={`/${item.toLowerCase().replace(" ", "")}`} className="hover:bg-[#4f6639] px-4 py-2 rounded">
                   {item}
                 </a>
@@ -133,9 +133,9 @@ const QuestionDetail = () => {
             {allQuestions.slice(0, 5).map((q, idx) => (
               <div key={q.id || idx} onClick={() => navigate(`/question/${q.id}`)} className="border-b border-green-200 pb-4 last:border-b-0">
                 <div className="flex justify-end mb-2">
-                  <span className="bg-[#5a8c3c] text-white rounded-full px-3 py-1 text-sm">سوال نمبر {q.number || idx + 1}</span>
+                  <span className="bg-[#5a8c3c] text-white rounded-full px-3 py-1 text-sm cursor-pointer">سوال نمبر {q.number || idx + 1}</span>
                 </div>
-                <p className="text-right text-gray-700 leading-relaxed text-base gulzartext">{q.slug}</p>
+                <p className="text-right text-gray-700 leading-relaxed text-base gulzartext cursor-pointer">{q.slug}</p>
               </div>
             ))}
           </div>

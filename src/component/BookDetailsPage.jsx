@@ -83,7 +83,7 @@ export default function BookDetailsPage() {
 
           {/* Right Section */}
           <div className="hidden md:flex items-center space-x-5 font-medium text-[15px]">
-            <a href="/articlefullpage" className="hover:text-amber-300">Articles</a>
+            <a href="/article" className="hover:text-amber-300">Articles</a>
             <a href="#" className="hover:text-amber-300">Gallery</a>
             <a href="#" className="hover:text-amber-300">Contact</a>
           </div>
