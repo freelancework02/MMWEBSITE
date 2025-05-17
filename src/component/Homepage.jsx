@@ -76,16 +76,6 @@ export default function Home() {
   const navigate = useNavigate();
 
   const scroll = (direction) => {
-    if (direction === "left") {
-      scrollRef.current.scrollBy({ left: -300, behavior: "smooth" });
-    } else {
-      scrollRef.current.scrollBy({ left: 300, behavior: "smooth" });
-    }
-  };
-
-  const NewscrollRef = useRef(null);
-
-  const Newscroll = (direction) => {
     if (scrollRef.current) {
       const scrollAmount = scrollRef.current.offsetWidth;
       scrollRef.current.scrollBy({
@@ -94,6 +84,28 @@ export default function Home() {
       });
     }
   };
+
+  // ✅ Auto-scroll effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (!scrollRef.current) return;
+
+      const container = scrollRef.current;
+      const scrollLeft = container.scrollLeft;
+      const maxScrollLeft = container.scrollWidth - container.clientWidth;
+
+      if (scrollLeft >= maxScrollLeft) {
+        // Scroll back to start when end is reached
+        container.scrollTo({ left: 0, behavior: "smooth" });
+      } else {
+        // Scroll right
+        container.scrollBy({ left: container.offsetWidth, behavior: "smooth" });
+      }
+    }, 2000); // change every 4 seconds
+
+    return () => clearInterval(interval); // cleanup on unmount
+  }, []);
+
   return (
     <main
       className="min-h-screen  bg-opacity-80  bg-repeat"
@@ -251,31 +263,34 @@ export default function Home() {
       {/* News & Events */}
       <section className="w-full py-10 px-4">
         <div className="max-w-7xl mx-auto bg-gradient-to-b from-white rounded-3xl shadow-md px-6 py-8 relative">
-          {/* Header with arrows */}
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-2xl md:text-3xl font-bold text-green-800">
               News & Events
             </h2>
-            <div className="flex space-x-2">
-              <button
-                onClick={() => scroll("left")}
-                className="bg-[#d3e7b6] hover:bg-[#cce3ac] rounded-full p-2 transition"
-              >
-                <ChevronRight className="h-5 w-5 text-green-700 rotate-180" />
-              </button>
-              <button
-                onClick={() => scroll("right")}
-                className="bg-[#d3e7b6] hover:bg-[#cce3ac] rounded-full p-2 transition"
-              >
-                <ChevronRight className="h-5 w-5 text-green-700" />
-              </button>
-            </div>
           </div>
 
-          {/* Cards Row Scrollable */}
+          {/* Manual Arrows */}
+          <div className="absolute left-4 top-[50%] -translate-y-1/2 z-10">
+            <button
+              onClick={() => scroll("left")}
+              className="bg-[#e2f0d0] rounded-full p-2 hover:bg-[#d2e3bc] transition"
+            >
+              <ChevronRight className="h-5 w-5 text-green-700 rotate-180" />
+            </button>
+          </div>
+          <div className="absolute right-4 top-[50%] -translate-y-1/2 z-10">
+            <button
+              onClick={() => scroll("right")}
+              className="bg-[#e2f0d0] rounded-full p-2 hover:bg-[#d2e3bc] transition"
+            >
+              <ChevronRight className="h-5 w-5 text-green-700" />
+            </button>
+          </div>
+
+          {/* Scrollable Cards Row */}
           <div
             ref={scrollRef}
-            className="scrollbar-hide flex overflow-x-auto gap-6 scroll-smooth hide-scrollbar"
+            className="flex overflow-x-auto gap-6 scroll-smooth hide-scrollbar"
           >
             {event.map((event, idx) => (
               <div
@@ -402,6 +417,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      
 
       {/* Latest Articles */}
       <section className="w-full bg-gradient-to-b from-white  py-12 px-4">
