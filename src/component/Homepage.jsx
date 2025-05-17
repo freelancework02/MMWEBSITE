@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Navbar from "./Navbar/Navbar";
 import { ChevronRight, Eye, User } from "lucide-react";
 import bg from "../../public/images/bg.png";
@@ -31,18 +31,36 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 export default function Home() {
   const [articles, setArticles] = useState([]);
   const [writer, setWriter] = useState([]);
+  const [book, setBook] = useState([]);
+  const [event, setEvent] = useState([]);
+  const scrollRef = useRef(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const articlesRes = await fetch("https://newmmdata-backend.onrender.com/api/articles");
+        const articlesRes = await fetch(
+          "https://newmmdata-backend.onrender.com/api/articles"
+        );
         const articlesData = await articlesRes.json();
         setArticles(articlesData);
 
-        const writerRes = await fetch("https://newmmdata-backend.onrender.com/api/writers");
+        const writerRes = await fetch(
+          "https://newmmdata-backend.onrender.com/api/writers"
+        );
         const writerData = await writerRes.json();
         setWriter(writerData);
 
+        const Bookres = await fetch(
+          "https://newmmdata-backend.onrender.com/api/books"
+        );
+        const BookData = await Bookres.json();
+        setBook(BookData);
+
+        const Eventres = await fetch(
+          "https://newmmdata-backend.onrender.com/api/events"
+        );
+        const EventData = await Eventres.json();
+        setEvent(EventData);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -51,13 +69,31 @@ export default function Home() {
     fetchData();
   }, []);
 
-
-
   const [language, setLanguage] = useState("en");
 
   const isUrdu = language === "ur";
 
   const navigate = useNavigate();
+
+  const scroll = (direction) => {
+    if (direction === "left") {
+      scrollRef.current.scrollBy({ left: -300, behavior: "smooth" });
+    } else {
+      scrollRef.current.scrollBy({ left: 300, behavior: "smooth" });
+    }
+  };
+
+  const NewscrollRef = useRef(null);
+
+  const Newscroll = (direction) => {
+    if (scrollRef.current) {
+      const scrollAmount = scrollRef.current.offsetWidth;
+      scrollRef.current.scrollBy({
+        left: direction === "left" ? -scrollAmount : scrollAmount,
+        behavior: "smooth",
+      });
+    }
+  };
   return (
     <main
       className="min-h-screen  bg-opacity-80  bg-repeat"
@@ -67,12 +103,10 @@ export default function Home() {
         backgroundBlendMode: "overlay",
       }}
     >
-
       <Navbar />
       {/* Banner */}
       <div className="w-full  py-6 px-4 flex justify-center items-center">
         <div className="w-full max-w-[1440px] flex justify-center items-center gap-4 md:gap-8">
-
           {/* Left White Box */}
           <div className="hidden md:flex w-[300px] h-[200px] bg-white  shadow-md"></div>
 
@@ -90,25 +124,25 @@ export default function Home() {
         </div>
       </div>
 
-
       {/* About Sections */}
 
       <section className="w-full py-10 px-4">
         <div className="max-w-7xl mx-auto">
-
           {/* Language Switch */}
           <div className="flex justify-end mb-6 gap-2">
             <button
               onClick={() => setLanguage("ur")}
-              className={`gulzartext px-3 py-1 rounded-full text-sm ${isUrdu ? "bg-[#e8f0d9] text-black" : "bg-white"
-                }`}
+              className={`gulzartext px-3 py-1 rounded-full text-sm ${
+                isUrdu ? "bg-[#e8f0d9] text-black" : "bg-white"
+              }`}
             >
               اردو
             </button>
             <button
               onClick={() => setLanguage("en")}
-              className={`px-3 py-1 rounded-full text-sm ${!isUrdu ? "bg-[#e8f0d9] text-black" : "bg-white"
-                }`}
+              className={`px-3 py-1 rounded-full text-sm ${
+                !isUrdu ? "bg-[#e8f0d9] text-black" : "bg-white"
+              }`}
             >
               English
             </button>
@@ -125,22 +159,34 @@ export default function Home() {
                 />
               </div>
               <div className="bg-gradient-to-b from-[#fff] rounded-xl shadow-lg p-6">
-                <h3 className={`gulzartext text-orange-600 font-semibold mb-1 ${isUrdu && "text-right"}`}>
+                <h3
+                  className={`gulzartext text-orange-600 font-semibold mb-1 ${
+                    isUrdu && "text-right"
+                  }`}
+                >
                   {isUrdu ? "تعارف" : "About"}
                 </h3>
-                <h2 className={`gulzartext text-2xl font-bold text-gray-800 mb-3 ${isUrdu && "text-right"}`}>
+                <h2
+                  className={`gulzartext text-2xl font-bold text-gray-800 mb-3 ${
+                    isUrdu && "text-right"
+                  }`}
+                >
                   {isUrdu ? "منارہ مسجد ٹرسٹ" : "Minara Masjid Trust"}
                 </h2>
-                <p className={`gulzartext text-gray-700 mb-4 ${isUrdu ? "text-right" : "text-justify"}`}>
+                <p
+                  className={`gulzartext text-gray-700 mb-4 ${
+                    isUrdu ? "text-right" : "text-justify"
+                  }`}
+                >
                   {isUrdu
                     ? "مولا علی ریسرچ سینٹر کا مقصد پرانی اسلامیات حاصل کرنا ہے۔ کے مخطوطات (تشریحات، تفسیریں، تفسیر، وغیرہ) دنیا بھر کی لائبریریوں سے ہمارے آباؤ اجداد نے جو نہیں کیا ہے۔ شائع ہوا؛ شائع ہونے کی صورت میں وہ مزید قابل رسائی نہیں رہیں گے، وغیرہ اور جدید معیارات کے مطابق اس کی اشاعت پر کام کریں۔ عربی اور فارسی رسم الخط پر تحقیق کرکے، حوالہ دینا، متعدد زبانوں میں آسان ترجمہ، بنیادی طور پر انگریزی، ہندی اور اردو، اور آخر میں، پرنٹنگ اور ڈسٹری بیوشن یہ اسکالرز، ریسرچ ماہرین، دانشوروں اور پوری امت مسلمہ۔"
-                    : "Maula Ali Research Centre aims to acquire old Islamic manuscripts (Interpretations, Commentaries, Exegesis, etc.) of our ancestors from libraries across the world which have not been published; if published, they are no longer accessible, etc. and work upon its publication according to modern standards by carrying out research on the Arabic and Persian scripts, referencing, easy translation into multiple languages, mainly English, Hindi and Urdu, and lastly, printing and distributing it amongst the scholars, research experts, intellectuals and the entire Muslim Ummah."
-                  }
+                    : "Maula Ali Research Centre aims to acquire old Islamic manuscripts (Interpretations, Commentaries, Exegesis, etc.) of our ancestors from libraries across the world which have not been published; if published, they are no longer accessible, etc. and work upon its publication according to modern standards by carrying out research on the Arabic and Persian scripts, referencing, easy translation into multiple languages, mainly English, Hindi and Urdu, and lastly, printing and distributing it amongst the scholars, research experts, intellectuals and the entire Muslim Ummah."}
                 </p>
                 <a
                   href="/about"
-                  className={`text-green-700 hover:underline inline-flex items-center font-medium ${isUrdu ? "justify-end w-full" : ""
-                    }`}
+                  className={`text-green-700 hover:underline inline-flex items-center font-medium ${
+                    isUrdu ? "justify-end w-full" : ""
+                  }`}
                 >
                   {isUrdu ? "مزید پڑھیں" : "Read More"}{" "}
                   <ChevronRight
@@ -153,22 +199,36 @@ export default function Home() {
             {/* Card 2: Text Top, Image Bottom */}
             <div className="flex flex-col gap-4">
               <div className="bg-gradient-to-b from-[#fff] rounded-xl shadow-lg p-6">
-                <h3 className={`gulzartext text-orange-600 font-semibold mb-1 ${isUrdu && "text-right"}`}>
+                <h3
+                  className={`gulzartext text-orange-600 font-semibold mb-1 ${
+                    isUrdu && "text-right"
+                  }`}
+                >
                   {isUrdu ? "تعارف" : "About"}
                 </h3>
-                <h2 className={`gulzartext text-2xl font-bold text-gray-800 mb-3 ${isUrdu && "text-right"}`}>
-                  {isUrdu ? "مولا علی ریسرچ سینٹر" : "Maula Ali Research Centre"}
+                <h2
+                  className={`gulzartext text-2xl font-bold text-gray-800 mb-3 ${
+                    isUrdu && "text-right"
+                  }`}
+                >
+                  {isUrdu
+                    ? "مولا علی ریسرچ سینٹر"
+                    : "Maula Ali Research Centre"}
                 </h2>
-                <p className={`gulzartext text-gray-700 mb-4 ${isUrdu ? "text-right" : "text-justify"}`}>
+                <p
+                  className={`gulzartext text-gray-700 mb-4 ${
+                    isUrdu ? "text-right" : "text-justify"
+                  }`}
+                >
                   {isUrdu
                     ? "مولا علی ریسرچ سینٹر کا مقصد پرانی اسلامیات حاصل کرنا ہے۔ کے مخطوطات (تشریحات، تفسیریں، تفسیر، وغیرہ) دنیا بھر کی لائبریریوں سے ہمارے آباؤ اجداد نے جو نہیں کیا ہے۔ شائع ہوا؛ شائع ہونے کی صورت میں وہ مزید قابل رسائی نہیں رہیں گے، وغیرہ اور جدید معیارات کے مطابق اس کی اشاعت پر کام کریں۔ عربی اور فارسی رسم الخط پر تحقیق کرکے، حوالہ دینا، متعدد زبانوں میں آسان ترجمہ، بنیادی طور پر انگریزی، ہندی اور اردو، اور آخر میں، پرنٹنگ اور ڈسٹری بیوشن یہ اسکالرز، ریسرچ ماہرین، دانشوروں اور پوری امت مسلمہ۔"
-                    : "Maula Ali Research Centre aims to acquire old Islamic manuscripts (Interpretations, Commentaries, Exegesis, etc.) of our ancestors from libraries across the world which have not been published; if published, they are no longer accessible, etc. and work upon its publication according to modern standards by carrying out research on the Arabic and Persian scripts, referencing, easy translation into multiple languages, mainly English, Hindi and Urdu, and lastly, printing and distributing it amongst the scholars, research experts, intellectuals and the entire Muslim Ummah."
-                  }
+                    : "Maula Ali Research Centre aims to acquire old Islamic manuscripts (Interpretations, Commentaries, Exegesis, etc.) of our ancestors from libraries across the world which have not been published; if published, they are no longer accessible, etc. and work upon its publication according to modern standards by carrying out research on the Arabic and Persian scripts, referencing, easy translation into multiple languages, mainly English, Hindi and Urdu, and lastly, printing and distributing it amongst the scholars, research experts, intellectuals and the entire Muslim Ummah."}
                 </p>
                 <a
                   href="/about"
-                  className={`text-green-700 hover:underline inline-flex items-center font-medium ${isUrdu ? "justify-end w-full" : ""
-                    }`}
+                  className={`text-green-700 hover:underline inline-flex items-center font-medium ${
+                    isUrdu ? "justify-end w-full" : ""
+                  }`}
                 >
                   {isUrdu ? "مزید پڑھیں" : "Read More"}{" "}
                   <ChevronRight
@@ -188,9 +248,8 @@ export default function Home() {
         </div>
       </section>
 
-
       {/* News & Events */}
-      <section className="w-full py-10 px-4 ">
+      <section className="w-full py-10 px-4">
         <div className="max-w-7xl mx-auto bg-gradient-to-b from-white rounded-3xl shadow-md px-6 py-8 relative">
           {/* Header with arrows */}
           <div className="flex justify-between items-center mb-6">
@@ -198,53 +257,42 @@ export default function Home() {
               News & Events
             </h2>
             <div className="flex space-x-2">
-              <button className="bg-[#d3e7b6] hover:bg-[#cce3ac] rounded-full p-2 transition">
+              <button
+                onClick={() => scroll("left")}
+                className="bg-[#d3e7b6] hover:bg-[#cce3ac] rounded-full p-2 transition"
+              >
                 <ChevronRight className="h-5 w-5 text-green-700 rotate-180" />
               </button>
-              <button className="bg-[#d3e7b6] hover:bg-[#cce3ac] rounded-full p-2 transition">
+              <button
+                onClick={() => scroll("right")}
+                className="bg-[#d3e7b6] hover:bg-[#cce3ac] rounded-full p-2 transition"
+              >
                 <ChevronRight className="h-5 w-5 text-green-700" />
               </button>
             </div>
           </div>
 
-          {/* Cards Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                title: "Book Event",
-                image: News1,
-              },
-              {
-                title: "New Book Launch",
-                image: News2,
-              },
-              {
-                title: "Islamic Program",
-                image: News3,
-              },
-              {
-                title: "Jashn e Maula Ali",
-                image: News4,
-              },
-            ].map((event, idx) => (
+          {/* Cards Row Scrollable */}
+          <div
+            ref={scrollRef}
+            className="scrollbar-hide flex overflow-x-auto gap-6 scroll-smooth hide-scrollbar"
+          >
+            {event.map((event, idx) => (
               <div
                 key={idx}
-                className="bg-gradient-to-b from-[#f6fbf1] rounded-2xl p-4 shadow-md"
+                className="w-[90%] sm:w-[47%] md:w-[47%] lg:w-[23%] flex-shrink-0 bg-gradient-to-b from-[#f6fbf1] rounded-2xl p-4 shadow-md"
               >
                 <div className="overflow-hidden rounded-xl mb-4">
                   <img
-                    src={event.image}
+                    src={`https://newmmdata-backend.onrender.com/api/events/image/${event.id}`}
                     alt={event.title}
                     className="w-full h-[160px] object-cover rounded-xl"
                   />
                 </div>
-                <h3 className="text-green-800 text-lg font-bold mb-1">
+                <h3 className="gulzartext text-green-800 text-lg font-bold mb-1">
                   {event.title}
                 </h3>
-                <p className="text-gray-700 text-sm mb-4">
-                  Maula Ali Research Centre aims to acquire old Islamic
-                  manuscripts (Interpretations,
-                </p>
+                <p className="text-gray-700 text-sm mb-4">{event.content}</p>
                 <div className="flex justify-between items-center">
                   <a
                     href="/article"
@@ -272,7 +320,7 @@ export default function Home() {
       </section>
 
       {/* Our Books */}
-      <section className="w-full py-10 px-4 relative  overflow-hidden">
+      <section className="w-full py-10 px-4 relative overflow-hidden">
         {/* Painted White Effects */}
         <div className="absolute top-0 left-0 w-[300px] h-[300px] bg-white opacity-30 blur-3xl rounded-full -z-10"></div>
         <div className="absolute bottom-0 right-0 w-[250px] h-[250px] bg-white opacity-40 blur-2xl rounded-full -z-10"></div>
@@ -291,55 +339,47 @@ export default function Home() {
 
           {/* Arrows */}
           <div className="absolute left-4 top-[50%] -translate-y-1/2 z-10">
-            <button className="bg-[#e2f0d0] rounded-full p-2 hover:bg-[#d2e3bc] transition">
+            <button
+              onClick={() => scroll("left")}
+              className="bg-[#e2f0d0] rounded-full p-2 hover:bg-[#d2e3bc] transition"
+            >
               <ChevronRight className="h-5 w-5 text-green-700 rotate-180" />
             </button>
           </div>
           <div className="absolute right-4 top-[50%] -translate-y-1/2 z-10">
-            <button className="bg-[#e2f0d0] rounded-full p-2 hover:bg-[#d2e3bc] transition">
+            <button
+              onClick={() => scroll("right")}
+              className="bg-[#e2f0d0] rounded-full p-2 hover:bg-[#d2e3bc] transition"
+            >
               <ChevronRight className="h-5 w-5 text-green-700" />
             </button>
           </div>
 
-          {/* Book Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                title: "Sayedul Astagfar",
-                image: Book1,
-              },
-              {
-                title: "Ghayatul Wajud",
-                image: Book2,
-              },
-              {
-                title: "The Eloquenc",
-                image: Book3,
-              },
-              {
-                title: "Zameerul Insan",
-                image: Book4,
-              },
-            ].map((book, index) => (
+          {/* Book Cards Scrollable */}
+          <div
+            ref={scrollRef}
+            className="flex gap-6 overflow-x-auto scrollbar-hide scroll-smooth px-2"
+          >
+            {book.map((book, index) => (
               <div
                 key={index}
-                className="bg-[#f1f7ea] rounded-xl py-6 px-4 shadow-sm flex flex-col items-start"
+                className="min-w-[260px] lg:min-w-[270px] bg-[#f1f7ea] rounded-xl py-6 px-4 shadow-sm flex flex-col items-start flex-shrink-0"
               >
                 <img
-                  src={book.image}
+                  src={`https://newmmdata-backend.onrender.com/api/books/cover/${book.id}`}
                   alt={book.title}
-                  className="h-[220px] object-contain mb-4 self-center"
+                  className="h-[220px] w-[200px] object-fit mb-4 self-center"
                 />
                 <h3 className="text-lg font-semibold text-[#5b7a1c] mb-1">
                   {book.title}
                 </h3>
                 <p className="text-sm text-gray-800">Writer</p>
                 <p className="text-sm font-medium text-gray-600 mb-1">
-                  Hazrat Makhdoom Ali Mahaimi
+                  {book.author}
                 </p>
                 <p className="text-sm text-gray-800">Translator</p>
                 <p className="text-sm font-medium text-gray-600 mb-4">
-                  Mufti Farooq Mahaimi
+                  {book.translator}
                 </p>
                 <a
                   href="/books"
@@ -388,17 +428,19 @@ export default function Home() {
             ].map((tag, index) => (
               <div
                 key={index}
-                className={`gulzartext flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium ${tag.active
-                  ? "bg-green-600 text-white"
-                  : "bg-yellow-100 text-yellow-900"
-                  }`}
+                className={`gulzartext flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium ${
+                  tag.active
+                    ? "bg-green-600 text-white"
+                    : "bg-yellow-100 text-yellow-900"
+                }`}
               >
                 <span className="font-urdu text-lg">{tag.text}</span>
                 <span
-                  className={`${tag.active
-                    ? "bg-white text-green-700"
-                    : "bg-white text-yellow-800"
-                    } px-2 py-0.5 rounded-full text-xs font-semibold`}
+                  className={`${
+                    tag.active
+                      ? "bg-white text-green-700"
+                      : "bg-white text-yellow-800"
+                  } px-2 py-0.5 rounded-full text-xs font-semibold`}
                 >
                   {tag.count}
                 </span>
@@ -408,7 +450,10 @@ export default function Home() {
 
           {/* Article Cards */}
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" onClick={()=>navigate("/article")}>
+          <div
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+            onClick={() => navigate("/article")}
+          >
             {articles.map((article, index) => (
               <div
                 key={index}
@@ -423,8 +468,7 @@ export default function Home() {
                       className="object-cover w-full h-full"
                     />
                   )}
-                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
 
                   {/* Buttons */}
                   <div className="absolute top-3 left-3 right-3 flex justify-between items-start">
@@ -454,7 +498,9 @@ export default function Home() {
                 {/* Description Section */}
                 <div className="p-4">
                   <p className="gulzartext text-sm mb-3 leading-relaxed line-clamp-2">
-                    {article.urduDescription || article.englishDescription || "No description available."}
+                    {article.urduDescription ||
+                      article.englishDescription ||
+                      "No description available."}
                   </p>
 
                   <div className="flex flex-col gap-1">
@@ -474,9 +520,6 @@ export default function Home() {
               </div>
             ))}
           </div>
-
-
-
 
           {/* View All Button */}
           <div className="flex justify-center mt-10">
