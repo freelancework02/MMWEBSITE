@@ -1,4 +1,4 @@
-import React, { useState, useEffect  } from "react";
+import React, { useState, useEffect } from "react";
 import { Search } from "lucide-react";
 import { useNavigate, useParams } from 'react-router-dom';
 import logo from "../../public/images/marclogo.png";
@@ -17,24 +17,49 @@ export default function Home() {
   const { id } = useParams();
 
   useEffect(() => {
-      const fetchSingleArticle = async () => {
-        try {
-          const res = await fetch(`https://newmmdata-backend.onrender.com/api/articles/${id}`);
-          const data = await res.json();
-          setArticle(data);
-        } catch (err) {
-          console.error("Error fetching Article:", err);
-        }
-      };
-  
-      if (id) fetchSingleArticle();
-    }, [id]);
+    const fetchSingleArticle = async () => {
+      try {
+        const res = await fetch(`https://newmmdata-backend.onrender.com/api/articles/${id}`);
+        const data = await res.json();
+        setArticle(data);
+      } catch (err) {
+        console.error("Error fetching Article:", err);
+      }
+    };
 
-    if (!article) {
+    if (id) fetchSingleArticle();
+  }, [id]);
+
+  if (!article) {
     return <div className="text-center p-4">لوڈ ہو رہا ہے...</div>;
   }
 
   console.log("Here is the artilce", article)
+
+  const getActiveDescription = (article) => {
+    if (article.englishDescription && article.englishDescription.trim() !== '') {
+      return { text: article.englishDescription, lang: 'english' };
+    } else if (article.urduDescription && article.urduDescription.trim() !== '') {
+      return { text: article.urduDescription, lang: 'urdu' };
+    } else {
+      return { text: 'No description available.', lang: 'english' };
+    }
+  };
+
+   const { text, lang } = getActiveDescription(article);
+
+  const formatDescription = (htmlString) => {
+    if (!htmlString) return [];
+
+    const cleanText = htmlString
+      .replace(/<br\s*\/?>/gi, '\n')
+      .replace(/<[^>]*>/g, '')
+      .replace(/&nbsp;/g, ' ')
+      .trim();
+
+    return cleanText.split('\n').filter(line => line.trim() !== '');
+  };
+
 
   return (
     <main className="min-h-screen bg-[#f0f5e9]  bg-cover z-10" >
@@ -157,7 +182,7 @@ export default function Home() {
       >
         <div className="flex items-center justify-center mt-4 h-[200px] w-full bg-[#C0D7AA]/80 rounded-b-4xl">
           <h1 className="gulzartext text-3xl md:text-4xl font-bold text-[#4a7031] text-center rtl px-4">
-           {article.title}
+            {article.title}
           </h1>
         </div>
       </div>
@@ -259,9 +284,16 @@ export default function Home() {
 
           {/* Article Content */}
           <div className="rtl text-right leading-relaxed space-y-4">
-            <p className="gulzartext">
-              {article.urduDescription}
-            </p>
+            <div className="gulzartext space-y-2">
+             
+              <div className={`leading-relaxed space-y-4 ${lang === 'urdu' ? 'rtl text-left' : 'ltr text-right'
+                }`}>
+                {formatDescription(text).map((line, index) => (
+                  <p key={index} className={`text-lg ${lang === 'urdu' ? 'gulzartext text-[#4a7031]' : 'text-gray-800'
+                    }`}>{line}</p>
+                ))}
+              </div>
+            </div>
             {/* <p className="gulzartext">
               "ہم نے اس ذکر کو نازل کیا، ہم ہی اس کے محافظ ہیں۔"
             </p>
