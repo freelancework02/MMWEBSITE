@@ -301,7 +301,7 @@ const Question = () => {
                     </span>
                   </div>
                   {/* Question Text */}
-                  <p className="text-right text-gray-700 leading-relaxed text-base gulzartext cursor-pointer">
+                  <p className="text-right text-gray-700 leading-relaxed text-base gulzartext cursor-pointer line-clamp-2">
                     {q.slug}
                   </p>
                 </div>
