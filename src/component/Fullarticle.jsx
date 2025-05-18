@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Search } from "lucide-react";
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from "react-router-dom";
 import logo from "../../public/images/marclogo.png";
 
 import bg from "../../public/images/bg.png";
@@ -12,16 +12,27 @@ import Articleimg3 from "../../public/Articlepage/article3.png";
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [article, setArticle] = useState([])
+  const [article, setArticle] = useState([]);
+  const [activeLanguage, setActiveLanguage] = useState("urdu"); // Default to Urdu
+  const [allarticle, setAllarticle] = useState([]);
   const articleImages = [Articleimg1, Articleimg2, Articleimg3];
   const { id } = useParams();
 
   useEffect(() => {
     const fetchSingleArticle = async () => {
       try {
-        const res = await fetch(`https://newmmdata-backend.onrender.com/api/articles/${id}`);
+        const res = await fetch(
+          `https://newmmdata-backend.onrender.com/api/articles/${id}`
+        );
         const data = await res.json();
         setArticle(data);
+
+        const articleres = await fetch(
+          "https://newmmdata-backend.onrender.com/api/articles"
+        );
+        const resdata = await articleres.json();
+        setAllarticle(resdata);
+        console.log(resdata);
       } catch (err) {
         console.error("Error fetching Article:", err);
       }
@@ -34,40 +45,42 @@ export default function Home() {
     return <div className="text-center p-4">لوڈ ہو رہا ہے...</div>;
   }
 
-  console.log("Here is the artilce", article)
-
-  const getActiveDescription = (article) => {
-    if (article.englishDescription && article.englishDescription.trim() !== '') {
-      return { text: article.englishDescription, lang: 'english' };
-    } else if (article.urduDescription && article.urduDescription.trim() !== '') {
-      return { text: article.urduDescription, lang: 'urdu' };
-    } else {
-      return { text: 'No description available.', lang: 'english' };
+  const getActiveDescription = () => {
+    switch (activeLanguage) {
+      case "english":
+        return (
+          article.englishDescription || "No English description available."
+        );
+      case "urdu":
+        return article.urduDescription || "اردو تفصیل دستیاب نہیں ہے۔";
+      case "roman":
+        return article.englishDescription || "No Roman description available.";
+      default:
+        return article.urduDescription || "اردو تفصیل دستیاب نہیں ہے۔";
     }
   };
 
-   const { text, lang } = getActiveDescription(article);
+  const activeDescription = getActiveDescription();
 
   const formatDescription = (htmlString) => {
     if (!htmlString) return [];
 
     const cleanText = htmlString
-      .replace(/<br\s*\/?>/gi, '\n')
-      .replace(/<[^>]*>/g, '')
-      .replace(/&nbsp;/g, ' ')
+      .replace(/<br\s*\/?>/gi, "\n")
+      .replace(/<[^>]*>/g, "")
+      .replace(/&nbsp;/g, " ")
       .trim();
 
-    return cleanText.split('\n').filter(line => line.trim() !== '');
+    return cleanText.split("\n").filter((line) => line.trim() !== "");
   };
 
-
   return (
-    <main className="min-h-screen bg-[#f0f5e9]  bg-cover z-10" >
+    <main className="min-h-screen bg-[#f0f5e9] bg-cover z-10">
       <div
         className="absolute inset-0 bg-cover bg-no-repeat opacity-70"
-        style={{ backgroundImage: `url(${bg})`, backgroundPosition: 'center' }}
+        style={{ backgroundImage: `url(${bg})`, backgroundPosition: "center" }}
       ></div>
-      <header className="bg-[#718e56]  sticky top-0 mb-4 z-50  shadow-sm border-b border-green-100">
+      <header className="bg-[#718e56] sticky top-0 mb-4 z-50 shadow-sm border-b border-green-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-2 relative pb-2">
           <div className="flex justify-between items-center py-5">
             {/* Desktop Left Nav */}
@@ -187,7 +200,6 @@ export default function Home() {
         </div>
       </div>
 
-
       {/* Author Profile */}
       <div className="flex items-center justify-end gap-4 mt-6 px-6 mr-6 sm:px-8 md:px-16 flex-wrap">
         <div className="text-right">
@@ -195,7 +207,6 @@ export default function Home() {
           <h2 className="font-extrabold text-xl text-[#4a7031] gulzartext">
             مفتی فاروق مہمانی
           </h2>
-
         </div>
         <img
           src={user}
@@ -205,10 +216,62 @@ export default function Home() {
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-6 mb-10"
-      >
-        {/* Left Sidebar */}
-        <div className="md:col-span-1 space-y-6">
+      <div className="relative z-10 container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+        {/* Main Content - moved first in DOM for mobile */}
+        <div className="md:col-span-2 bg-white rounded-lg shadow-lg p-6 space-y-6 order-1 md:order-2">
+          {/* Language Tabs */}
+          <div className="flex rounded-full overflow-hidden border border-[#d6e5c4]">
+            <button
+              onClick={() => setActiveLanguage("urdu")}
+              className={`gulzartext flex-1 text-center py-2 text-[#4a7031] cursor-pointer rtl ${
+                activeLanguage === "urdu" ? "bg-[#c1d9a3]" : "bg-[#e8f0e0]"
+              }`}
+            >
+              اردو
+            </button>
+            <button
+              onClick={() => setActiveLanguage("roman")}
+              className={`flex-1 text-center py-2 cursor-pointer ${
+                activeLanguage === "roman" ? "bg-[#c1d9a3]" : "bg-[#e8f0e0]"
+              }`}
+            >
+              Roman
+            </button>
+            <button
+              onClick={() => setActiveLanguage("english")}
+              className={`flex-1 text-center py-2 cursor-pointer ${
+                activeLanguage === "english" ? "bg-[#c1d9a3]" : "bg-[#e8f0e0]"
+              }`}
+            >
+              English
+            </button>
+          </div>
+
+          {/* Article Content */}
+          <div
+            className={`leading-relaxed space-y-8 ${
+              activeLanguage === "urdu" ? "rtl text-right" : "ltr text-left"
+            }`}
+          >
+            <div
+              className="prose max-w-none gulzartext"
+              dangerouslySetInnerHTML={{ __html: activeDescription }}
+            />
+          </div>
+
+          {/* Buttons */}
+          <div className="flex justify-between mt-6">
+            <button className="gulzartext bg-[#e8f0e0] text-[#4a7031] px-4 py-2 rounded-full text-sm">
+              آگے پڑھیں
+            </button>
+            <button className="gulzartext bg-[#e8f0e0] text-[#4a7031] px-4 py-2 rounded-full text-sm">
+              قرآنی آیات
+            </button>
+          </div>
+        </div>
+
+        {/* Left Sidebar - moved second in DOM for mobile */}
+        <div className="md:col-span-1 space-y-6 order-2 md:order-1">
           <div className="bg-white rounded-lg overflow-hidden shadow-lg">
             <img
               src={Book}
@@ -217,33 +280,41 @@ export default function Home() {
             />
           </div>
 
-          {articleImages.map((item, index) => (
+          {allarticle.map((item, index) => (
             <div
               key={index}
-              className="rounded-xl overflow-hidden  bg-[#ecf1e1] "
+              className="rounded-xl overflow-hidden bg-[#ecf1e1]"
             >
               {/* Top Image with Overlay Text */}
-              <div
-                className="h-28 bg-cover bg-center flex items-center justify-center text-white text-center font-bold text-lg gulzartext rtl"
-                style={{
-                  backgroundImage: `url(${item})`,
-                  backgroundPosition: 'center',
-                  backgroundSize: 'cover',
-                }}
-              >
-                آیاتِ قرآنی کی حیرت انگیز تاثیر کا ایک نمونہ
+
+              <div className="relative h-28 overflow-hidden rounded-t-xl">
+                {/* Background Image */}
+                <div
+                  className="absolute inset-0 bg-cover bg-center"
+                  style={{
+                    backgroundImage: `url(https://newmmdata-backend.onrender.com/api/articles/image/${item.id})`,
+                  }}
+                ></div>
+
+                {/* Black Overlay */}
+                <div className="absolute inset-0 bg-black/30"></div>
+
+                {/* Text Content */}
+                <div className="relative z-10 flex items-center justify-center h-full text-white text-center font-bold text-lg gulzartext rtl">
+                  {item.title}
+                </div>
               </div>
 
               {/* Article Info */}
-              <div className="p-4 space-y-1 rtl text-right font-sans">
-                <p className="text-[13px] text-gray-700 leading-snug">
-                  Quran-e-Hakeem ki aayaat mein Khudaa-e-Qudduus ne bijli ki taaseer se bhi zyada hairat
+              <div className="p-4 space-y-1 rtl text-left font-sans">
+                <p className="text-[13px] text-gray-700 leading-snug line-clamp-2">
+                  {item.englishDescription}
                 </p>
                 <p className="text-[13px] text-gray-700 font-semibold">
-                  Writer : Mufti Farooque Mahaimi
+                  Writer : {item.writers}
                 </p>
                 <p className="text-[13px] text-gray-700 font-semibold">
-                  Mutarjim : Faiz Ashrafi
+                  Mutarjim : {item.translator}
                 </p>
 
                 {/* View Count */}
@@ -261,77 +332,21 @@ export default function Home() {
               </div>
             </div>
           ))}
-
-        </div>
-
-        {/* Main Content */}
-        <div className="md:col-span-2 bg-white rounded-lg shadow-lg p-6 space-y-6">
-          {/* Language Tabs */}
-          <div className="flex rounded-full overflow-hidden border border-[#d6e5c4]">
-            <div className="gulzartext flex-1 bg-[#c1d9a3] text-center py-2 text-[#4a7031] cursor-pointer rtl">
-              اردو
-            </div>
-            <div className="flex-1 bg-[#e8f0e0] text-center py-2 cursor-pointer">
-              Roman
-            </div>
-            <div className="flex-1 bg-[#e8f0e0] text-center py-2 cursor-pointer">
-              English
-            </div>
-          </div>
-
-          {/* Author Info — updated */}
-
-
-          {/* Article Content */}
-          <div className="rtl text-right leading-relaxed space-y-4">
-            <div className="gulzartext space-y-2">
-             
-              <div className={`leading-relaxed space-y-4 ${lang === 'urdu' ? 'rtl text-left' : 'ltr text-right'
-                }`}>
-                {formatDescription(text).map((line, index) => (
-                  <p key={index} className={`text-lg ${lang === 'urdu' ? 'gulzartext text-[#4a7031]' : 'text-gray-800'
-                    }`}>{line}</p>
-                ))}
-              </div>
-            </div>
-            {/* <p className="gulzartext">
-              "ہم نے اس ذکر کو نازل کیا، ہم ہی اس کے محافظ ہیں۔"
-            </p>
-            <p className="gulzartext">
-              حضرت عثمان رضی اللہ عنہ فرماتے ہیں: "خیرکم من تعلم القرآن وعلمہ"
-            </p>
-            <p className="gulzartext text-gray-600 text-sm">
-              (بخاری کتاب فضائل القرآن، باب خیرکم من تعلم القرآن۔ 3/410، حدیث نمبر
-              5028)
-            </p> */}
-          </div>
-
-          {/* Buttons */}
-          <div className="flex justify-between mt-6">
-            <button className="gulzartext bg-[#e8f0e0] text-[#4a7031] px-4 py-2 rounded-full text-sm">
-              آگے پڑھیں
-            </button>
-            <button className="gulzartext bg-[#e8f0e0] text-[#4a7031] px-4 py-2 rounded-full text-sm">
-              قرآنی آیات
-            </button>
-          </div>
         </div>
       </div>
-
-
 
       {/* Author Profile */}
       <div className="container mx-auto px-4 py-8">
         <div className="bg-white rounded-xl p-6 shadow-sm mb-12">
           <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-6">
-            <div className="flex-1 text-right order-2 md:order-1">
-              <h1 className="text-2xl md:text-3xl font-bold text-green-700 mb-2 rtl gulzartext">
+            <div className="flex-1 text-right order-2 md:order-1 rtl">
+              <h1 className="text-2xl md:text-3xl font-bold text-green-700 mb-2 gulzartext">
                 اسلامک اسکالر
               </h1>
-              <h2 className="text-xl md:text-2xl font-semibold text-gray-800 mb-4 rtl gulzartext">
+              <h2 className="text-xl md:text-2xl font-semibold text-gray-800 mb-4 gulzartext">
                 مفتی فاروق مہائمی مصباحی
               </h2>
-              <p className="text-sm md:text-base text-gray-700 leading-relaxed rtl gulzartext">
+              <p className="text-sm md:text-base text-gray-700 leading-relaxed gulzartext">
                 مفتی فاروق مہائمی ایک معروف اسلامی عالم، مدرس اور مصنف ہیں۔ آپ
                 دینی خدمات میں نمایاں شہرت رکھتے ہیں۔ آپ کئی اسلامی تحقیقی کتب
                 کے مصنف ہیں اور مختلف دینی اداروں سے وابستہ رہے ہیں۔ آپ نے
@@ -359,7 +374,9 @@ export default function Home() {
       {/* Writer Articles Highlights */}
       <div className="relative z-10 container mx-auto px-4 mb-10">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="font-bold text-2xl text-[#1f1f1f]">Writer Articals Highlights</h2>
+          <h2 className="font-bold text-2xl text-[#1f1f1f]">
+            Writer Articals Highlights
+          </h2>
           <a
             href="/articles"
             className="bg-white border border-[#4a7031] text-[#4a7031] rounded-full px-4 py-1 text-sm font-medium hover:bg-[#eaf3df] transition"
@@ -370,10 +387,18 @@ export default function Home() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[1, 2, 3].map((index) => (
-            <div key={index} className="rounded-xl overflow-hidden shadow-sm border border-gray-200">
+            <div
+              key={index}
+              className="rounded-xl overflow-hidden shadow-sm border border-gray-200"
+            >
               {/* Image with overlay */}
               <div className="relative h-48">
-                <img src={Articleimg1} alt="Article" fill className="object-cover h-full w-full" />
+                <img
+                  src={Articleimg1}
+                  alt="Article"
+                  fill
+                  className="object-cover h-full w-full"
+                />
 
                 {/* Top-left Language tag */}
                 <div className="absolute top-2 left-2 bg-[#e8f0e0] rounded-full px-2 py-0.5 text-xs font-['Gulzar']">
@@ -382,14 +407,20 @@ export default function Home() {
 
                 {/* Top-right Language buttons */}
                 <div className="absolute top-2 right-2 flex space-x-2 rtl:space-x-reverse">
-                  <div className="bg-white rounded-full px-2 py-0.5 text-xs">Roman</div>
-                  <div className="bg-white rounded-full px-2 py-0.5 text-xs">Urdu</div>
+                  <div className="bg-white rounded-full px-2 py-0.5 text-xs">
+                    Roman
+                  </div>
+                  <div className="bg-white rounded-full px-2 py-0.5 text-xs">
+                    Urdu
+                  </div>
                 </div>
 
                 {/* Text Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex flex-col justify-end p-4">
                   <h3 className="font-['Gulzar'] font-bold text-white text-right rtl mb-1 text-lg leading-snug">
-                    {index % 2 === 0 ? "آیات قرآنی کی حیرت انگیز" : "راز کی باتیں"}
+                    {index % 2 === 0
+                      ? "آیات قرآنی کی حیرت انگیز"
+                      : "راز کی باتیں"}
                   </h3>
                   <h4 className="font-['Gulzar'] font-bold text-white text-right rtl text-sm">
                     {index % 2 === 0 ? "تاثیر کا ایک نمونہ" : "کامیابی کی حکمت"}
@@ -403,7 +434,8 @@ export default function Home() {
                   قرآن حکیم کی آیات میں خدا کی قدرت اور تاثیر کا بیان
                 </p>
                 <p className="font-['Gulzar'] text-xs text-right rtl text-gray-600 mb-1">
-                  <span className="font-semibold">مصنف :</span> مفتی فاروق مہائمی
+                  <span className="font-semibold">مصنف :</span> مفتی فاروق
+                  مہائمی
                 </p>
                 <p className="font-['Gulzar'] text-xs text-right rtl text-gray-600">
                   <span className="font-semibold">مترجم :</span> فیض اشرفی
@@ -413,7 +445,6 @@ export default function Home() {
           ))}
         </div>
       </div>
-
     </main>
   );
 }
