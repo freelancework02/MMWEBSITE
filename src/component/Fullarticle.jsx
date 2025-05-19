@@ -372,7 +372,7 @@ export default function Home() {
       </div>
 
       {/* Writer Articles Highlights */}
-      <div className="relative z-10 container mx-auto px-4 mb-10">
+      {/* <div className="relative z-10 container mx-auto px-4 mb-10">
         <div className="flex justify-between items-center mb-6">
           <h2 className="font-bold text-2xl text-[#1f1f1f]">
             Writer Articals Highlights
@@ -391,7 +391,7 @@ export default function Home() {
               key={index}
               className="rounded-xl overflow-hidden shadow-sm border border-gray-200"
             >
-              {/* Image with overlay */}
+             
               <div className="relative h-48">
                 <img
                   src={Articleimg1}
@@ -400,12 +400,12 @@ export default function Home() {
                   className="object-cover h-full w-full"
                 />
 
-                {/* Top-left Language tag */}
+                {
                 <div className="absolute top-2 left-2 bg-[#e8f0e0] rounded-full px-2 py-0.5 text-xs font-['Gulzar']">
                   مقالے
                 </div>
 
-                {/* Top-right Language buttons */}
+             
                 <div className="absolute top-2 right-2 flex space-x-2 rtl:space-x-reverse">
                   <div className="bg-white rounded-full px-2 py-0.5 text-xs">
                     Roman
@@ -415,7 +415,7 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* Text Overlay */}
+               
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex flex-col justify-end p-4">
                   <h3 className="font-['Gulzar'] font-bold text-white text-right rtl mb-1 text-lg leading-snug">
                     {index % 2 === 0
@@ -428,7 +428,7 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Card Bottom Content */}
+             
               <div className="p-4">
                 <p className="font-['Gulzar'] text-xs text-right rtl text-gray-600 mb-1 leading-relaxed">
                   قرآن حکیم کی آیات میں خدا کی قدرت اور تاثیر کا بیان
@@ -444,7 +444,7 @@ export default function Home() {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
     </main>
   );
 }

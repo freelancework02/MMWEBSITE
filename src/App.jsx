@@ -14,6 +14,8 @@ import ArticleFullpage from './component/Articlefullpage'
 import Question from './component/Question'
 import QuestionDetail from './component/QuestionDetail'
 import Quesetionpage from './component/Questionpage'
+import Requestbook from './component/Requestbook'
+
 
 const App = () => {
   return (
@@ -33,6 +35,8 @@ const App = () => {
           <Route path="/question" element={<Question/>} />
           <Route path="/question/:id"  element={<QuestionDetail/>} />
           <Route path="/questionlist"  element={<Quesetionpage/>} />
+          <Route path="/requestbook"  element={<Requestbook/>} />
+        
         
        
           {/* Add more routes here as needed */}

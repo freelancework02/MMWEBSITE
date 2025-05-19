@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import Navbar from "./Navbar/Navbar";
 import { ChevronRight, Eye, User } from "lucide-react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import bg from "../../public/images/bg.png";
 import image from "../../public/images/image 2.png";
 import Banner from "../../public/images/banner.png";
@@ -28,12 +31,27 @@ import Articleimg10 from "../../public/Article/article10.png";
 import Userimg from "../../public/Scholar/user.png";
 import { useSearchParams, useNavigate } from "react-router-dom";
 
+const banners = [Banner, Banner, Banner];
+ const BannerCarousel = () => {
+    
+  };
 export default function Home() {
   const [articles, setArticles] = useState([]);
   const [writer, setWriter] = useState([]);
   const [book, setBook] = useState([]);
   const [event, setEvent] = useState([]);
   const scrollRef = useRef(null);
+
+  const settings = {
+      dots: true,
+      infinite: true,
+      autoplay: true,
+      autoplaySpeed: 3000,
+      speed: 800,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      arrows: false,
+    };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -85,6 +103,7 @@ export default function Home() {
     }
   };
 
+ 
   // ✅ Auto-scroll effect
   useEffect(() => {
     const interval = setInterval(() => {
@@ -117,22 +136,34 @@ export default function Home() {
     >
       <Navbar />
       {/* Banner */}
-      <div className="w-full  py-6 px-4 flex justify-center items-center">
+      <div className="w-full py-6 px-4 flex justify-center items-center bg-gray-100">
         <div className="w-full max-w-[1440px] flex justify-center items-center gap-4 md:gap-8">
           {/* Left White Box */}
-          <div className="hidden md:flex w-[300px] h-[200px] bg-white  shadow-md"></div>
+          <div
+            className="hidden md:flex w-[300px] h-[200px] bg-white rounded-2xl shadow-md bg-cover bg-center"
+            style={{ backgroundImage: `url(${Banner})` }}
+          ></div>
 
-          {/* Center Banner */}
+          {/* Center Carousel */}
           <div className="w-full md:w-auto max-w-[800px] rounded-xl overflow-hidden shadow-lg">
-            <img
-              src={Banner}
-              alt="Maula Ali Research Centre Banner"
-              className="w-full h-auto object-cover"
-            />
+            <Slider {...settings}>
+              {banners.map((banner, index) => (
+                <div key={index}>
+                  <img
+                    src={banner}
+                    alt={`Banner ${index + 1}`}
+                    className="w-full h-[200px] md:h-[300px] object-cover rounded-xl"
+                  />
+                </div>
+              ))}
+            </Slider>
           </div>
 
           {/* Right White Box */}
-          <div className="hidden md:flex w-[300px] h-[200px] bg-white rounded-2xl shadow-md"></div>
+          <div
+            className="hidden md:flex w-[300px] h-[200px] bg-white rounded-2xl shadow-md bg-cover bg-center"
+            style={{ backgroundImage: `url(${Banner})` }}
+          ></div>
         </div>
       </div>
 
@@ -144,7 +175,7 @@ export default function Home() {
           <div className="flex justify-end mb-6 gap-2">
             <button
               onClick={() => setLanguage("ur")}
-              className={`gulzartext px-3 py-1 rounded-full text-sm ${
+              className={`gulzartext px-3 py-1 rounded-full text-sm cursor-pointer ${
                 isUrdu ? "bg-[#e8f0d9] text-black" : "bg-white"
               }`}
             >
@@ -152,7 +183,7 @@ export default function Home() {
             </button>
             <button
               onClick={() => setLanguage("en")}
-              className={`px-3 py-1 rounded-full text-sm ${
+              className={`px-3 py-1 rounded-full text-sm cursor-pointer ${
                 !isUrdu ? "bg-[#e8f0d9] text-black" : "bg-white"
               }`}
             >
@@ -270,12 +301,12 @@ export default function Home() {
           </div>
 
           {/* Manual Arrows */}
-          <div className="absolute left-4 top-[50%] -translate-y-1/2 z-10">
+          <div className="absolute left-4 top-[50%] -translate-y-1/2 z-10 ">
             <button
               onClick={() => scroll("left")}
               className="bg-[#e2f0d0] rounded-full p-2 hover:bg-[#d2e3bc] transition"
             >
-              <ChevronRight className="h-5 w-5 text-green-700 rotate-180" />
+              <ChevronRight className="h-5 w-5 text-green-700 rotate-180 cursor-pointer" />
             </button>
           </div>
           <div className="absolute right-4 top-[50%] -translate-y-1/2 z-10">
@@ -283,14 +314,14 @@ export default function Home() {
               onClick={() => scroll("right")}
               className="bg-[#e2f0d0] rounded-full p-2 hover:bg-[#d2e3bc] transition"
             >
-              <ChevronRight className="h-5 w-5 text-green-700" />
+              <ChevronRight className="h-5 w-5 text-green-700 cursor-pointer" />
             </button>
           </div>
 
           {/* Scrollable Cards Row */}
           <div
             ref={scrollRef}
-            className="flex overflow-x-auto gap-6 scroll-smooth hide-scrollbar"
+            className="flex overflow-x-auto gap-6 scroll-smooth hide-scrollbar cursor-pointer"
           >
             {event.map((event, idx) => (
               <div
@@ -304,10 +335,12 @@ export default function Home() {
                     className="w-full h-[160px] object-cover rounded-xl"
                   />
                 </div>
-                <h3 className="gulzartext text-green-800 text-lg font-bold mb-1">
+                <h3 className="gulzartext text-green-800 text-lg font-bold mb-1 ">
                   {event.title}
                 </h3>
-                <p className="text-gray-700 text-sm mb-4">{event.content}</p>
+                <p className="text-gray-700 text-sm mb-4 gulzartext line-clamp-1">
+                  {event.content}
+                </p>
                 <div className="flex justify-between items-center">
                   <a
                     href="/article"
@@ -373,7 +406,8 @@ export default function Home() {
           {/* Book Cards Scrollable */}
           <div
             ref={scrollRef}
-            className="flex gap-6 overflow-x-auto scrollbar-hide scroll-smooth px-2"
+            className="flex gap-6 overflow-x-auto scrollbar-hide scroll-smooth px-2 cursor-pointer"
+            onClick={() => navigate("/books")}
           >
             {book.map((book, index) => (
               <div
@@ -418,8 +452,6 @@ export default function Home() {
         </div>
       </section>
 
-      
-
       {/* Latest Articles */}
       <section className="w-full bg-gradient-to-b from-white  py-12 px-4">
         <div className="max-w-7xl mx-auto">
@@ -434,7 +466,7 @@ export default function Home() {
           </div>
 
           {/* Urdu Tags */}
-          <div className="flex justify-center flex-wrap gap-3 mb-10">
+          {/* <div className="flex justify-center flex-wrap gap-3 mb-10">
             {[
               { text: "رمضان المبارک", count: 56 },
               { text: "اولیاء اللہ", count: 614 },
@@ -463,7 +495,7 @@ export default function Home() {
                 </span>
               </div>
             ))}
-          </div>
+          </div> */}
 
           {/* Article Cards */}
 

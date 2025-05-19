@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import image1 from "../../public/Aboutcenter/about1.png";
 import image2 from "../../public/Aboutcenter/about2.png";
 import image3 from "../../public/Aboutcenter/about3.png";
@@ -8,32 +8,40 @@ import Userimg from "../../public/Scholar/user.png";
 import Navbar from "./Navbar/Navbar";
 
 export default function Home() {
+  const [activeLang, setActiveLang] = useState("en");
+
   const sections = [
     {
       id: 1,
       title: "Minara Masjid Trust",
+      img: image1,
       imgPosition: "left",
-      text: `Maula Ali Research Centre aims to acquire old Islamic manuscripts (Interpretations, Commentaries, Exegesis, etc.) of our ancestors from libraries across the world which have not been published; if published, they are no longer accessible, etc. and work upon its publication according to modern standards by carrying out research on the Arabic and Persian scripts, referencing, easy translation into multiple languages, mainly English, Hindi and Urdu, and lastly, printing and distributing it amongst the scholars, research experts, intellectuals and the entire Muslim Ummah.
-Maula Ali Research Centre aims to acquire old Islamic manuscripts (Interpretations, Commentaries, Exegesis, etc.) of our ancestors from libraries across the world which have not been published; if published, they are no longer accessible, etc. and work upon its publication according to modern standards by carrying out research on the Arabic and Persian scripts, referencing, easy translation into multiple languages, mainly English, Hindi and Urdu, and lastly, printing and distributing it amongst the scholars, research experts, intellectuals and the entire Muslim Ummah..`,
+      en: `Maula Ali Research Centre aims to acquire old Islamic manuscripts (Interpretations, Commentaries, Exegesis, etc.) of our ancestors from libraries across the world which have not been published; if published, they are no longer accessible, etc. and work upon its publication according to modern standards by carrying out research on the Arabic and Persian scripts, referencing, easy translation into multiple languages, mainly English, Hindi and Urdu, and lastly, printing and distributing it amongst the scholars, research experts, intellectuals and the entire Muslim Ummah.`,
+      ur: `مولیٰ علی ریسرچ سینٹر کا مقصد دنیا بھر کے کتب خانوں سے ہمارے اسلاف کے پرانے اسلامی مخطوطات (تفاسیر، تشریحات، وغیرہ) حاصل کرنا ہے، جو یا تو شائع نہیں ہوئے یا اگر شائع ہوئے ہیں تو اب دستیاب نہیں ہیں، اور ان کی اشاعت کو جدید معیار کے مطابق انجام دینا، جیسے عربی و فارسی رسم الخط پر تحقیق، حوالہ جات، آسان ترجمہ (انگریزی، ہندی، اردو) اور پھر اس کا اشاعت و تقسیم علماء، محققین اور پوری مسلم امت میں کرنا۔`,
     },
     {
       id: 2,
       title: "Maula Ali Research Center",
+      img: image2,
       imgPosition: "right",
-      text: `Maula Ali Research Centre aims to acquire old Islamic manuscripts (Interpretations, Commentaries, Exegesis, etc.) of our ancestors from libraries across the world which have not been published; if published, they are no longer accessible, etc. and work upon its publication according to modern standards by carrying out research on the Arabic and Persian scripts, referencing, easy translation into multiple languages, mainly English, Hindi and Urdu, and lastly, printing and distributing it amongst the scholars, research experts, intellectuals and the entire Muslim Ummah.
-Maula Ali Research Centre aims to acquire old Islamic manuscripts (Interpretations, Commentaries, Exegesis, etc.) of our ancestors from libraries across the world which have not been published; if published, they are no longer accessible, etc. and work upon its publication according to modern standards by carrying out research on the Arabic and Persian scripts, referencing, easy translation into multiple languages, mainly English, Hindi and Urdu, and lastly, printing and distributing it amongst the scholars, research experts, intellectuals and the entire Muslim Ummah..`,
+      en: `Maula Ali Research Centre aims to acquire old Islamic manuscripts of our ancestors that have not been published or are no longer accessible, and bring them to life through modern research, translation, and publication.`,
+      ur: `مولیٰ علی ریسرچ سینٹر کا مقصد ہمارے اسلاف کے وہ اسلامی مخطوطات حاصل کرنا ہے جو یا تو شائع نہیں ہوئے یا اب قابل رسائی نہیں ہیں، اور انہیں جدید تحقیق، ترجمہ اور اشاعت کے ذریعے دوبارہ زندہ کرنا ہے۔`,
     },
     {
       id: 3,
-      title: "Biographies ",
+      title: "Biographies",
+      img: image3,
       imgPosition: "left",
-      text: `Maula Ali Research Centre aims to acquire old Islamic manuscripts (Interpretations, Commentaries, Exegesis, etc.) of our ancestors from libraries across the world which have not been published; if published, they are no longer accessible, etc. and work upon its publication according to modern standards by carrying out research on the Arabic and Persian scripts, referencing, easy translation into multiple languages, mainly English, Hindi and Urdu, and lastly, printing and distributing it amongst the scholars, research experts, intellectuals and the entire Muslim Ummah.`,
-    }, 
+      en: `We preserve and publish biographies of notable Islamic figures, ensuring their contributions and teachings remain accessible for future generations.`,
+      ur: `ہم نمایاں اسلامی شخصیات کی سوانح حیات کو محفوظ کرتے ہیں اور شائع کرتے ہیں تاکہ ان کی خدمات اور تعلیمات آئندہ نسلوں تک پہنچ سکیں۔`,
+    },
     {
       id: 4,
-      title: "Team ",
+      title: "Team",
+      img: image4,
       imgPosition: "right",
-      text: `Maula Ali Research Centre aims to acquire old Islamic manuscripts (Interpretations, Commentaries, Exegesis, etc.) of our ancestors from libraries across the world which have not been published; if published, they are no longer accessible, etc. and work upon its publication according to modern standards by carrying out research on the Arabic and Persian scripts, referencing, easy translation into multiple languages, mainly English, Hindi and Urdu, and lastly, printing and distributing it amongst the scholars, research experts, intellectuals and the entire Muslim Ummah.`,
+      en: `Our dedicated team of scholars and researchers is committed to preserving the intellectual heritage of Islam through academic excellence and collaboration.`,
+      ur: `ہماری محنتی ٹیم علماء اور محققین پر مشتمل ہے جو علمی مہارت اور تعاون کے ذریعے اسلامی فکری ورثے کے تحفظ کے لیے پرعزم ہے۔`,
     },
   ];
 
@@ -46,7 +54,7 @@ Maula Ali Research Centre aims to acquire old Islamic manuscripts (Interpretatio
         backgroundBlendMode: "overlay",
       }}
     >
-      <Navbar/>
+      <Navbar />
       <div className="absolute inset-0 z-0 opacity-20" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 py-16">
@@ -78,40 +86,58 @@ Maula Ali Research Centre aims to acquire old Islamic manuscripts (Interpretatio
               <div className="w-full md:w-1/3 relative">
                 <div className="relative aspect-square rounded-lg overflow-hidden shadow-xl border-4 border-white">
                   <img
-                    src={image1}
+                    src={section.img}
                     alt={section.title}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                   />
                 </div>
-                {section.imgPosition === "left" && (
-                  <div className="hidden md:block absolute -bottom-8 -right-8 w-24 h-24 bg-[#d4a762] rounded-full opacity-30 z-0"></div>
-                )}
-                {section.imgPosition === "right" && (
-                  <div className="hidden md:block absolute -bottom-8 -left-8 w-24 h-24 bg-[#d4a762] rounded-full opacity-30 z-0"></div>
-                )}
               </div>
 
               <div className="w-full md:w-2/3 relative">
                 <div className="bg-white p-6 md:p-10 rounded-xl shadow-lg relative z-10">
-                  <div className="flex items-center mb-4">
-                    <div className="w-8 h-1 bg-[#d4a762] mr-3"></div>
-                    <span className="text-[#d4a762] font-medium tracking-wider">
-                      ABOUT
-                    </span>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center">
+                      <div className="w-8 h-1 bg-[#d4a762] mr-3"></div>
+                      <span className="text-[#d4a762] font-medium tracking-wider">
+                        ABOUT
+                      </span>
+                    </div>
+                    <div className="space-x-2">
+                      <button
+                        className={`px-3 py-1 text-sm border rounded ${
+                          activeLang === "en"
+                            ? "bg-[#d4a762] text-white"
+                            : "border-[#d4a762] text-[#d4a762]"
+                        }`}
+                        onClick={() => setActiveLang("en")}
+                      >
+                        English
+                      </button>
+                      <button
+                        className={`px-3 py-1 text-sm border rounded ${
+                          activeLang === "ur"
+                            ? "bg-[#d4a762] text-white"
+                            : "border-[#d4a762] text-[#d4a762]"
+                        }`}
+                        onClick={() => setActiveLang("ur")}
+                      >
+                        اردو
+                      </button>
+                    </div>
                   </div>
+
                   <h2 className="text-2xl md:text-3xl font-serif text-[#2a4a24] mb-5 font-bold">
                     {section.title}
                   </h2>
-                  <p className="text-[#555] leading-relaxed text-base md:text-lg whitespace-pre-wrap">
-                    {section.text}
+                  <p
+                    className={`text-[#555] leading-relaxed text-base md:text-lg whitespace-pre-wrap ${
+                      activeLang === "ur" ? "text-right" : ""
+                    }`}
+                    dir={activeLang === "ur" ? "rtl" : "ltr"}
+                  >
+                    {activeLang === "ur" ? section.ur : section.en}
                   </p>
                 </div>
-                {section.imgPosition === "left" && (
-                  <div className="hidden md:block absolute -top-8 -left-8 w-16 h-16 bg-[#2a4a24] rounded-full opacity-10 z-0"></div>
-                )}
-                {section.imgPosition === "right" && (
-                  <div className="hidden md:block absolute -top-8 -right-8 w-16 h-16 bg-[#2a4a24] rounded-full opacity-10 z-0"></div>
-                )}
               </div>
             </div>
           ))}
@@ -126,48 +152,29 @@ Maula Ali Research Centre aims to acquire old Islamic manuscripts (Interpretatio
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
-              {
-                name: "Allama Mazhar Alimi Sahab",
-                img: Userimg,
-              },
-              {
-                name: "Mufti Farooque Mahaimi",
-                img: Userimg,
-              },
-              {
-                name: "Allama Tauheed Alimi",
-                img: Userimg,
-              },
-              {
-                name: "Allama Mazhar Alimi Sahab",
-                img: Userimg,
-              },
-              {
-                name: "Mufti Farooque Mahaimi",
-                img: Userimg,
-              },
-              {
-                name: "Allama Tauheed Alimi",
-                img: Userimg,
-              },
-            ].map((scholar, index) => (
+              "Allama Mazhar Alimi Sahab",
+              "Mufti Farooque Mahaimi",
+              "Allama Tauheed Alimi",
+              "Allama Mazhar Alimi Sahab",
+              "Mufti Farooque Mahaimi",
+              "Allama Tauheed Alimi",
+            ].map((name, index) => (
               <div
                 key={index}
                 className="bg-white rounded-xl shadow-sm px-6 py-8 flex flex-col items-center"
               >
                 <div className="bg-white rounded-full border-4 border-green-200 p-1 mb-4">
                   <img
-                    src={scholar.img}
-                    alt={scholar.name}
+                    src={Userimg}
+                    alt={name}
                     className="rounded-full w-24 h-24 object-cover bg-green-100"
                   />
                 </div>
-
                 <h3 className="text-lg font-semibold text-gray-800 mb-1">
-                  {scholar.name}
+                  {name}
                 </h3>
                 <p className="text-[15px] text-orange-600 font-semibold mb-2">
-                  Islamic Scholars
+                  Islamic Scholar
                 </p>
                 <a
                   href="#"

@@ -93,7 +93,7 @@ export default function Home() {
 
           {/* Right Section */}
           <div className="hidden md:flex items-center space-x-5 font-medium text-[15px]">
-            <a href="/articlefullpage" className="hover:text-amber-300">Articles</a>
+            <a href="/article" className="hover:text-amber-300">Articles</a>
             <a href="#" className="hover:text-amber-300">Gallery</a>
             <a href="#" className="hover:text-amber-300">Contact</a>
           </div>
@@ -158,7 +158,7 @@ export default function Home() {
           </div>
 
           {/* Category Pills */}
-          <div className="flex flex-wrap justify-center gap-2 mb-10 text-[16px]">
+          {/* <div className="flex flex-wrap justify-center gap-2 mb-10 text-[16px]">
             {[
               { label: "نماسوں رسالت", count: 56 },
               { label: "عقائد", count: 236 },
@@ -182,7 +182,7 @@ export default function Home() {
                 </span>
               </div>
             ))}
-          </div>
+          </div> */}
 
 
           {/* Filters */}

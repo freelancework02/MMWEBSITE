@@ -197,14 +197,14 @@ export default function ArticlesPage() {
           </p>
         </header>
 
-        <div className="gulzartext flex flex-wrap justify-center gap-2 mb-10">
+        {/* <div className="gulzartext flex flex-wrap justify-center gap-2 mb-10">
           <CategoryPill label="رمضان المبارک" count={56} />
           <CategoryPill label="اولیاء اللہ" count={614} />
           <CategoryPill label="نماز" count={22} />
           <CategoryPill label="عقائد" count={236} />
           <CategoryPill label="ناموس رسالت" count={56} />
           <CategoryPill label="سوال و جوابات" count={803} />
-        </div>
+        </div> */}
 
         <div className="flex flex-col lg:flex-row gap-6 text-black">
           <div className="w-full lg:w-80 bg-white rounded-lg p-5 h-fit">
@@ -212,7 +212,7 @@ export default function ArticlesPage() {
               <input
                 type="text"
                 placeholder="تلاش کریں"
-                className="gulzartext w-full py-2 px-4 pr-10 border rounded-full text-right"
+                className="gulzartext w-full py-2 px-4 pr-10 border border-[#DADADA] rounded-full text-right"
               />
               <Search className="absolute right-3 top-2.5 h-5 w-5 text-gray-400" />
             </div>
@@ -222,6 +222,7 @@ export default function ArticlesPage() {
               value={selectedFilters.writer}
               options={writers.map((w) => w.name)}
               onChange={handleFilterChange}
+              
             />
             <FilterDropdown
               label="Translator"
@@ -292,7 +293,7 @@ const FilterDropdown = ({ label, value, options, onChange }) => {
       <select
         value={value}
         onChange={(e) => onChange(filterKey, e.target.value)}
-        className="w-full border rounded p-2 text-black gulzartext"
+        className="w-full border border-[#DADADA] rounded-md rounded p-2 text-black gulzartext"
       >
         <option value="">Select {label}</option>
         {options.map((option, idx) => (
@@ -325,7 +326,7 @@ function ArticleCard({
         />
         <div className="absolute inset-0 bg-black/30"></div>
         <div className="absolute top-3 left-3 right-3 flex justify-between">
-          <button className="gulzartext bg-[#e8f0d9] text-black px-3 py-1 rounded-full text-sm">مطالعہ</button>
+          {/* <button className="gulzartext bg-[#e8f0d9] text-black px-3 py-1 rounded-full text-sm">مطالعہ</button> */}
           <div className="flex gap-1">
             <button className="bg-white text-black px-3 py-1 rounded-full text-sm">Roman</button>
             <button className="bg-white gulzartext text-black px-3 py-1 rounded-full text-sm">اردو</button>
