@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Search, ChevronDown } from "lucide-react";
 import bg from "../../public/images/bg.png";
 import logo from "../../public/images/marclogo.png";
+import { useNavigate } from 'react-router-dom';
 
 export default function HomePage() {
   const [language, setLanguage] = useState("Urdu");
@@ -12,6 +13,7 @@ export default function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   // Fetch questions from the API
   useEffect(() => {
@@ -19,8 +21,8 @@ export default function HomePage() {
       try {
         const response = await fetch("https://newmmdata-backend.onrender.com/api/questions");
         const data = await response.json();
-        console.log("This is data", data)
-        setQuestions(data.questions || []); // assuming API returns { questions: [...] }
+        console.log("Fetched data:", data);
+        setQuestions(data); // assuming API returns { questions: [...] }
       } catch (error) {
         console.error("Failed to fetch questions:", error);
       } finally {
@@ -32,7 +34,9 @@ export default function HomePage() {
   }, []);
 
   const filteredQuestions = questions.filter((q) =>
-    q.text.toLowerCase().includes(search.toLowerCase())
+    q.slug?.toLowerCase().includes(search.toLowerCase()) ||
+    q.slug?.toLowerCase().includes(search.toLowerCase()) ||
+    q.questionEnglish?.toLowerCase().includes(search.toLocaleLowerCase())
   );
 
   const Dropdown = ({ label, selected, setSelected, options }) => {
@@ -79,8 +83,8 @@ export default function HomePage() {
     </div>
   );
 
-  const QuestionCard = ({ id, text }) => (
-    <div className="bg-white rounded-lg shadow-sm p-4 flex flex-col">
+  const QuestionCard = ({ id, question }) => (
+    <div className="bg-white rounded-lg shadow-sm p-4 flex flex-col cursor-pointer" onClick={() => navigate(`/questionlist/${id}`)}>
       <div className="flex justify-between items-start mb-2">
         <div className="bg-green-100 text-green-800 rounded-full px-3 py-1 text-sm font-medium flex items-center gap-1 rtl:flex-row-reverse">
           <span className="gulzartext">سوال</span>
@@ -89,7 +93,7 @@ export default function HomePage() {
           </span>
         </div>
       </div>
-      <p className="gulzartext text-right text-gray-800 mb-2">{text}</p>
+      <p className="gulzartext text-right text-gray-800 mb-2 line-clamp-1" >{question}</p>
       <div className="flex justify-end gap-2 mt-auto">
         <button className="bg-green-50 hover:bg-green-100 text-green-700 px-3 py-1 rounded-md text-sm transition-colors">
           Roman
@@ -103,8 +107,8 @@ export default function HomePage() {
 
   return (
     <main dir="rtl" className="min-h-screen bg-[#f0f7e6] relative font-sans">
-      {/* Header Section (unchanged) */}
-     <header className="bg-[#718e56] sticky top-0 z-50 shadow-md border-b border-green-100">
+      {/* Header Section */}
+      <header className="bg-[#718e56] sticky top-0 z-50 shadow-md border-b border-green-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4 relative">
             {/* Left Menu */}
@@ -248,17 +252,16 @@ export default function HomePage() {
         </div>
       </header>
 
-
       {/* Background Pattern */}
       <div
         className="absolute inset-0 opacity-36 pointer-events-none"
-        style={{ backgroundImage: `url(${bg})` }}
+        style={{ backgroundImage: `url(${bg.src})` }}
       ></div>
 
       {/* Intro Section */}
       <div
         className="relative z-40 w-full rounded-b-4xl -mt-8 overflow-hidden bg-cover bg-center"
-        style={{ backgroundImage: `url(${bg})` }}
+        style={{ backgroundImage: `url(${bg.src})` }}
       >
         <div className="flex items-center justify-center mt-4 h-[200px] w-full bg-[#C0D7AA]/80 rounded-b-4xl">
           <div className="text-center mb-6 px-4">
@@ -309,27 +312,42 @@ export default function HomePage() {
 
         {loading ? (
           <p className="text-center text-gray-600 gulzartext">لوڈ ہو رہا ہے...</p>
+        ) : filteredQuestions.length === 0 ? (
+          <p className="text-center text-gray-600 gulzartext">کوئی سوالات نہیں ملے</p>
         ) : (
           <>
             {/* Sections */}
             <SectionHeader text="قرآن کی تعلیمات" />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 w-[70%] m-auto">
-              {filteredQuestions.slice(0, 6).map((q) => (
-                <QuestionCard key={q.id} id={q.id} text={q.text} />
+              {filteredQuestions.map((q, index) => (
+                <QuestionCard
+                  key={q._id || index}
+                  id={index + 1}
+                  question={q.slug || "No question text available"}
+                  
+                />
               ))}
             </div>
 
             <SectionHeader text="حدیث کے سوال" />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 w-[70%] m-auto">
-              {filteredQuestions.slice(0, 4).map((q) => (
-                <QuestionCard key={`section2-${q.id}`} id={q.id} text={q.text} />
+              {filteredQuestions.slice(0, 4).map((q, index) => (
+                <QuestionCard 
+                  key={`section2-${q._id || index}`} 
+                  id={index + 1} 
+                  question={q.slug || "No question text available"} 
+                />
               ))}
             </div>
 
             <SectionHeader text="قرآن کی آیات" />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-[70%] m-auto">
-              {filteredQuestions.map((q) => (
-                <QuestionCard key={`section3-${q.id}`} id={q.id} text={q.text} />
+              {filteredQuestions.map((q, index) => (
+                <QuestionCard 
+                  key={`section3-${q._id || index}`} 
+                  id={index + 1} 
+                  question={q.slug || "No question text available"} 
+                />
               ))}
             </div>
           </>

@@ -135,7 +135,7 @@ const QuestionDetail = () => {
                 <div className="flex justify-end mb-2">
                   <span className="bg-[#5a8c3c] text-white rounded-full px-3 py-1 text-sm cursor-pointer">سوال نمبر {q.number || idx + 1}</span>
                 </div>
-                <p className="text-right text-gray-700 leading-relaxed text-base gulzartext cursor-pointer">{q.slug}</p>
+                <p className="text-right text-gray-700 leading-relaxed text-base gulzartext cursor-pointer line-clamp-2">{q.slug || q.questionEnglish}</p>
               </div>
             ))}
           </div>
@@ -143,7 +143,10 @@ const QuestionDetail = () => {
 
         <div className="w-full md:w-3/4 bg-white rounded-xl shadow-sm p-6 order-1 md:order-2">
           <div className="rtl text-right leading-loose text-[#4a7031] text-lg gulzartext whitespace-pre-wrap">
-            {formatDescription(question.answerUrdu)}
+            <div
+              className="rtl text-right leading-loose text-[#4a7031] text-lg gulzartext whitespace-pre-wrap"
+              dangerouslySetInnerHTML={{ __html: question.answerUrdu }}
+            ></div>
           </div>
         </div>
       </div>
@@ -176,7 +179,7 @@ const QuestionDetail = () => {
                     سوال نمبر {q.id || idx + 1}
                   </span>
                 </div>
-                <p className="text-right text-[#1f1f1f] text-base leading-relaxed gulzartext">{q.slug}</p>
+                <p className="text-right text-[#1f1f1f] text-base leading-relaxed gulzartext line-clamp-2">{q.slug}</p>
               </div>
             ))}
           </div>
