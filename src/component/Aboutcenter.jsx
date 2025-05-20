@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import image1 from "../../public/Aboutcenter/about1.png";
 import image2 from "../../public/Aboutcenter/about2.png";
 import image3 from "../../public/Aboutcenter/about3.png";
@@ -9,6 +9,24 @@ import Navbar from "./Navbar/Navbar";
 
 export default function Home() {
   const [activeLang, setActiveLang] = useState("en");
+  const [writer, setWriter] = useState([]);
+
+    useEffect(() => {
+      const fetchWriter = async () => {
+        try {
+          const response = await fetch("https://newmmdata-backend.onrender.com/api/writers");
+          const data = await response.json();
+          console.log("Fetched data:", data);
+          setWriter(data); // assuming API returns { questions: [...] }
+        } catch (error) {
+          console.error("Failed to fetch questions:", error);
+        } finally {
+          setLoading(false);
+        }
+      };
+  
+      fetchWriter();
+    }, []);
 
   const sections = [
     {
@@ -52,6 +70,7 @@ export default function Home() {
         backgroundImage: `url(${bg})`,
         backgroundColor: "#f5f3e6",
         backgroundBlendMode: "overlay",
+        
       }}
     >
       <Navbar />
@@ -130,7 +149,7 @@ export default function Home() {
                     {section.title}
                   </h2>
                   <p
-                    className={`text-[#555] leading-relaxed text-base md:text-lg whitespace-pre-wrap ${
+                    className={`text-[#555] gulzartext leading-relaxed text-base md:text-lg whitespace-pre-wrap ${
                       activeLang === "ur" ? "text-right" : ""
                     }`}
                     dir={activeLang === "ur" ? "rtl" : "ltr"}
@@ -151,14 +170,7 @@ export default function Home() {
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              "Allama Mazhar Alimi Sahab",
-              "Mufti Farooque Mahaimi",
-              "Allama Tauheed Alimi",
-              "Allama Mazhar Alimi Sahab",
-              "Mufti Farooque Mahaimi",
-              "Allama Tauheed Alimi",
-            ].map((name, index) => (
+            {writer.map((writer, index) => (
               <div
                 key={index}
                 className="bg-white rounded-xl shadow-sm px-6 py-8 flex flex-col items-center"
@@ -166,12 +178,12 @@ export default function Home() {
                 <div className="bg-white rounded-full border-4 border-green-200 p-1 mb-4">
                   <img
                     src={Userimg}
-                    alt={name}
+                    alt={writer.name}
                     className="rounded-full w-24 h-24 object-cover bg-green-100"
                   />
                 </div>
                 <h3 className="text-lg font-semibold text-gray-800 mb-1">
-                  {name}
+                  {writer.name}
                 </h3>
                 <p className="text-[15px] text-orange-600 font-semibold mb-2">
                   Islamic Scholar

@@ -136,7 +136,7 @@ export default function Home() {
     >
       <Navbar />
       {/* Banner */}
-      <div className="w-full py-6 px-4 flex justify-center items-center bg-gray-100">
+      <div className="w-full py-6 px-4 flex justify-center items-center ">
         <div className="w-full max-w-[1440px] flex justify-center items-center gap-4 md:gap-8">
           {/* Left White Box */}
           <div
@@ -326,7 +326,7 @@ export default function Home() {
             {event.map((event, idx) => (
               <div
                 key={idx}
-                className="w-[90%] sm:w-[47%] md:w-[47%] lg:w-[23%] flex-shrink-0 bg-gradient-to-b from-[#f6fbf1] rounded-2xl p-4 shadow-md"
+                className="w-[90%] sm:w-[47%] md:w-[47%] lg:w-[23%] mb-2 flex-shrink-0 bg-gradient-to-b from-[#f6fbf1] rounded-2xl p-4 shadow-md"
               >
                 <div className="overflow-hidden rounded-xl mb-4">
                   <img
@@ -349,7 +349,7 @@ export default function Home() {
                     Read More
                     <ChevronRight className="h-4 w-4 ml-1" />
                   </a>
-                  <span className="text-sm text-gray-500">View 1K</span>
+                  <span className="text-sm text-gray-500">View {event.views}</span>
                 </div>
               </div>
             ))}
@@ -466,36 +466,29 @@ export default function Home() {
           </div>
 
           {/* Urdu Tags */}
-          {/* <div className="flex justify-center flex-wrap gap-3 mb-10">
-            {[
-              { text: "رمضان المبارک", count: 56 },
-              { text: "اولیاء اللہ", count: 614 },
-              { text: "نماز", count: 22, active: true },
-              { text: "عقائد", count: 236 },
-              { text: "احادیث", count: 56 },
-              { text: "ناموس رسالت", count: 56 },
-            ].map((tag, index) => (
+          <div className="flex justify-center flex-wrap gap-3 mb-10">
+            {articles.map((article, index) => (
               <div
                 key={index}
                 className={`gulzartext flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium ${
-                  tag.active
+                  article.active
                     ? "bg-green-600 text-white"
                     : "bg-yellow-100 text-yellow-900"
                 }`}
               >
-                <span className="font-urdu text-lg">{tag.text}</span>
+                <span className="font-urdu text-lg">{article.topic}</span>
                 <span
                   className={`${
-                    tag.active
+                    article.active
                       ? "bg-white text-green-700"
                       : "bg-white text-yellow-800"
                   } px-2 py-0.5 rounded-full text-xs font-semibold`}
                 >
-                  {tag.count}
+                  {article.views}
                 </span>
               </div>
             ))}
-          </div> */}
+          </div>
 
           {/* Article Cards */}
 

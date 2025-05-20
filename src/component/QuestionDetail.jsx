@@ -142,9 +142,9 @@ const QuestionDetail = () => {
         </div>
 
         <div className="w-full md:w-3/4 bg-white rounded-xl shadow-sm p-6 order-1 md:order-2">
-          <div className="rtl text-right leading-loose text-[#4a7031] text-lg gulzartext whitespace-pre-wrap">
+          <div className="rtl text-right leading-loose text-[#4a7031] text-lg gulzartext ">
             <div
-              className="rtl text-right leading-loose text-[#4a7031] text-lg gulzartext whitespace-pre-wrap"
+              className="gulzartext leading-loose text-[#4a7031] text-lg  "
               dangerouslySetInnerHTML={{ __html: question.answerUrdu }}
             ></div>
           </div>

@@ -84,7 +84,7 @@ export default function HomePage() {
   );
 
   const QuestionCard = ({ id, question }) => (
-    <div className="bg-white rounded-lg shadow-sm p-4 flex flex-col cursor-pointer" onClick={() => navigate(`/questionlist/${id}`)}>
+    <div className="bg-white rounded-lg shadow-sm p-4 flex flex-col cursor-pointer" onClick={() => navigate(`/question/${id}`)}>
       <div className="flex justify-between items-start mb-2">
         <div className="bg-green-100 text-green-800 rounded-full px-3 py-1 text-sm font-medium flex items-center gap-1 rtl:flex-row-reverse">
           <span className="gulzartext">سوال</span>
@@ -114,28 +114,28 @@ export default function HomePage() {
             {/* Left Menu */}
             <nav className="hidden md:flex gap-6 text-md font-semibold text-white tracking-wide">
               <a
-                href="/"
+                href="/contact"
                 className="hover:text-yellow-200 transition-all duration-200"
               >
-                Home
+                Contact
               </a>
               <a
-                href="/about"
+                href="/question"
                 className="hover:text-yellow-200 transition-all duration-200"
               >
-                About Center
+                Question
               </a>
               <a
-                href="/books"
+                href="/requestbook"
                 className="hover:text-yellow-200 transition-all duration-200"
               >
-                Books
+                Request Book
               </a>
               <a
-                href="/gallery"
+                href="/article"
                 className="hover:text-yellow-200 transition-all duration-200"
               >
-                Gallery
+                Article
               </a>
             </nav>
 
@@ -151,28 +151,28 @@ export default function HomePage() {
             {/* Right Menu */}
             <nav className="hidden md:flex gap-6 text-md font-semibold text-white tracking-wide">
               <a
-                href="/news"
+                href="/gallery"
                 className="hover:text-yellow-200 transition-all duration-200"
               >
-                News
+                Gallery
               </a>
               <a
-                href="/article"
+                href="/books"
                 className="hover:text-yellow-200 transition-all duration-200"
               >
-                Articles
+                Books
               </a>
               <a
-                href="/questions"
+                href="/about"
                 className="hover:text-yellow-200 transition-all duration-200"
               >
-                Questions
+                About center
               </a>
               <a
-                href="/contact"
+                href="/"
                 className="hover:text-yellow-200 transition-all duration-200"
               >
-                Contact
+                Home
               </a>
             </nav>
 

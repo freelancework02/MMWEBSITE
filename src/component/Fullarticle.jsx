@@ -32,7 +32,7 @@ export default function Home() {
         );
         const resdata = await articleres.json();
         setAllarticle(resdata);
-        console.log(resdata);
+        console.log("All article Data : ", resdata);
       } catch (err) {
         console.error("Error fetching Article:", err);
       }
@@ -372,7 +372,7 @@ export default function Home() {
       </div>
 
       {/* Writer Articles Highlights */}
-      {/* <div className="relative z-10 container mx-auto px-4 mb-10">
+      <div className="relative z-10 container mx-auto px-4 mb-10">
         <div className="flex justify-between items-center mb-6">
           <h2 className="font-bold text-2xl text-[#1f1f1f]">
             Writer Articals Highlights
@@ -386,7 +386,7 @@ export default function Home() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[1, 2, 3].map((index) => (
+          {allarticle.map((article, index) => (
             <div
               key={index}
               className="rounded-xl overflow-hidden shadow-sm border border-gray-200"
@@ -400,9 +400,9 @@ export default function Home() {
                   className="object-cover h-full w-full"
                 />
 
-                {
+              
                 <div className="absolute top-2 left-2 bg-[#e8f0e0] rounded-full px-2 py-0.5 text-xs font-['Gulzar']">
-                  مقالے
+               {article.tags}
                 </div>
 
              
@@ -417,34 +417,31 @@ export default function Home() {
 
                
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex flex-col justify-end p-4">
-                  <h3 className="font-['Gulzar'] font-bold text-white text-right rtl mb-1 text-lg leading-snug">
-                    {index % 2 === 0
-                      ? "آیات قرآنی کی حیرت انگیز"
-                      : "راز کی باتیں"}
+                  <h3 className="font-['Gulzar']  text-white  rtl mb-1 text-lg leading-snug line-clamp-1">
+                    {article.title}
                   </h3>
-                  <h4 className="font-['Gulzar'] font-bold text-white text-right rtl text-sm">
-                    {index % 2 === 0 ? "تاثیر کا ایک نمونہ" : "کامیابی کی حکمت"}
+                  <h4 className="font-['Gulzar']  text-white text-right rtl text-sm line-clamp-1">
+                    {article.englishDescription}
                   </h4>
                 </div>
               </div>
 
              
               <div className="p-4">
-                <p className="font-['Gulzar'] text-xs text-right rtl text-gray-600 mb-1 leading-relaxed">
-                  قرآن حکیم کی آیات میں خدا کی قدرت اور تاثیر کا بیان
+                <p className="font-['Gulzar'] line-clamp-1 text-xs text-right rtl text-gray-600 mb-1 leading-relaxed">
+                {article.englishDescription}
                 </p>
-                <p className="font-['Gulzar'] text-xs text-right rtl text-gray-600 mb-1">
-                  <span className="font-semibold">مصنف :</span> مفتی فاروق
-                  مہائمی
+                <p className="font-['Gulzar'] text-xs text-right rtl text-gray-600 mb-1 line-clamp-1">
+                  <span className="font-semibold">مصنف :</span> {article.writers}
                 </p>
-                <p className="font-['Gulzar'] text-xs text-right rtl text-gray-600">
-                  <span className="font-semibold">مترجم :</span> فیض اشرفی
+                <p className="font-['Gulzar'] text-xs text-right rtl text-gray-600 line-clamp-1">
+                  <span className="font-semibold">مترجم :</span> {article.translator}
                 </p>
               </div>
             </div>
           ))}
         </div>
-      </div> */}
+      </div>
     </main>
   );
 }

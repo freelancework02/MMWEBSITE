@@ -94,6 +94,7 @@ export default function Home() {
           {/* Right Section */}
           <div className="hidden md:flex items-center space-x-5 font-medium text-[15px]">
             <a href="/article" className="hover:text-amber-300">Articles</a>
+            <a href="/requestbook" className="hover:text-amber-300">Request Book</a>
             <a href="#" className="hover:text-amber-300">Gallery</a>
             <a href="#" className="hover:text-amber-300">Contact</a>
           </div>

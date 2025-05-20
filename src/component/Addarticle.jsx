@@ -16,7 +16,7 @@ export default function ArticlesPage() {
     translator: "",
     language: "",
     sorting: "latest",
-    topic: ""
+    topic: "",
   });
 
   const navigate = useNavigate();
@@ -24,13 +24,16 @@ export default function ArticlesPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [writerRes, translatorRes, languageRes, topicRes, articleRes] = await Promise.all([
-          fetch("https://newmmdata-backend.onrender.com/api/writers"),
-          fetch("https://newmmdata-backend.onrender.com/api/translators"),
-          fetch("https://newmmdata-backend.onrender.com/api/languages/language"),
-          fetch("https://newmmdata-backend.onrender.com/api/topics"),
-          fetch("https://newmmdata-backend.onrender.com/api/articles")
-        ]);
+        const [writerRes, translatorRes, languageRes, topicRes, articleRes] =
+          await Promise.all([
+            fetch("https://newmmdata-backend.onrender.com/api/writers"),
+            fetch("https://newmmdata-backend.onrender.com/api/translators"),
+            fetch(
+              "https://newmmdata-backend.onrender.com/api/languages/language"
+            ),
+            fetch("https://newmmdata-backend.onrender.com/api/topics"),
+            fetch("https://newmmdata-backend.onrender.com/api/articles"),
+          ]);
 
         setWriters(await writerRes.json());
         setTranslators(await translatorRes.json());
@@ -69,7 +72,7 @@ export default function ArticlesPage() {
         : new Date(a.createdAt) - new Date(b.createdAt);
     });
 
-      if (!articles) {
+  if (!articles) {
     return <div className="text-center p-4">لوڈ ہو رہا ہے...</div>;
   }
 
@@ -81,111 +84,111 @@ export default function ArticlesPage() {
         style={{ backgroundImage: `url(${bg})` }}
       ></div>
       <header className="bg-[#718e56]  sticky top-0 mb-4 z-50  shadow-sm border-b border-green-100">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-2 relative pb-2">
-                <div className="flex justify-between items-center py-5">
-                  {/* Desktop Left Nav */}
-                  <nav className="hidden md:flex gap-6 text-md font-medium text-white">
-                    <a href="/" className="hover:text-gray-700">
-                      Home
-                    </a>
-                    <a href="/about" className="hover:text-gray-700">
-                      About Center
-                    </a>
-                    <a href="/books" className="hover:text-gray-700">
-                      Books
-                    </a>
-                    <a href="/gallery" className="hover:text-gray-700">
-                      Gallery
-                    </a>
-                  </nav>
-      
-                  {/* Center Logo */}
-                  <div className="absolute left-1/2 transform -translate-x-1/2 -bottom-6 bg-white rounded-full p-1 shadow-md">
-                    <img
-                      src={logo}
-                      alt="Maula Ali Research Centre Logo"
-                      width={64}
-                      height={64}
-                      className="rounded-full object-contain"
-                    />
-                  </div>
-      
-                  {/* Desktop Right Nav */}
-                  <nav className="hidden md:flex gap-6 text-sm font-medium text-white">
-                    <a href="/news" className="hover:text-gray-700">
-                      News
-                    </a>
-                    <a href="/article" className="hover:text-gray-700">
-                      Articles
-                    </a>
-                    <a href="/question" className="hover:text-gray-700">
-                      Questions
-                    </a>
-                    <a href="/contact" className="hover:text-gray-700">
-                      Contact
-                    </a>
-                  </nav>
-      
-                  {/* Mobile Menu Button */}
-                  <div className="md:hidden">
-                    <button
-                      onClick={() => setMenuOpen(!menuOpen)}
-                      className="text-gray-800 focus:outline-none"
-                      aria-label="Toggle menu"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="w-6 h-6"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d={
-                            menuOpen
-                              ? "M6 18L18 6M6 6l12 12"
-                              : "M4 6h16M4 12h16M4 18h16"
-                          }
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-      
-                {/* Mobile Dropdown Menu */}
-                {menuOpen && (
-                  <div className="md:hidden mt-4 space-y-2 text-sm font-medium text-black">
-                    <a href="/" className="block hover:text-green-700">
-                      Home
-                    </a>
-                    <a href="/about" className="block hover:text-green-700">
-                      About Center
-                    </a>
-                    <a href="/books" className="block hover:text-green-700">
-                      Books
-                    </a>
-                    <a href="/gallery" className="block hover:text-green-700">
-                      Gallery
-                    </a>
-                    <a href="/news" className="block hover:text-green-700">
-                      News
-                    </a>
-                    <a href="/article" className="block hover:text-green-700">
-                      Articles
-                    </a>
-                    <a href="/question" className="block hover:text-green-700">
-                      Questions
-                    </a>
-                    <a href="/contact" className="block hover:text-green-700">
-                      Contact
-                    </a>
-                  </div>
-                )}
-              </div>
-            </header>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-2 relative pb-2">
+          <div className="flex justify-between items-center py-5">
+            {/* Desktop Left Nav */}
+            <nav className="hidden md:flex gap-6 text-md font-medium text-white">
+              <a href="/" className="hover:text-gray-700">
+                Home
+              </a>
+              <a href="/about" className="hover:text-gray-700">
+                About Center
+              </a>
+              <a href="/books" className="hover:text-gray-700">
+                Books
+              </a>
+              <a href="/gallery" className="hover:text-gray-700">
+                Gallery
+              </a>
+            </nav>
+
+            {/* Center Logo */}
+            <div className="absolute left-1/2 transform -translate-x-1/2 -bottom-6 bg-white rounded-full p-1 shadow-md">
+              <img
+                src={logo}
+                alt="Maula Ali Research Centre Logo"
+                width={64}
+                height={64}
+                className="rounded-full object-contain"
+              />
+            </div>
+
+            {/* Desktop Right Nav */}
+            <nav className="hidden md:flex gap-6 text-sm font-medium text-white">
+              <a href="/news" className="hover:text-gray-700">
+                News
+              </a>
+              <a href="/article" className="hover:text-gray-700">
+                Articles
+              </a>
+              <a href="/question" className="hover:text-gray-700">
+                Questions
+              </a>
+              <a href="/contact" className="hover:text-gray-700">
+                Contact
+              </a>
+            </nav>
+
+            {/* Mobile Menu Button */}
+            <div className="md:hidden">
+              <button
+                onClick={() => setMenuOpen(!menuOpen)}
+                className="text-gray-800 focus:outline-none"
+                aria-label="Toggle menu"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-6 h-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d={
+                      menuOpen
+                        ? "M6 18L18 6M6 6l12 12"
+                        : "M4 6h16M4 12h16M4 18h16"
+                    }
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          {/* Mobile Dropdown Menu */}
+          {menuOpen && (
+            <div className="md:hidden mt-4 space-y-2 text-sm font-medium text-black">
+              <a href="/" className="block hover:text-green-700">
+                Home
+              </a>
+              <a href="/about" className="block hover:text-green-700">
+                About Center
+              </a>
+              <a href="/books" className="block hover:text-green-700">
+                Books
+              </a>
+              <a href="/gallery" className="block hover:text-green-700">
+                Gallery
+              </a>
+              <a href="/news" className="block hover:text-green-700">
+                News
+              </a>
+              <a href="/article" className="block hover:text-green-700">
+                Articles
+              </a>
+              <a href="/question" className="block hover:text-green-700">
+                Questions
+              </a>
+              <a href="/contact" className="block hover:text-green-700">
+                Contact
+              </a>
+            </div>
+          )}
+        </div>
+      </header>
 
       <div className="relative z-10 container mx-auto px-4 py-8">
         <header className="text-center mb-10">
@@ -197,14 +200,17 @@ export default function ArticlesPage() {
           </p>
         </header>
 
-        {/* <div className="gulzartext flex flex-wrap justify-center gap-2 mb-10">
-          <CategoryPill label="رمضان المبارک" count={56} />
-          <CategoryPill label="اولیاء اللہ" count={614} />
-          <CategoryPill label="نماز" count={22} />
-          <CategoryPill label="عقائد" count={236} />
-          <CategoryPill label="ناموس رسالت" count={56} />
-          <CategoryPill label="سوال و جوابات" count={803} />
-        </div> */}
+        <div className="gulzartext flex flex-wrap justify-center gap-2 mb-10">
+          {topics.map((topic, index) => (
+            <CategoryPill
+              key={index}
+              label={topic.topic}
+              count={
+               topic.views
+              }
+            />
+          ))}
+        </div>
 
         <div className="flex flex-col lg:flex-row gap-6 text-black">
           <div className="w-full lg:w-80 bg-white rounded-lg p-5 h-fit">
@@ -222,7 +228,6 @@ export default function ArticlesPage() {
               value={selectedFilters.writer}
               options={writers.map((w) => w.name)}
               onChange={handleFilterChange}
-              
             />
             <FilterDropdown
               label="Translator"
@@ -253,7 +258,10 @@ export default function ArticlesPage() {
           <div className="flex-1">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-5">
               {filteredArticles.map((article, index) => (
-                <div key={index} onClick={() => navigate(`/detailarticle/${article.id}`)}>
+                <div
+                  key={index}
+                  onClick={() => navigate(`/detailarticle/${article.id}`)}
+                >
                   <ArticleCard
                     backgroundImage={`https://newmmdata-backend.onrender.com/api/articles/image/${article.id}`}
                     titleEn={article.title}
@@ -289,7 +297,9 @@ const FilterDropdown = ({ label, value, options, onChange }) => {
   const filterKey = label.toLowerCase();
   return (
     <div className="mb-4 text-black">
-      <label className="block mb-1 font-medium text-black gulzartext">{label}</label>
+      <label className="block mb-1 font-medium text-black gulzartext">
+        {label}
+      </label>
       <select
         value={value}
         onChange={(e) => onChange(filterKey, e.target.value)}
@@ -328,25 +338,47 @@ function ArticleCard({
         <div className="absolute top-3 left-3 right-3 flex justify-between">
           {/* <button className="gulzartext bg-[#e8f0d9] text-black px-3 py-1 rounded-full text-sm">مطالعہ</button> */}
           <div className="flex gap-1">
-            <button className="bg-white text-black px-3 py-1 rounded-full text-sm">Roman</button>
-            <button className="bg-white gulzartext text-black px-3 py-1 rounded-full text-sm">اردو</button>
+            <button className="bg-white text-black px-3 py-1 rounded-full text-sm">
+              Roman
+            </button>
+            <button className="bg-white gulzartext text-black px-3 py-1 rounded-full text-sm">
+              اردو
+            </button>
           </div>
         </div>
         <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
-          {titleEn && <h2 className="gulzartext font-bold text-lg">{titleEn}</h2>}
+          {titleEn && (
+            <h2 className="gulzartext font-bold text-lg">{titleEn}</h2>
+          )}
         </div>
       </div>
 
       <div className="p-4">
-        <p className={`gulzartext line-clamp-2 text-sm mb-3 ${type === "pattern" ? "text-right" : ""}`}>
+        <p
+          className={`gulzartext line-clamp-2 text-sm mb-3 ${
+            type === "pattern" ? "text-right" : ""
+          }`}
+        >
           {englishDescription}
         </p>
         <div className="flex flex-col gap-1">
-          <p className={`gulzartext text-sm font-medium ${type === "pattern" ? "text-right" : ""}`}>
-            {type === "pattern" ? "مصنف: مفتی فاروق مہایمی" : `Writer: ${writers}`}
+          <p
+            className={`gulzartext text-sm font-medium ${
+              type === "pattern" ? "text-right" : ""
+            }`}
+          >
+            {type === "pattern"
+              ? "مصنف: مفتی فاروق مہایمی"
+              : `Writer: ${writers}`}
           </p>
-          <p className={`gulzartext text-sm font-medium ${type === "pattern" ? "text-right" : ""}`}>
-            {type === "pattern" ? "مترجم: فیض اشرفی" : `Mutarjim: ${translator}`}
+          <p
+            className={`gulzartext text-sm font-medium ${
+              type === "pattern" ? "text-right" : ""
+            }`}
+          >
+            {type === "pattern"
+              ? "مترجم: فیض اشرفی"
+              : `Mutarjim: ${translator}`}
           </p>
         </div>
         <div className="flex justify-end items-center mt-2 gap-1">
