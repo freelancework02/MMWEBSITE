@@ -6,7 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import bg from "../../public/images/bg.png";
 import image from "../../public/images/image 2.png";
-import Banner from "../../public/images/banner.png";
+import Banner from "../../public/images/batnner.png";
 import about from "../../public/images/about.jpg";
 import Book from "../../public/images/book.png";
 import Bookimg from "../../public/Aboutimg/bookclm.png";
@@ -31,7 +31,7 @@ import Articleimg10 from "../../public/Article/article10.png";
 import Userimg from "../../public/Scholar/user.png";
 import { useSearchParams, useNavigate } from "react-router-dom";
 
-const banners = [Banner, Banner, Banner];
+const banners = [Banner];
  const BannerCarousel = () => {
     
   };
