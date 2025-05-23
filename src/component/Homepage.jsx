@@ -6,7 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import bg from "../../public/images/bg.png";
 import image from "../../public/images/image 2.png";
-import Banner from "../../public/images/batnner.png";
+import Banner from "../../public/images/banner.png";
 import about from "../../public/images/about.jpg";
 import Book from "../../public/images/book.png";
 import Bookimg from "../../public/Aboutimg/bookclm.png";
@@ -146,17 +146,17 @@ export default function Home() {
 
           {/* Center Carousel */}
           <div className="w-full md:w-auto max-w-[800px] rounded-xl overflow-hidden shadow-lg">
-            <Slider {...settings}>
-              {banners.map((banner, index) => (
-                <div key={index}>
+           
+              
+                <div>
                   <img
-                    src={banner}
-                    alt={`Banner ${index + 1}`}
+                    src={Banner}
+                    alt="Banner"
                     className="w-full h-[200px] md:h-[300px] object-cover rounded-xl"
                   />
                 </div>
-              ))}
-            </Slider>
+             
+           
           </div>
 
           {/* Right White Box */}
@@ -470,7 +470,7 @@ export default function Home() {
             {articles.map((article, index) => (
               <div
                 key={index}
-                className={`gulzartext flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium ${
+                className={`gulzartext cursor-pointer flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium ${
                   article.active
                     ? "bg-green-600 text-white"
                     : "bg-yellow-100 text-yellow-900"
