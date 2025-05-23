@@ -629,7 +629,7 @@ export default function Home() {
                   Islamic Scholars
                 </p>
                 <a
-                  href="#"
+                  href="/writer"
                   className="text-[14px] font-semibold text-black hover:underline"
                 >
                   View Profile
