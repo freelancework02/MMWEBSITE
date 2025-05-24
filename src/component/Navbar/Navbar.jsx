@@ -13,7 +13,7 @@ const Navbar = () => {
             <a href="/" className="hover:text-green-700">Home</a>
             <a href="/about" className="hover:text-green-700">About Center</a>
             <a href="/books" className="hover:text-green-700">Books</a>
-            <a href="/gallery" className="hover:text-green-700">Gallery</a>
+            <a href="/newsandevent" className="hover:text-green-700">News & Event</a>
           </nav>
 
           {/* Center Logo */}
@@ -29,7 +29,7 @@ const Navbar = () => {
 
           {/* Desktop Right Nav */}
           <nav className="hidden md:flex gap-6 text-md font-medium text-black">
-            <a href="/news" className="hover:text-green-700">News</a>
+            <a href="/requestbook" className="hover:text-green-700">Request a Book</a>
             <a href="/article" className="hover:text-green-700">Articles</a>
             <a href="/question" className="hover:text-green-700">Questions</a>
             <a href="/contact" className="hover:text-green-700">Contact</a>

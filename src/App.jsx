@@ -16,6 +16,8 @@ import QuestionDetail from './component/QuestionDetail'
 import Quesetionpage from './component/Questionpage'
 import Requestbook from './component/Requestbook'
 import WriterProfile from './component/WriterProfile'
+import NewandEvent from './component/NewandEvent'
+import ContactUs from './component/Contactus'
 
 
 const App = () => {
@@ -38,10 +40,12 @@ const App = () => {
           <Route path="/question"  element={<Quesetionpage/>} />
           <Route path="/requestbook"  element={<Requestbook/>} />
           <Route path="/writer"  element={<WriterProfile/>} />
+          <Route path="/newsandevent"  element={<NewandEvent/>} />
+          <Route path="/contact"  element={<ContactUs/>} />
         
         
        
-          {/* Add more routes here as needed */}
+         
         </Routes>
         {/* <Footer /> */}
       </div>
