@@ -1,4 +1,4 @@
-import { MapPin, maill, MessageCircle } from "lucide-react"
+import { MapPin, MessageCircle } from "lucide-react"
 import Navbar from "./Navbar/Navbar"
 import bg from "../../public/images/bg.png";
 

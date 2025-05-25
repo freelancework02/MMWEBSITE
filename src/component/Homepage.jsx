@@ -4,7 +4,7 @@ import { ChevronRight, Eye, User } from "lucide-react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import bg from "../../public/images/bg.png";
+import bg from "../../public/images/newbg.png";
 import image from "../../public/images/image 2.png";
 import Banner from "../../public/images/banner.png";
 import about from "../../public/images/about.jpg";
@@ -127,7 +127,7 @@ export default function Home() {
 
   return (
     <main
-      className="min-h-screen  bg-opacity-80  bg-repeat"
+      className="min-h-screen  bg-opacity-80  bg-repeat "
       style={{
         backgroundImage: `url(${bg})`,
         backgroundColor: "#f5f3e6",
@@ -476,7 +476,7 @@ export default function Home() {
                     : "bg-yellow-100 text-yellow-900"
                 }`}
               >
-                <span className="font-urdu text-lg">{article.topic}</span>
+                <span className="font-urdu text-lg cursor-pointer">{article.topic}</span>
                 <span
                   className={`${
                     article.active
@@ -514,14 +514,14 @@ export default function Home() {
 
                   {/* Buttons */}
                   <div className="absolute top-3 left-3 right-3 flex justify-between items-start">
-                    <button className="gulzartext bg-white text-black px-3 py-1 rounded-full text-sm shadow-sm">
+                    <button className="cursor-pointer gulzartext bg-white text-black px-3 py-1 rounded-full text-sm shadow-sm">
                       مطالعہ
                     </button>
                     <div className="flex gap-1">
-                      <button className="bg-white text-black px-3 py-1 rounded-full text-sm shadow-sm">
+                      <button className="cursor-pointer bg-white text-black px-3 py-1 rounded-full text-sm shadow-sm">
                         Roman
                       </button>
-                      <button className="bg-white gulzartext text-black px-3 py-1 rounded-full text-sm shadow-sm">
+                      <button className="cursor-pointer bg-white gulzartext text-black px-3 py-1 rounded-full text-sm shadow-sm">
                         اردو
                       </button>
                     </div>
