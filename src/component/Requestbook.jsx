@@ -1,31 +1,42 @@
 import bg from "../../public/images/bg.png";
 import Logo from "../../public/images/marclogo.png";
-import React, { useState } from "react";
-import {
-  Check,
-  Menu,
-  X,
-  Search,
-  ChevronDown,
-  User,
-  ChevronRight,
-} from "lucide-react";
-import QrCode from '../../public/images/fake-qr.jpg' 
+import React, { useState, useEffect } from "react";
+import { Check, Menu, X, Search } from "lucide-react";
+import QrCode from "../../public/images/fake-qr.jpg";
 
 const Requestbook = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [isValidEmail, setIsValidEmail] = useState(false);
+  const [book, setBook] = useState([]);
 
   const handleEmailChange = (e) => {
     const value = e.target.value;
     setEmail(value);
     setIsValidEmail(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value));
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const booksRes = await fetch(
+          "https://newmmdata-backend.onrender.com/api/books"
+        );
+        const booksData = await booksRes.json();
+        setBook(booksData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div className="w-full min-h-screen bg-[#f8efd0] relative overflow-hidden">
-      <header className="bg-[#783F1D] text-white relative z-10">
-        <div className="max-w-[1200px] mx-auto px-4 py-3 flex items-center justify-between relative">
+      {/* Header */}
+      <header className="bg-[#783F1D] text-white relative z-10 shadow-md">
+        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between relative">
           {/* Mobile Hamburger */}
           <button
             className="md:hidden text-white z-20"
@@ -38,7 +49,7 @@ const Requestbook = () => {
             )}
           </button>
 
-          {/* Left Navigation */}
+          {/* Left Nav */}
           <nav className="hidden md:flex items-center space-x-6 text-[15px] font-medium">
             <a href="/" className="hover:text-amber-300">
               Home
@@ -46,11 +57,7 @@ const Requestbook = () => {
             <a href="/about" className="hover:text-amber-300">
               About Center
             </a>
-            <div className="relative group cursor-pointer">
-              <div className="flex items-center hover:text-amber-300">
-                Books <ChevronDown className="h-4 w-4 ml-1" />
-              </div>
-            </div>
+            <span className="hover:text-amber-300 cursor-pointer">Books</span>
           </nav>
 
           {/* Center Logo */}
@@ -62,21 +69,24 @@ const Requestbook = () => {
             />
           </div>
 
-          {/* Right Section */}
+          {/* Right Nav */}
           <div className="hidden md:flex items-center space-x-5 font-medium text-[15px]">
-            <a href="/articlefullpage" className="hover:text-amber-300">
+            <a href="/article" className="hover:text-amber-300">
               Articles
             </a>
-            <a href="#" className="hover:text-amber-300">
-              Gallery
+            <a href="/requestbook" className="hover:text-amber-300">
+              Request Book
             </a>
-            <a href="#" className="hover:text-amber-300">
+            <a href="/question" className="hover:text-amber-300">
+              Question
+            </a>
+            <a href="/contact" className="hover:text-amber-300">
               Contact
             </a>
           </div>
         </div>
 
-        {/* Mobile Dropdown Menu */}
+        {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div className="md:hidden absolute top-full left-0 w-full bg-[#783F1D] px-4 pb-5 space-y-4 text-[15px] font-medium z-10">
             <a href="/" className="block hover:text-amber-300">
@@ -85,20 +95,18 @@ const Requestbook = () => {
             <a href="/about" className="block hover:text-amber-300">
               About Center
             </a>
-            <div className="block hover:text-amber-300 cursor-pointer">
+            <span className="block hover:text-amber-300 cursor-pointer">
               Books
-            </div>
+            </span>
             <a href="/article" className="block hover:text-amber-300">
               Articles
             </a>
-            <a href="/gallery" className="block hover:text-amber-300">
-              Gallery
+            <a href="/question" className="block hover:text-amber-300">
+              Question
             </a>
             <a href="/contact" className="block hover:text-amber-300">
               Contact
             </a>
-
-            {/* Search Bar */}
             <div className="flex items-center bg-white rounded-full px-3 py-1 mt-2 w-full">
               <input
                 type="text"
@@ -111,22 +119,24 @@ const Requestbook = () => {
         )}
       </header>
 
-      {/* Background Pattern */}
+      {/* Background Layer */}
       <div
-        className="absolute inset-0 opacity-36 pointer-events-none"
-        style={{ backgroundImage: `url(${bg})` }}
-      ></div>
+        className="absolute inset-0 opacity-20"
+        style={{
+          backgroundImage: `url(${bg})`,
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+        }}
+      />
 
-      <div className="absolute inset-0 bg-pattern opacity-20"></div>
+      {/* Form Section */}
+      <div className="relative z-10 w-full py-12 px-4 md:px-10">
+        <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-lg p-6 sm:p-10">
+          <h1 className="text-[#783F1D] text-2xl sm:text-3xl font-bold text-center mb-6">
+            Request a Book
+          </h1>
 
-      <div className="relative z-10 w-full py-8 px-4" >
-        <div className="bg-[#E9D9A8] w-[60%] rounded-2xl mx-auto px-6 md:px-10 py-10 shadow mb-10 "  >
-            <h1 className="text-[#783F1D] text-3xl font-bold text-center mb-2">Request a Books</h1>
-            
-          </div>
-
-        <div className="max-w-md mx-auto bg-white rounded-md shadow-sm p-6 sm:p-8">
-          <form className="space-y-4">
+          <form className="space-y-5">
             <div>
               <label
                 htmlFor="fullName"
@@ -195,7 +205,7 @@ const Requestbook = () => {
                 id="address"
                 placeholder="Write Full Address"
                 className="mt-1 w-full border border-gray-300 rounded px-3 py-2 min-h-[80px]"
-              ></textarea>
+              />
             </div>
 
             <div>
@@ -208,43 +218,42 @@ const Requestbook = () => {
               <select
                 id="books"
                 className="w-full mt-1 border border-gray-300 rounded px-3 py-2"
-                defaultValue=""
               >
-                <option value="" disabled>
+                <option value="" disabled selected>
                   Select Books
                 </option>
-                <option value="book1">The Great Gatsby</option>
-                <option value="book2">To Kill a Mockingbird</option>
-                <option value="book3">1984</option>
-                <option value="book4">Pride and Prejudice</option>
-                <option value="book5">The Catcher in the Rye</option>
+                {book.length > 0 ? (
+                  book.map((b) => (
+                    <option key={b._id} value={b.title}>
+                      {b.title}
+                    </option>
+                  ))
+                ) : (
+                  <option disabled>Loading books...</option>
+                )}
               </select>
             </div>
 
-            <div className="pt-2">
+            <div className="pt-4 text-center">
               <h3 className="text-sm font-medium text-[#6b3c1a]">Donate</h3>
-              <p className="text-xs text-gray-600 mt-1">
-                Request a book by filling out the form below, and we&apos;ll do
-                our best to assist you. If you wish to support our efforts in
-                providing books to those in need, you can scan the QR code to
-                donate. Your contribution is optional but greatly appreciated!
+              <p className="text-xs text-gray-600 mt-1 max-w-md mx-auto">
+                If you wish to support our efforts in providing books to those
+                in need, scan the QR code to donate.
               </p>
               <div className="flex justify-center mt-4">
                 <img
                   src={QrCode}
                   alt="Donation QR Code"
-                  width="100"
-                  height="100"
-                  className="mx-auto"
+                  className="w-28 h-28 object-contain"
                 />
               </div>
             </div>
 
             <button
               type="submit"
-              className="w-full bg-[#6b3c1a] hover:bg-[#5a3315] text-white rounded px-4 py-2 mt-4"
+              className="w-full bg-[#6b3c1a] hover:bg-[#5a3315] text-white rounded px-4 py-2 mt-6 transition duration-300"
             >
-              Submit
+              Submit Request
             </button>
           </form>
         </div>

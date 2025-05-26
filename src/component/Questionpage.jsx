@@ -151,10 +151,10 @@ export default function HomePage() {
             {/* Right Menu */}
             <nav className="hidden md:flex gap-6 text-md font-semibold text-white tracking-wide">
               <a
-                href="/gallery"
+                href="/newsandevent"
                 className="hover:text-yellow-200 transition-all duration-200"
               >
-                Gallery
+                News & Event
               </a>
               <a
                 href="/books"
@@ -221,13 +221,13 @@ export default function HomePage() {
                 Books
               </a>
               <a
-                href="/gallery"
+                href="/newsandevent"
                 className="hover:bg-[#4f6639] px-4 py-2 rounded"
               >
-                Gallery
+                News & Event
               </a>
-              <a href="/news" className="hover:bg-[#4f6639] px-4 py-2 rounded">
-                News
+              <a href="/requestbook" className="hover:bg-[#4f6639] px-4 py-2 rounded">
+                Request a Book
               </a>
               <a
                 href="/article"

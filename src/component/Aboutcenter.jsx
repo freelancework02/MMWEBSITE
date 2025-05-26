@@ -121,27 +121,30 @@ export default function Home() {
                         ABOUT
                       </span>
                     </div>
-                    <div className="space-x-2">
-                      <button
-                        className={`px-3 py-1 text-sm border rounded ${
-                          activeLang === "en"
-                            ? "bg-[#d4a762] text-white"
-                            : "border-[#d4a762] text-[#d4a762]"
+                    <div className="relative inline-block w-32 h-9">
+                      <input
+                        type="checkbox"
+                        id="lang-toggle"
+                        className="sr-only"
+                        checked={activeLang === "ur"}
+                        onChange={() => setActiveLang(activeLang === "en" ? "ur" : "en")}
+                      />
+                      <label
+                        htmlFor="lang-toggle"
+                        className={`block overflow-hidden h-9 rounded-full cursor-pointer transition-all duration-300 ${
+                          activeLang === "ur" ? "  bg-[#d4a762]" : "bg-gray-200 "
                         }`}
-                        onClick={() => setActiveLang("en")}
                       >
-                        English
-                      </button>
-                      <button
-                        className={`px-3 py-1 text-sm border rounded ${
-                          activeLang === "ur"
-                            ? "bg-[#d4a762] text-white"
-                            : "border-[#d4a762] text-[#d4a762]"
-                        }`}
-                        onClick={() => setActiveLang("ur")}
-                      >
-                        اردو
-                      </button>
+                        <span
+                          className={`absolute flex items-center justify-center w-1/2 h-9 rounded-full text-sm font-medium transition-all duration-300 ${
+                            activeLang === "ur"
+                              ? "left-0 bg-white text-[#d4a762]"
+                              : "left-1/2 bg-[#d4a762] text-white"
+                          }`}
+                        >
+                          {activeLang === "ur" ? "اردو" : "English"}
+                        </span>
+                      </label>
                     </div>
                   </div>
 
@@ -169,11 +172,11 @@ export default function Home() {
             Our Islamic Scholars
           </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {writer.map((writer, index) => (
               <div
                 key={index}
-                className="bg-white rounded-xl shadow-sm px-6 py-8 flex flex-col items-center"
+                className="  bg-white rounded-xl shadow-sm px-6 py-8 flex flex-col items-center"
               >
                 <div className="bg-white rounded-full border-4 border-green-200 p-1 mb-4">
                   <img
@@ -182,15 +185,15 @@ export default function Home() {
                     className="rounded-full w-24 h-24 object-cover bg-green-100"
                   />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-1">
+                <h3 className="  text-lg font-semibold text-gray-800 mb-1">
                   {writer.name}
                 </h3>
-                <p className="text-[15px] text-orange-600 font-semibold mb-2">
+                <p className=" text-[15px] text-orange-600 font-semibold mb-2">
                   Islamic Scholar
                 </p>
                 <a
-                  href="#"
-                  className="text-[14px] font-semibold text-black hover:underline"
+                  href="/writer"
+                  className=" text-[14px] font-semibold text-black hover:underline " style={{cursor:'pointer'}}
                 >
                   View Profile
                 </a>

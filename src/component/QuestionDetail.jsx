@@ -60,13 +60,13 @@ const QuestionDetail = () => {
               <a href="/" className="hover:text-yellow-200">Home</a>
               <a href="/about" className="hover:text-yellow-200">About Center</a>
               <a href="/books" className="hover:text-yellow-200">Books</a>
-              <a href="/gallery" className="hover:text-yellow-200">Gallery</a>
+              <a href="/newsandevent" className="hover:text-yellow-200">News & Event</a>
             </nav>
             <div className="absolute left-1/2 transform -translate-x-1/2 -bottom-7 bg-white rounded-full p-1 shadow-lg border border-green-100 z-10">
               <img src={logo} alt="Logo" className="w-16 h-16 rounded-full object-contain" />
             </div>
             <nav className="hidden md:flex gap-6 text-md font-semibold text-white tracking-wide">
-              <a href="/news" className="hover:text-yellow-200">News</a>
+              <a href="/requestbook" className="hover:text-yellow-200">Request a Book</a>
               <a href="/article" className="hover:text-yellow-200">Articles</a>
               <a href="/question" className="hover:text-yellow-200">Questions</a>
               <a href="/contact" className="hover:text-yellow-200">Contact</a>
@@ -82,7 +82,7 @@ const QuestionDetail = () => {
           </div>
           <div className={`md:hidden transition-all overflow-hidden ${menuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"}`}>
             <div className="flex flex-col gap-3 py-4 px-2 text-white bg-[#5a7544] rounded-b-xl">
-              {["Home", "About Center", "Books", "Gallery", "News", "Articles", "question", "Contact"].map((item, idx) => (
+              {["Home", "About Center", "Books", "News & Event", "News", "Articles", "question", "Contact"].map((item, idx) => (
                 <a key={idx} href={`/${item.toLowerCase().replace(" ", "")}`} className="hover:bg-[#4f6639] px-4 py-2 rounded">
                   {item}
                 </a>

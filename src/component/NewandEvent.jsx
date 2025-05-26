@@ -78,8 +78,8 @@ const NewandEvent = () => {
               <a href="/books" className="hover:text-gray-700">
                 Books
               </a>
-              <a href="/gallery" className="hover:text-gray-700">
-                Gallery
+              <a href="/newsandevent" className="hover:text-gray-700">
+                News & Event
               </a>
             </nav>
 
@@ -96,8 +96,8 @@ const NewandEvent = () => {
 
             {/* Desktop Right Nav */}
             <nav className="hidden md:flex gap-6 text-sm font-medium text-white">
-              <a href="/news" className="hover:text-gray-700">
-                News
+              <a href="/requestbook" className="hover:text-gray-700">
+                Request a Book
               </a>
               <a href="/article" className="hover:text-gray-700">
                 Articles
@@ -151,11 +151,11 @@ const NewandEvent = () => {
               <a href="/books" className="block hover:text-green-700">
                 Books
               </a>
-              <a href="/gallery" className="block hover:text-green-700">
-                Gallery
+              <a href="/newsandevent" className="block hover:text-green-700">
+                News & Event
               </a>
-              <a href="/news" className="block hover:text-green-700">
-                News
+              <a href="/requestbook" className="block hover:text-green-700">
+                Request a Book
               </a>
               <a href="/article" className="block hover:text-green-700">
                 Articles
@@ -243,14 +243,7 @@ const NewandEvent = () => {
           </div>
 
           {/* View All Button */}
-          <div className="flex justify-center mt-8">
-            <a
-              href="/article"
-              className="px-8 py-2 bg-white shadow-md border border-gray-300 text-gray-700 rounded-full hover:bg-gray-100 transition"
-            >
-              View All
-            </a>
-          </div>
+         
         </div>
       </section>
     </div>

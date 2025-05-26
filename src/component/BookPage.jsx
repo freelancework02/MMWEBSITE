@@ -1,4 +1,4 @@
-import { Search, ChevronDown, User, ChevronRight, Menu, X } from "lucide-react";
+import { Search, ChevronDown, User, ChevronRight, Menu, X , ArrowDownToLine} from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import bg from "../../public/images/bg.png";
@@ -81,7 +81,7 @@ export default function Home() {
             <a href="/about" className="hover:text-amber-300">About Center</a>
             <div className="relative group cursor-pointer">
               <div className="flex items-center hover:text-amber-300">
-                Books <ChevronDown className="h-4 w-4 ml-1" />
+                Books 
               </div>
             </div>
           </nav>
@@ -95,7 +95,7 @@ export default function Home() {
           <div className="hidden md:flex items-center space-x-5 font-medium text-[15px]">
             <a href="/article" className="hover:text-amber-300">Articles</a>
             <a href="/requestbook" className="hover:text-amber-300">Request Book</a>
-            <a href="#" className="hover:text-amber-300">Gallery</a>
+            <a href="/question" className="hover:text-amber-300">Question</a>
             <a href="#" className="hover:text-amber-300">Contact</a>
           </div>
         </div>
@@ -298,7 +298,7 @@ export default function Home() {
                     rel="noopener noreferrer"
                   >
                     <button className="text-[#4A7C3A] border border-[#4A7C3A] hover:bg-[#4A7C3A] hover:text-white px-3 py-1 rounded flex items-center text-sm">
-                      Download <ChevronDown className="h-4 w-4 ml-1" />
+                      Download <ArrowDownToLine className="h-4 w-4 ml-1" />
                     </button>
                   </a>
                 </div>

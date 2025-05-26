@@ -1,21 +1,37 @@
-import { MapPin, MessageCircle } from "lucide-react"
-import Navbar from "./Navbar/Navbar"
+import { MapPin, Mail, MessageCircle } from "lucide-react";
+import Navbar from "./Navbar/Navbar";
 import bg from "../../public/images/bg.png";
 
 export default function ContactUs() {
   return (
-    <div className="min-h-screen bg-[#e4f0d0] relative overflow-hidden">
-        <Navbar/>
-        <div
-                className="absolute inset-0 opacity-36 pointer-events-none"
-                style={{ backgroundImage: `url(${bg})` }}
-              ></div>
-      {/* Background Pattern */}
+    <div className="min-h-screen bg-[#e4f0d0] relative overflow-hidden font-sans">
+      <Navbar />
+
+      {/* Geometric Background */}
+      <div
+        className="absolute inset-0 opacity-30 pointer-events-none"
+        style={{
+          backgroundImage: `url(${bg})`,
+          backgroundSize: "cover",
+        }}
+      ></div>
       <div className="absolute inset-0 opacity-10">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <pattern id="hexagons" x="0" y="0" width="60" height="52" patternUnits="userSpaceOnUse">
-              <polygon points="30,2 52,15 52,37 30,50 8,37 8,15" fill="none" stroke="white" strokeWidth="2" />
+            <pattern
+              id="hexagons"
+              x="0"
+              y="0"
+              width="60"
+              height="52"
+              patternUnits="userSpaceOnUse"
+            >
+              <polygon
+                points="30,2 52,15 52,37 30,50 8,37 8,15"
+                fill="none"
+                stroke="white"
+                strokeWidth="2"
+              />
             </pattern>
           </defs>
           <rect width="100%" height="100%" fill="url(#hexagons)" />
@@ -25,70 +41,86 @@ export default function ContactUs() {
       <div className="relative z-10 container mx-auto px-4 py-12">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-green-800 mb-4">CONTACT US</h1>
-          <p className="text-lg text-green-700 max-w-2xl mx-auto">
-            Reach Out to Us – We're Here to Answer Your Questions and Assist You!
+          <h1 className="text-4xl md:text-5xl font-bold text-green-900 mb-2">
+            CONTACT US
+          </h1>
+          <p className="text-lg text-green-800">
+            Reach Out to Us – We're Here to Answer Your Questions and Assist
+            You!
           </p>
         </div>
 
         {/* Contact Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          {/* Address Card */}
-          <div className="bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 p-8 text-center">
-            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path d="M21 10c0 6.075-9 13-9 13s-9-6.925-9-13a9 9 0 1 1 18 0z" />
-                <circle cx="12" cy="10" r="3" />
-              </svg>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+          {/* Address */}
+          <a
+            href="https://www.google.com/maps?q=22,+Mohammed+Ali+Rd,+Pydhonie,+Mandvi,+Mumbai,+Maharashtra+400003"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-white rounded-lg shadow-lg text-center p-6 hover:underline transition duration-200"
+          >
+            <div className="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <MapPin className="w-7 h-7 text-green-600" />
             </div>
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">Our Address</h3>
-            <p className="text-gray-600 leading-relaxed">
+            <h3 className="text-lg font-semibold text-green-900 mb-2">
+              Our Address
+            </h3>
+            <p className="text-sm text-gray-700">
               22, Mohammed Ali Rd, Pydhonie, Mandvi, Mumbai, Maharashtra 400003
             </p>
-          </div>
+          </a>
 
-          {/* Email Card */}
-          <div className="bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 p-8 text-center">
-            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path d="M4 4h16v16H4z" stroke="none" />
-                <path d="M4 4l8 8 8-8" />
-              </svg>
+          {/* Email */}
+          <a
+            href="mailto:maulaaliresearchcentre13@gmail.com"
+            className="bg-white rounded-lg shadow-lg text-center p-6 hover:underline transition duration-200"
+          >
+            <div className="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Mail className="w-7 h-7 text-green-600" />
             </div>
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">Email Us</h3>
-            <p className="text-gray-600">maulaaliresearchcentrel3@gmail.com</p>
-          </div>
+            <h3 className="text-lg font-semibold text-green-900 mb-2">
+              Email Us
+            </h3>
+            <p className="text-sm text-gray-700">
+              maulaaliresearchcentre13@gmail.com
+            </p>
+          </a>
 
-          {/* WhatsApp Card */}
-          <div className="bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 p-8 text-center">
-            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path d="M21 11.5a8.38 8.38 0 0 1-1.24 4.41l1.31 4.17-4.36-1.15A8.5 8.5 0 1 1 21 11.5z" />
-                <path d="M9.5 10.5l1 1a5.5 5.5 0 0 0 2.5 1l.5-1.5" />
-              </svg>
+          {/* WhatsApp */}
+          <a
+            href="https://wa.me/yourwhatsapplink" // Replace with actual WhatsApp link
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-white rounded-lg shadow-lg text-center p-6 hover:underline transition duration-200"
+          >
+            <div className="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <MessageCircle className="w-7 h-7 text-green-600" />
             </div>
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">WhatsApp Channel</h3>
-            <p className="text-gray-600">MARC (مولانا علی ریسرچ سینٹر)</p>
-          </div>
+            <h3 className="text-lg font-semibold text-green-900 mb-2">
+              WhatsApp Channel
+            </h3>
+            <p className="text-sm text-gray-700 gulzartext">
+              MARC ( مولا علی ریسرچ سینٹر)
+            </p>
+          </a>
         </div>
 
-        {/* Map Section */}
-        <div className="bg-white rounded-lg shadow-lg p-6">
-          <div className="w-full h-96 rounded-lg overflow-hidden">
+        {/* Map Embed */}
+        <div className="bg-white rounded-lg shadow-lg p-4 md:p-6">
+          <div className="w-full h-[400px] rounded-lg overflow-hidden">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3773.0234567890123!2d72.8311!3d18.9647!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7ce7c7c7c7c7c%3A0x7c7c7c7c7c7c7c7c!2sMinara%20Masjid!5e0!3m2!1sen!2sin!4v1234567890123!5m2!1sen!2sin"
+              title="Minara Masjid Location"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3773.0212!2d72.8310795!3d18.9646519!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7ce1845a3e4df%3A0xb5f82bb60fbd3b68!2sMinara%20Masjid!5e0!3m2!1sen!2sin!4v1682345678901"
               width="100%"
               height="100%"
-              style={{ border: 0 }}
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="Minara Masjid Location"
-            />
+              style={{ border: 0 }}
+            ></iframe>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
-
