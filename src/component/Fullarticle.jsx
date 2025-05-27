@@ -394,7 +394,7 @@ export default function Home() {
              
               <div className="relative h-48">
                 <img
-                  src={Articleimg1}
+                  src={`https://newmmdata-backend.onrender.com/api/articles/image/${article.id}`}
                   alt="Article"
                   fill
                   className="object-cover h-full w-full"
@@ -428,14 +428,14 @@ export default function Home() {
 
              
               <div className="p-4">
-                <p className="font-['Gulzar'] line-clamp-1 text-xs text-right rtl text-gray-600 mb-1 leading-relaxed">
+                <p className=" line-clamp-1 text-xs text-left rtl text-gray-600 mb-1 leading-relaxed">
                 {article.englishDescription}
                 </p>
-                <p className="font-['Gulzar'] text-xs text-right rtl text-gray-600 mb-1 line-clamp-1">
-                  <span className="font-semibold">مصنف :</span> {article.writers}
+                <p className="font-['Gulzar'] text-xs text-left rtl text-gray-600 mb-1 line-clamp-1">
+                  <span className="font-semibold">Writer : </span> {article.writers}
                 </p>
-                <p className="font-['Gulzar'] text-xs text-right rtl text-gray-600 line-clamp-1">
-                  <span className="font-semibold">مترجم :</span> {article.translator}
+                <p className="font-['Gulzar'] text-xs text-left rtl text-gray-600 line-clamp-1">
+                  <span className="font-semibold">Translator :</span> {article.translator}
                 </p>
               </div>
             </div>
